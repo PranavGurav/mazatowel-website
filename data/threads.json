@@ -1,0 +1,92 @@
+[
+  {
+    "id": "TH001",
+    "name": "Metallic Gold",
+    "hex": "#D4AF37",
+    "finish": "Metallic Sheen",
+    "inStock": true,
+    "published": true,
+    "desc": "High-density royal gold metallic embroidery thread with rich luster."
+  },
+  {
+    "id": "TH002",
+    "name": "Teal",
+    "hex": "#2F7F82",
+    "finish": "Silk Luster",
+    "inStock": true,
+    "published": true,
+    "desc": "MazaTowel signature rich sea teal silk thread."
+  },
+  {
+    "id": "TH003",
+    "name": "Rose Pink",
+    "hex": "#E58C8A",
+    "finish": "Silk Luster",
+    "inStock": true,
+    "published": true,
+    "desc": "Soft blush floral tone, perfect for personal and couple monogramming."
+  },
+  {
+    "id": "TH004",
+    "name": "Royal Blue",
+    "hex": "#1A56DB",
+    "finish": "Silk Luster",
+    "inStock": true,
+    "published": true,
+    "desc": "Deep royal blue with crisp, high-contrast clarity."
+  },
+  {
+    "id": "TH005",
+    "name": "Snow White",
+    "hex": "#FFFFFF",
+    "finish": "Classic Cotton",
+    "inStock": true,
+    "published": true,
+    "desc": "Crisp pure white thread for deep contrast on dark fabrics."
+  },
+  {
+    "id": "TH006",
+    "name": "Jet Black",
+    "hex": "#18181B",
+    "finish": "Classic Cotton",
+    "inStock": true,
+    "published": true,
+    "desc": "Deep high-contrast monochrome embroidery."
+  },
+  {
+    "id": "TH007",
+    "name": "Crimson Red",
+    "hex": "#DC2626",
+    "finish": "Silk Luster",
+    "inStock": true,
+    "published": true,
+    "desc": "Vibrant celebratory festive red with high sheen."
+  },
+  {
+    "id": "TH008",
+    "name": "Champagne Silver",
+    "hex": "#C0C0C0",
+    "finish": "Metallic Sheen",
+    "inStock": true,
+    "published": true,
+    "desc": "Refined modern metallic silver thread."
+  },
+  {
+    "id": "TH009",
+    "name": "Emerald Green",
+    "hex": "#059669",
+    "finish": "Silk Luster",
+    "inStock": true,
+    "published": true,
+    "desc": "Deep botanical forest green with silky finish."
+  },
+  {
+    "id": "TH010",
+    "name": "To be discussed with designer",
+    "hex": "#64748B",
+    "finish": "Custom Consultation",
+    "inStock": true,
+    "published": true,
+    "desc": "Coordinate bespoke thread color matching directly with our designer via WhatsApp."
+  }
+]

@@ -1,0 +1,493 @@
+[
+  {
+    "id": "SECmvj26br8i7oc2j",
+    "timestamp": "2026-10-22T04:46:14.276Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvgas5t9bzp3y6",
+    "timestamp": "2026-10-20T06:23:51.405Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvgao8k10iacye",
+    "timestamp": "2026-10-20T06:20:48.337Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvgalm2cyq8pw3",
+    "timestamp": "2026-10-20T06:18:45.876Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvfl3kd53x9cma",
+    "timestamp": "2026-10-19T18:24:53.465Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvfku9p2i3xhwy",
+    "timestamp": "2026-10-19T18:17:39.734Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvfkjjkivg0mls",
+    "timestamp": "2026-10-19T18:09:19.314Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvfjqsb4v327xa",
+    "timestamp": "2026-10-19T17:46:57.616Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvfjg2qiyfwbzq",
+    "timestamp": "2026-10-19T17:38:37.914Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvdzbcbftupacj",
+    "timestamp": "2026-10-18T15:27:18.556Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvdzaz86u4hfh0",
+    "timestamp": "2026-10-18T15:27:01.590Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvdzajiw4t49mt",
+    "timestamp": "2026-10-18T15:26:41.240Z",
+    "event": "LOGIN_FAILED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.com",
+      "attemptCount": 1,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
+    "id": "SECmvdx9dwfr7tnfd",
+    "timestamp": "2026-10-18T14:29:48.063Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvdw3wsud191qr",
+    "timestamp": "2026-10-18T13:57:33.006Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvdv74e3q33iqc",
+    "timestamp": "2026-10-18T13:32:03.195Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvdv4u0t8bck5v",
+    "timestamp": "2026-10-18T13:30:16.445Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcgks6m71333f",
+    "timestamp": "2026-10-17T13:55:00.142Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcf9dv45c249a",
+    "timestamp": "2026-10-17T13:18:08.752Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcf99o1b67218",
+    "timestamp": "2026-10-17T13:18:03.313Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcdzx3cb23e83",
+    "timestamp": "2026-10-17T12:42:47.496Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcdztegfcb661",
+    "timestamp": "2026-10-17T12:42:42.712Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcdzpyve0e5da",
+    "timestamp": "2026-10-17T12:42:38.263Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcdzagnf54c39",
+    "timestamp": "2026-10-17T12:42:18.167Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcdfldc069257",
+    "timestamp": "2026-10-17T12:26:59.184Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcawh6z9962a7",
+    "timestamp": "2026-10-17T11:16:08.075Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcawbc0cfa970",
+    "timestamp": "2026-10-17T11:16:00.480Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcagj496ca9e7",
+    "timestamp": "2026-10-17T11:03:44.073Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcadym5539952",
+    "timestamp": "2026-10-17T11:01:44.189Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvcacbwp517667",
+    "timestamp": "2026-10-17T11:00:28.106Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvca1thq8a3373",
+    "timestamp": "2026-10-17T10:52:17.679Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvc9wyrw80932c",
+    "timestamp": "2026-10-17T10:48:31.244Z",
+    "event": "LOGIN_FAILED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.com",
+      "attemptCount": 1,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
+    "id": "SECmvc928d2619c29",
+    "timestamp": "2026-10-17T10:24:37.334Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmv67gmkfc2b110",
+    "timestamp": "2026-10-13T04:53:12.639Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmv66tvsb4359cb",
+    "timestamp": "2026-10-13T04:35:31.499Z",
+    "event": "LOGIN_BLOCKED",
+    "ip": "203.0.113.99",
+    "userAgent": "",
+    "details": {
+      "reason": "Rate limit / account lockout active",
+      "remainingSecs": 900
+    }
+  },
+  {
+    "id": "SECmv66tvsaa417ab",
+    "timestamp": "2026-10-13T04:35:31.498Z",
+    "event": "LOGIN_LOCKED",
+    "ip": "203.0.113.99",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in",
+      "attemptCount": 5,
+      "locked": true,
+      "lockRemainingSecs": 900
+    }
+  },
+  {
+    "id": "SECmv66tvra790cec",
+    "timestamp": "2026-10-13T04:35:31.462Z",
+    "event": "LOGIN_FAILED",
+    "ip": "203.0.113.99",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in",
+      "attemptCount": 4,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
+    "id": "SECmv66tvq997f74a",
+    "timestamp": "2026-10-13T04:35:31.425Z",
+    "event": "LOGIN_FAILED",
+    "ip": "203.0.113.99",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in",
+      "attemptCount": 3,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
+    "id": "SECmv66tvp978a729",
+    "timestamp": "2026-10-13T04:35:31.389Z",
+    "event": "LOGIN_FAILED",
+    "ip": "203.0.113.99",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in",
+      "attemptCount": 2,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
+    "id": "SECmv66tvo79c5851",
+    "timestamp": "2026-10-13T04:35:31.351Z",
+    "event": "LOGIN_FAILED",
+    "ip": "203.0.113.99",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in",
+      "attemptCount": 1,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
+    "id": "SECmv66a2um62c530",
+    "timestamp": "2026-10-13T04:20:07.534Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmv66a2tlad6fb4",
+    "timestamp": "2026-10-13T04:20:07.497Z",
+    "event": "LOGIN_FAILED",
+    "ip": "198.51.100.42",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in",
+      "attemptCount": 1,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
+    "id": "SECmv66a2slc8a1b7",
+    "timestamp": "2026-10-13T04:20:07.461Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmv66a2sh4d0db3",
+    "timestamp": "2026-10-13T04:20:07.457Z",
+    "event": "SETTINGS_UPDATED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "section": "settings"
+    }
+  },
+  {
+    "id": "SECmv66a2r45e27d2",
+    "timestamp": "2026-10-13T04:20:07.408Z",
+    "event": "BACKUP_EXPORTED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {}
+  },
+  {
+    "id": "SECmv66a2qyd9f7df",
+    "timestamp": "2026-10-13T04:20:07.402Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Security-Verification-Bot/1.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmv668fvqaf5c13",
+    "timestamp": "2026-10-13T04:18:51.110Z",
+    "event": "BACKUP_EXPORTED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {}
+  },
+  {
+    "id": "SECmv668fvkc71332",
+    "timestamp": "2026-10-13T04:18:51.104Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Security-Verification-Bot/1.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "D001",
+    "designId": "MT-001",
+    "name": "Elegant Name & Monogram",
+    "category": "Names & Initials",
+    "desc": "Clean monogram-style name embroidery in fine silk thread.",
+    "image": "/uploads/designs/elegant-name.jpg",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "D002",
+    "designId": "MT-031",
+    "name": "Pastel Unicorn & Whimsy",
+    "category": "Kids",
+    "desc": "Playful unicorn-inspired embroidery design on soft cotton.",
+    "image": "/uploads/products/kids-towel-anaya.jpg",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "D003",
+    "designId": "MT-042",
+    "name": "Couple & Wedding Duo",
+    "category": "Couples",
+    "desc": "Coordinated His & Hers script embroidery with satin finish.",
+    "image": "/uploads/designs/couple-monogram.jpg",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "D004",
+    "designId": "MT-057",
+    "name": "Detailed Macro Threadwork",
+    "category": "Photo Portrait Embroidery",
+    "desc": "Turn reference motifs and portraits into tight, high-density embroidery.",
+    "image": "/uploads/gallery/macro-threadwork.jpg",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "D005",
+    "designId": "MT-024",
+    "name": "Royal Peacock Crest",
+    "category": "Flowers",
+    "desc": "Intricate peacock-inspired decorative motif with teal and rose accents.",
+    "image": "/uploads/designs/peacock-crest.jpg",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "D006",
+    "designId": "MT-060",
+    "name": "Boutique Resort Crest",
+    "category": "Corporate & Hospitality",
+    "desc": "Precision branded crests for luxury suites, wellness clubs, and spas.",
+    "image": "/uploads/gallery/hotel-stack.jpg",
+    "published": true,
+    "featured": true
+  }
+]

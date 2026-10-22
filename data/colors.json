@@ -1,0 +1,253 @@
+[
+  {
+    "id": "CLR001",
+    "name": "Milky White",
+    "hex": "#FFFFFF",
+    "image": "/uploads/colors/milky-white.jpg",
+    "categories": [
+      "Bath Towels",
+      "Hand Towels",
+      "Face Towels",
+      "Kids Towels"
+    ],
+    "sizes": [
+      "All Sizes",
+      "12 × 12 inch",
+      "14 × 21 inch",
+      "16 × 24 inch",
+      "20 × 36 inch",
+      "24 × 48 inch",
+      "27 × 54 inch",
+      "30 × 60 inch",
+      "36 × 72 inch"
+    ],
+    "inStock": true,
+    "outOfStockSizes": [],
+    "published": true,
+    "desc": "Pristine natural 100% combed cotton. Crisp hotel-grade feel."
+  },
+  {
+    "id": "CLR002",
+    "name": "Ocean Teal",
+    "hex": "#2F7F82",
+    "image": "/uploads/colors/ocean-teal.jpg",
+    "categories": [
+      "Bath Towels",
+      "Hand Towels",
+      "Face Towels"
+    ],
+    "sizes": [
+      "All Sizes",
+      "14 × 21 inch",
+      "16 × 24 inch",
+      "27 × 54 inch",
+      "30 × 60 inch",
+      "36 × 72 inch"
+    ],
+    "inStock": true,
+    "outOfStockSizes": [],
+    "published": true,
+    "desc": "MazaTowel signature rich sea teal. Luxurious tone-on-tone or contrast."
+  },
+  {
+    "id": "CLR003",
+    "name": "Blush Rose",
+    "hex": "#E8A3B2",
+    "image": "/uploads/colors/blush-rose.jpg",
+    "categories": [
+      "Bath Towels",
+      "Hand Towels",
+      "Face Towels",
+      "Kids Towels"
+    ],
+    "sizes": [
+      "All Sizes",
+      "12 × 12 inch",
+      "14 × 21 inch",
+      "16 × 24 inch",
+      "24 × 48 inch",
+      "30 × 60 inch"
+    ],
+    "inStock": true,
+    "outOfStockSizes": [],
+    "published": true,
+    "desc": "Delicate pastel blush pink. Favoured for vanity, baby gifting and bridal suites."
+  },
+  {
+    "id": "CLR004",
+    "name": "Royal Blue",
+    "hex": "#1E4C8A",
+    "image": "/uploads/colors/royal-blue.jpg",
+    "categories": [
+      "Bath Towels",
+      "Hand Towels",
+      "Face Towels"
+    ],
+    "sizes": [
+      "All Sizes",
+      "14 × 21 inch",
+      "24 × 48 inch",
+      "27 × 54 inch",
+      "30 × 60 inch",
+      "36 × 72 inch"
+    ],
+    "inStock": true,
+    "outOfStockSizes": [],
+    "published": true,
+    "desc": "Vibrant and deep royal blue with brilliant sheen and color-fast dyes."
+  },
+  {
+    "id": "CLR005",
+    "name": "Pastel Mint",
+    "hex": "#98CBB5",
+    "image": "/uploads/colors/mint-green.jpg",
+    "categories": [
+      "Bath Towels",
+      "Hand Towels",
+      "Face Towels",
+      "Kids Towels"
+    ],
+    "sizes": [
+      "All Sizes",
+      "14 × 21 inch",
+      "16 × 24 inch",
+      "24 × 48 inch",
+      "27 × 54 inch"
+    ],
+    "inStock": true,
+    "outOfStockSizes": [],
+    "published": true,
+    "desc": "Refreshing spa sage mint. Gentle on sensitive skin and toddlers."
+  },
+  {
+    "id": "CLR006",
+    "name": "Slate Charcoal",
+    "hex": "#4A5559",
+    "image": "/uploads/colors/slate-grey.jpg",
+    "categories": [
+      "Bath Towels",
+      "Hand Towels",
+      "Face Towels"
+    ],
+    "sizes": [
+      "All Sizes",
+      "14 × 21 inch",
+      "20 × 36 inch",
+      "30 × 60 inch",
+      "36 × 72 inch"
+    ],
+    "inStock": true,
+    "outOfStockSizes": [],
+    "published": true,
+    "desc": "Modern masculine charcoal grey. Highly absorbent and stain resistant."
+  },
+  {
+    "id": "CLR007",
+    "name": "Warm Champagne",
+    "hex": "#E4D5BA",
+    "image": "/uploads/colors/warm-champagne.jpg",
+    "categories": [
+      "Bath Towels",
+      "Hand Towels",
+      "Face Towels"
+    ],
+    "sizes": [
+      "All Sizes",
+      "16 × 24 inch",
+      "20 × 36 inch",
+      "30 × 60 inch",
+      "36 × 72 inch"
+    ],
+    "inStock": false,
+    "outOfStockSizes": [
+      "30 × 60 inch",
+      "36 × 72 inch"
+    ],
+    "published": true,
+    "desc": "Rich heirloom beige and gold tone. Luxury satin border."
+  },
+  {
+    "id": "CLR008",
+    "name": "Pristine White",
+    "hex": "#FFFFFF",
+    "image": "/uploads/tshirts/custom-embroidered-polos.jpg",
+    "categories": [
+      "Custom T-Shirts"
+    ],
+    "sizes": [
+      "All Sizes",
+      "38 inch",
+      "40 inch",
+      "42 inch",
+      "44 inch",
+      "46 inch"
+    ],
+    "inStock": true,
+    "outOfStockSizes": [],
+    "published": true,
+    "desc": "Pre-shrunk 100% bio-washed cotton in crisp bright white."
+  },
+  {
+    "id": "CLR009",
+    "name": "Classic Navy",
+    "hex": "#1C2A39",
+    "image": "/uploads/tshirts/custom-oversized-embroidered-tee.jpg",
+    "categories": [
+      "Custom T-Shirts"
+    ],
+    "sizes": [
+      "All Sizes",
+      "38 inch",
+      "40 inch",
+      "42 inch",
+      "44 inch",
+      "46 inch"
+    ],
+    "inStock": true,
+    "outOfStockSizes": [],
+    "published": true,
+    "desc": "Deep midnight corporate navy. Flattering and colorfast."
+  },
+  {
+    "id": "CLR010",
+    "name": "Jet Black",
+    "hex": "#1A1A1A",
+    "image": "/uploads/tshirts/custom-oversized-embroidered-tee.jpg",
+    "categories": [
+      "Custom T-Shirts"
+    ],
+    "sizes": [
+      "All Sizes",
+      "38 inch",
+      "40 inch",
+      "42 inch",
+      "44 inch",
+      "46 inch"
+    ],
+    "inStock": true,
+    "outOfStockSizes": [],
+    "published": true,
+    "desc": "High-density sulfur black. Minimalist luxury."
+  },
+  {
+    "id": "CLR011",
+    "name": "Sage Green",
+    "hex": "#7B8B7B",
+    "image": "/uploads/tshirts/custom-embroidered-polos.jpg",
+    "categories": [
+      "Custom T-Shirts"
+    ],
+    "sizes": [
+      "All Sizes",
+      "38 inch",
+      "40 inch",
+      "42 inch",
+      "44 inch",
+      "46 inch"
+    ],
+    "inStock": true,
+    "outOfStockSizes": [],
+    "published": true,
+    "desc": "Earthy modern sage green. Trending minimalist streetwear tone."
+  }
+]

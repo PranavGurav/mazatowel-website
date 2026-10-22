@@ -1,0 +1,68 @@
+[
+  {
+    "id": "F001",
+    "q": "Can I add any name?",
+    "a": "Yes. Enter the name or text you want and confirm the details with us on WhatsApp before production.",
+    "published": true
+  },
+  {
+    "id": "F002",
+    "q": "Can I send my own design?",
+    "a": "Yes. You can share a reference image or logo through WhatsApp for discussion and embroidery planning.",
+    "published": true
+  },
+  {
+    "id": "F003",
+    "q": "Do you deliver across India?",
+    "a": "Yes. The current shipping charge is ₹80 across India.",
+    "published": true
+  },
+  {
+    "id": "F004",
+    "q": "Do you offer COD?",
+    "a": "No. Customized orders follow an advance and pre-dispatch balance payment process.",
+    "published": true
+  },
+  {
+    "id": "F005",
+    "q": "How does ordering work?",
+    "a": "Choose your product and customization on the website, then send the generated request to MazaTowel on WhatsApp for confirmation.",
+    "published": true
+  },
+  {
+    "id": "F006",
+    "q": "Can I see the design before production?",
+    "a": "Customization details can be discussed and approved on WhatsApp before production begins.",
+    "published": true
+  },
+  {
+    "id": "F007",
+    "q": "How long does embroidery and delivery take?",
+    "a": "Custom orders take 2 to 4 working days for precision embroidery, followed by 3 to 5 business days for express delivery across India. Fast-track dispatch is also available upon request.",
+    "published": true
+  },
+  {
+    "id": "F008",
+    "q": "What is the minimum order quantity (MOQ)?",
+    "a": "There is zero minimum order quantity! You can order a single personalized towel with your name. For bulk orders like salons, gyms, or corporate hampers, special tier pricing applies.",
+    "published": true
+  },
+  {
+    "id": "F009",
+    "q": "Can I return or exchange personalized products?",
+    "a": "Because every towel is bespoke crafted with your custom name, returns are not accepted unless there is a stitching defect. We share digital design proofs on WhatsApp before stitching to ensure complete satisfaction.",
+    "published": true
+  },
+  {
+    "id": "F010",
+    "q": "What thread colors and font styles are available?",
+    "a": "We offer over 25+ German Madeira silk & metallic thread shades (including Antique Gold, Ocean Teal, Rose Pink, Navy, and Silver). You can choose elegant script, modern serif, block monogram, or share a custom font.",
+    "published": true
+  },
+  {
+    "id": "F011",
+    "q": "How should I wash and care for embroidered towels?",
+    "a": "Machine wash in cold or warm water (up to 60°C) with mild detergent. Avoid bleach. Our colorfast German Madeira embroidery threads retain their rich luster and strength wash after wash.",
+    "published": true
+  }
+]

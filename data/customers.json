@@ -1,0 +1,65 @@
+[
+  {
+    "id": "C001",
+    "name": "Aeterna Boutique Hotel",
+    "category": "Heritage Luxury Hotel",
+    "tagline": "Bespoke monogrammed guest bath linens & poolside towels",
+    "image": "/uploads/customers/aeterna-hotel.jpg",
+    "website": "https://aeternaresort.com",
+    "published": true
+  },
+  {
+    "id": "C002",
+    "name": "Solara Coastal Villas",
+    "category": "Five-Star Luxury Resort",
+    "tagline": "Signature Egyptian cotton suites towels & embroidered staff polo tees",
+    "image": "/uploads/customers/solara-villas.jpg",
+    "website": "https://solaravillas.com",
+    "published": true
+  },
+  {
+    "id": "C003",
+    "name": "Aurora Spa & Wellness",
+    "category": "Luxury Spa & Wellness",
+    "tagline": "Ultra-plush organic terry towels with metallic gold leaf crest",
+    "image": "/uploads/customers/aurora-spa.jpg",
+    "website": "https://aurorawellness.in",
+    "published": true
+  },
+  {
+    "id": "C004",
+    "name": "Apex Athletic Club",
+    "category": "Premium Fitness & Sports",
+    "tagline": "High-absorption gym towels & custom embroidered team apparel",
+    "image": "/uploads/customers/apex-athletic.jpg",
+    "website": "https://apexathletic.club",
+    "published": true
+  },
+  {
+    "id": "C005",
+    "name": "Lyra Beauty Studio",
+    "category": "Bridal & Hair Aesthetics",
+    "tagline": "Coordinated salon vanity linens with delicate rose-gold embroidery",
+    "image": "/uploads/customers/lyra-beauty.jpg",
+    "website": "https://lyrastudio.in",
+    "published": true
+  },
+  {
+    "id": "C006",
+    "name": "Terra Roasters & Café",
+    "category": "Artisan Hospitality & Café",
+    "tagline": "Custom embroidered barista polo t-shirts & linen bar cloths",
+    "image": "/uploads/customers/terra-roasters.jpg",
+    "website": "https://terraroasters.com",
+    "published": true
+  },
+  {
+    "id": "C007",
+    "name": "Serenia Wellness Retreat",
+    "category": "5-Star Ayurvedic Haven",
+    "tagline": "Heavyweight bath sheets & robes with high-density monogram crests",
+    "image": "/uploads/customers/serenia-resort.jpg",
+    "website": "https://sereniaresort.com",
+    "published": true
+  }
+]

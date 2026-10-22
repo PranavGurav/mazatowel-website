@@ -1,0 +1,325 @@
+{
+  "summary": {
+    "total": 144325,
+    "today": 1,
+    "yesterday": 27,
+    "dailyGrowth": -96,
+    "thisWeek": 46,
+    "lastWeek": 1560,
+    "weeklyGrowth": -97,
+    "thisMonth": 106,
+    "lastMonth": 5410,
+    "monthlyGrowth": -98,
+    "thisYear": 54425
+  },
+  "daily": [
+    {
+      "date": "2026-09-22",
+      "label": "22 Sept",
+      "count": 129
+    },
+    {
+      "date": "2026-09-23",
+      "label": "23 Sept",
+      "count": 152
+    },
+    {
+      "date": "2026-09-24",
+      "label": "24 Sept",
+      "count": 164
+    },
+    {
+      "date": "2026-09-25",
+      "label": "25 Sept",
+      "count": 190
+    },
+    {
+      "date": "2026-09-26",
+      "label": "26 Sept",
+      "count": 244
+    },
+    {
+      "date": "2026-09-27",
+      "label": "27 Sept",
+      "count": 238
+    },
+    {
+      "date": "2026-09-28",
+      "label": "28 Sept",
+      "count": 219
+    },
+    {
+      "date": "2026-09-29",
+      "label": "29 Sept",
+      "count": 181
+    },
+    {
+      "date": "2026-09-30",
+      "label": "30 Sept",
+      "count": 142
+    },
+    {
+      "date": "2026-10-01",
+      "label": "1 Oct",
+      "count": 136
+    },
+    {
+      "date": "2026-10-02",
+      "label": "2 Oct",
+      "count": 127
+    },
+    {
+      "date": "2026-10-03",
+      "label": "3 Oct",
+      "count": 217
+    },
+    {
+      "date": "2026-10-04",
+      "label": "4 Oct",
+      "count": 250
+    },
+    {
+      "date": "2026-10-05",
+      "label": "5 Oct",
+      "count": 206
+    },
+    {
+      "date": "2026-10-06",
+      "label": "6 Oct",
+      "count": 184
+    },
+    {
+      "date": "2026-10-07",
+      "label": "7 Oct",
+      "count": 183
+    },
+    {
+      "date": "2026-10-08",
+      "label": "8 Oct",
+      "count": 194
+    },
+    {
+      "date": "2026-10-09",
+      "label": "9 Oct",
+      "count": 147
+    },
+    {
+      "date": "2026-10-10",
+      "label": "10 Oct",
+      "count": 193
+    },
+    {
+      "date": "2026-10-11",
+      "label": "11 Oct",
+      "count": 193
+    },
+    {
+      "date": "2026-10-12",
+      "label": "12 Oct",
+      "count": 135
+    },
+    {
+      "date": "2026-10-13",
+      "label": "13 Oct",
+      "count": 200
+    },
+    {
+      "date": "2026-10-14",
+      "label": "14 Oct",
+      "count": 217
+    },
+    {
+      "date": "2026-10-15",
+      "label": "15 Oct",
+      "count": 201
+    },
+    {
+      "date": "2026-10-16",
+      "label": "16 Oct",
+      "count": 184
+    },
+    {
+      "date": "2026-10-17",
+      "label": "17 Oct",
+      "count": 238
+    },
+    {
+      "date": "2026-10-18",
+      "label": "18 Oct",
+      "count": 41
+    },
+    {
+      "date": "2026-10-19",
+      "label": "19 Oct",
+      "count": 19
+    },
+    {
+      "date": "2026-10-20",
+      "label": "20 Oct",
+      "count": 27
+    },
+    {
+      "date": "2026-10-22",
+      "label": "22 Oct",
+      "count": 2
+    }
+  ],
+  "weekly": [
+    {
+      "week": "2026-W32",
+      "label": "2 Aug - 8 Aug",
+      "count": 990
+    },
+    {
+      "week": "2026-W33",
+      "label": "9 Aug - 15 Aug",
+      "count": 1140
+    },
+    {
+      "week": "2026-W34",
+      "label": "16 Aug - 22 Aug",
+      "count": 1248
+    },
+    {
+      "week": "2026-W35",
+      "label": "23 Aug - 29 Aug",
+      "count": 1257
+    },
+    {
+      "week": "2026-W36",
+      "label": "30 Aug - 5 Sept",
+      "count": 1199
+    },
+    {
+      "week": "2026-W37",
+      "label": "6 Sept - 12 Sept",
+      "count": 1169
+    },
+    {
+      "week": "2026-W38",
+      "label": "13 Sept - 19 Sept",
+      "count": 1236
+    },
+    {
+      "week": "2026-W39",
+      "label": "20 Sept - 26 Sept",
+      "count": 1380
+    },
+    {
+      "week": "2026-W40",
+      "label": "27 Sept - 3 Oct",
+      "count": 1510
+    },
+    {
+      "week": "2026-W41",
+      "label": "4 Oct - 10 Oct",
+      "count": 1547
+    },
+    {
+      "week": "2026-W42",
+      "label": "11 Oct - 17 Oct",
+      "count": 1560
+    },
+    {
+      "week": "2026-W43",
+      "label": "13 Oct - 19 Oct",
+      "count": 47
+    }
+  ],
+  "monthly": [
+    {
+      "month": "2025-11",
+      "label": "Dec 2025",
+      "count": 3457
+    },
+    {
+      "month": "2025-12",
+      "label": "Jan 2026",
+      "count": 3905
+    },
+    {
+      "month": "2026-01",
+      "label": "Feb 2026",
+      "count": 4247
+    },
+    {
+      "month": "2026-02",
+      "label": "Mar 2026",
+      "count": 4333
+    },
+    {
+      "month": "2026-03",
+      "label": "Apr 2026",
+      "count": 4251
+    },
+    {
+      "month": "2026-04",
+      "label": "May 2026",
+      "count": 4241
+    },
+    {
+      "month": "2026-05",
+      "label": "Jun 2026",
+      "count": 4478
+    },
+    {
+      "month": "2026-06",
+      "label": "Jul 2026",
+      "count": 4909
+    },
+    {
+      "month": "2026-07",
+      "label": "Aug 2026",
+      "count": 5304
+    },
+    {
+      "month": "2026-08",
+      "label": "Sept 2026",
+      "count": 5465
+    },
+    {
+      "month": "2026-09",
+      "label": "Oct 2026",
+      "count": 5410
+    },
+    {
+      "month": "2026-10",
+      "label": "Oct 2026",
+      "count": 107
+    }
+  ],
+  "yearly": [
+    {
+      "year": "2023",
+      "label": "2023",
+      "count": 14200
+    },
+    {
+      "year": "2024",
+      "label": "2024",
+      "count": 28900
+    },
+    {
+      "year": "2025",
+      "label": "2025",
+      "count": 46800
+    },
+    {
+      "year": "2026",
+      "label": "2026",
+      "count": 54426
+    }
+  ],
+  "lastUpdated": "2026-10-17T10:46:09.962Z",
+  "realtime": {
+    "activeNow": 0,
+    "sections": {},
+    "devices": {
+      "Mobile": 0,
+      "Desktop": 0,
+      "Tablet": 0
+    },
+    "sessions": [],
+    "recentActivity": []
+  }
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "R001",
+    "name": "Pooja Deshmukh",
+    "rating": 5,
+    "text": "Ordered the family set with our names in teal thread. The cotton quality is extraordinarily plush and the embroidery is so crisp! Ordering on WhatsApp was seamless.",
+    "source": "WhatsApp Verified",
+    "date": "2026-02-14",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "R002",
+    "name": "Rahul & Sneha Kulkarni",
+    "rating": 5,
+    "text": "We received the couple wedding towels as an anniversary gift. Honestly one of the most thoughtful gifts we've ever gotten. 100% recommended!",
+    "source": "Verified Buyer",
+    "date": "2026-03-01",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "R003",
+    "name": "Dr. Aniruddh Joshi",
+    "rating": 5,
+    "text": "Got hooded unicorn bath towels for our kids. They absolutely love seeing their names on their own towels — no more bathroom towel mix-ups at home!",
+    "source": "Nashik Customer",
+    "date": "2026-03-18",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "R004",
+    "name": "Tanya Singhania",
+    "rating": 5,
+    "text": "The macro peacock embroidery on the 30x60 towel is magnificent. The thread colors didn't bleed after multiple washes. Exceptional craftsmanship.",
+    "source": "Verified Order",
+    "date": "2026-03-24",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "R005",
+    "name": "Kavita R. (Sparkle Salon & Spa)",
+    "rating": 5,
+    "text": "Ordered 30 custom salon towels with our brand logo in gold thread. Clients immediately noticed the upgrade in texture and luxury feel. Fast dispatch to Nashik!",
+    "source": "Commercial Client",
+    "date": "2026-03-28",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "R006",
+    "name": "Vikram Malhotra",
+    "rating": 4,
+    "text": "Ordered monogrammed gym towels for our fitness club members. Highly absorbent combed cotton and the stitching remains intact despite frequent hot washes.",
+    "source": "Verified Member",
+    "date": "2026-04-02",
+    "published": true,
+    "featured": false
+  },
+  {
+    "id": "R007",
+    "name": "Aditi & Rohan Sharma",
+    "rating": 5,
+    "text": "Curated an heirloom gift hamper for our sister's wedding. The satin ribbon packaging, cleanroom sealing, and elegant cursive monogramming were world-class.",
+    "source": "Wedding Order",
+    "date": "2026-04-08",
+    "published": true,
+    "featured": true
+  },
+  {
+    "id": "R008",
+    "name": "Sameer Patil",
+    "rating": 5,
+    "text": "Got personalized bath towels with individual initials for our whole family. Super plush 600 GSM feel, dried fast, and no color fading at all.",
+    "source": "Verified Order",
+    "date": "2026-04-12",
+    "published": true,
+    "featured": false
+  },
+  {
+    "id": "R009",
+    "name": "Meera K.",
+    "rating": 4,
+    "text": "Great communication on WhatsApp before starting embroidery. They shared a 3D preview of the font layout first. Delivery arrived safely packed in 4 days.",
+    "source": "WhatsApp Verified",
+    "date": "2026-04-15",
+    "published": true,
+    "featured": false
+  }
+]

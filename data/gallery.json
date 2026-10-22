@@ -1,0 +1,62 @@
+[
+  {
+    "id": "G001",
+    "image": "/uploads/gallery/vanity-styling.jpg",
+    "alt": "Monogrammed luxury face towel on marble vanity",
+    "published": true
+  },
+  {
+    "id": "G002",
+    "image": "/uploads/gallery/couple-gift.jpg",
+    "alt": "His & Hers couple towels tied in satin ribbon for wedding gift",
+    "published": true
+  },
+  {
+    "id": "G003",
+    "image": "/uploads/gallery/gift-unboxing.jpg",
+    "alt": "Luxury personalized family towel gift set in keepsake unboxing",
+    "published": true
+  },
+  {
+    "id": "G004",
+    "image": "/uploads/gallery/hotel-stack.jpg",
+    "alt": "Embroidered resort bath towels in boutique hotel spa suite",
+    "published": true
+  },
+  {
+    "id": "G005",
+    "image": "/uploads/gallery/macro-threadwork.jpg",
+    "alt": "High-density metallic & silk thread monogram embroidery close-up",
+    "published": true
+  },
+  {
+    "id": "G006",
+    "image": "/uploads/products/kids-towel-anaya.jpg",
+    "alt": "Pastel hooded children's towel with custom name & motif for kids family",
+    "published": true
+  },
+  {
+    "id": "G007",
+    "image": "/uploads/commercial/beauty-parlour-towels.jpg",
+    "alt": "Premium salon and spa towels with signature golden script embroidery",
+    "published": true
+  },
+  {
+    "id": "G008",
+    "image": "/uploads/commercial/corporate-gift-hamper.jpg",
+    "alt": "Bespoke executive gift hamper with gold crest embroidery and couple linens",
+    "published": true
+  },
+  {
+    "id": "G009",
+    "image": "/uploads/commercial/gym-fitness-towels.jpg",
+    "alt": "High-absorbency fitness sweat towels custom stitched for luxury club vanity",
+    "published": true
+  },
+  {
+    "id": "G010",
+    "image": "/uploads/products/couple-towels-set.jpg",
+    "alt": "Matching couple bath linen wedding gift set with cursive gold personalization",
+    "published": true
+  }
+]
