@@ -1,28 +1,18 @@
 {
   "summary": {
-    "total": 144325,
-    "today": 1,
-    "yesterday": 27,
-    "dailyGrowth": -96,
-    "thisWeek": 46,
+    "total": 144366,
+    "today": 4,
+    "yesterday": 14,
+    "dailyGrowth": -71,
+    "thisWeek": 87,
     "lastWeek": 1560,
-    "weeklyGrowth": -97,
-    "thisMonth": 106,
+    "weeklyGrowth": -94,
+    "thisMonth": 147,
     "lastMonth": 5410,
-    "monthlyGrowth": -98,
-    "thisYear": 54425
+    "monthlyGrowth": -97,
+    "thisYear": 54466
   },
   "daily": [
-    {
-      "date": "2026-09-22",
-      "label": "22 Sept",
-      "count": 129
-    },
-    {
-      "date": "2026-09-23",
-      "label": "23 Sept",
-      "count": 152
-    },
     {
       "date": "2026-09-24",
       "label": "24 Sept",
@@ -161,7 +151,17 @@
     {
       "date": "2026-10-22",
       "label": "22 Oct",
-      "count": 2
+      "count": 26
+    },
+    {
+      "date": "2026-10-23",
+      "label": "23 Oct",
+      "count": 14
+    },
+    {
+      "date": "2026-10-25",
+      "label": "25 Oct",
+      "count": 5
     }
   ],
   "weekly": [
@@ -223,7 +223,7 @@
     {
       "week": "2026-W43",
       "label": "13 Oct - 19 Oct",
-      "count": 47
+      "count": 88
     }
   ],
   "monthly": [
@@ -285,7 +285,7 @@
     {
       "month": "2026-10",
       "label": "Oct 2026",
-      "count": 107
+      "count": 148
     }
   ],
   "yearly": [
@@ -307,19 +307,62 @@
     {
       "year": "2026",
       "label": "2026",
-      "count": 54426
+      "count": 54467
     }
   ],
   "lastUpdated": "2026-10-17T10:46:09.962Z",
   "realtime": {
-    "activeNow": 0,
-    "sections": {},
+    "activeNow": 1,
+    "sections": {
+      "Home Storefront": 1
+    },
     "devices": {
       "Mobile": 0,
-      "Desktop": 0,
+      "Desktop": 1,
       "Tablet": 0
     },
-    "sessions": [],
-    "recentActivity": []
+    "sessions": [
+      {
+        "page": "/#business-home",
+        "section": "Home Storefront",
+        "device": "Desktop",
+        "durationSeconds": 603,
+        "lastSeenSecondsAgo": 0
+      }
+    ],
+    "recentActivity": [
+      {
+        "id": "ACTmvnfu0jxlodudi",
+        "timestamp": "2026-10-25T06:19:39.213Z",
+        "type": "Entered Store",
+        "page": "/#business-home",
+        "section": "Home Storefront",
+        "device": "Desktop"
+      },
+      {
+        "id": "ACTmvnftt2o8um5wx",
+        "timestamp": "2026-10-25T06:19:29.520Z",
+        "type": "Browsing bath towels",
+        "page": "/shop#shop-towels",
+        "section": "Towel Collections",
+        "device": "Desktop"
+      },
+      {
+        "id": "ACTmvnefigllo9qp9",
+        "timestamp": "2026-10-25T05:40:22.965Z",
+        "type": "Configuring custom towel",
+        "page": "/shop#shop-studio",
+        "section": "Live Customization Studio",
+        "device": "Desktop"
+      },
+      {
+        "id": "ACTmvnef59ra9cu3n",
+        "timestamp": "2026-10-25T05:40:05.871Z",
+        "type": "Configuring custom towel",
+        "page": "/shop#shop-studio",
+        "section": "Live Customization Studio",
+        "device": "Desktop"
+      }
+    ]
   }
 }

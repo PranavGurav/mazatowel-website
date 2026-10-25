@@ -314,6 +314,26 @@ th {
 .status.off { background: #f4f6f8; color: var(--muted); border: 1px solid #dce4e7; }
 .status.pending { background: #fff8e6; color: #9a6d1a; border: 1px solid #fae69e; }
 .status.danger { background: #fff1f0; color: var(--danger); border: 1px solid #f7d2cd; }
+.status-select {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  outline: 0;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+.status-select.pending { background: #fff8e6; color: #9a6d1a; border-color: #fae69e; }
+.status-select.contacted { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
+.status-select.live { background: #eaf7f6; color: var(--teal2); border-color: #cceae8; }
+.status-select.shipped { background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9; }
+.status-select.off { background: #f4f6f8; color: var(--muted); border-color: #dce4e7; }
+.status-select:focus { box-shadow: 0 0 0 2px rgba(47, 127, 130, 0.25); }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 7px; color: var(--ink); }
 .field input, .field select, .field textarea {

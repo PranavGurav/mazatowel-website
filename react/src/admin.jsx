@@ -137,6 +137,16 @@ export const getWhatsAppConfirmLink = (enq) => {
     namesDetail = `• Name to Embroider: "${enq.embroideryName || 'Custom'}"${enq.quantity > 1 ? ` (All ${enq.quantity} pcs)` : ''}\n`;
   }
 
+  const statusClosing = enq.status === 'In Production'
+    ? '✨ Status Update: Your order is now in production on our precision embroidery machines! We will share dispatch details shortly.'
+    : enq.status === 'Shipped'
+    ? '📦 Status Update: Your customized order has been shipped and is on its way to you! Let us know once received.'
+    : enq.status === 'Closed'
+    ? '✅ Status Update: Your order has been completed. Thank you for choosing MazaTowel!'
+    : isShirt
+    ? 'We are preparing your digital embroidery preview. Please confirm if these details are correct or let us know if you would like any changes!'
+    : 'We are preparing your custom embroidery. Please confirm if everything looks good or if you would like to adjust font/color!';
+
   const greeting = isShirt
     ? `Hello ${enq.customerName || 'there'}! 👋 This is MazaTowel regarding your custom T-shirt enquiry for "${enq.product || 'Custom Embroidered T-Shirt'}".\n\n` +
       `📋 Order Details:\n` +
@@ -148,7 +158,7 @@ export const getWhatsAppConfirmLink = (enq) => {
       (enq.design ? `• Design Motif: ${enq.design}\n` : '') +
       (enq.logoAttachment ? `• Attached Logo / Artwork: Received ✓\n` : '') +
       (enq.notes ? `• Special Notes: "${enq.notes}"\n\n` : '\n') +
-      `We are preparing your digital embroidery preview. Please confirm if these details are correct or let us know if you would like any changes!`
+      statusClosing
     : `Hello ${enq.customerName || 'there'}! This is MazaTowel Personalized Boutique regarding your enquiry for "${enq.product || 'Personalized Towel'}".\n\n` +
       `📋 Order Details:\n` +
       namesDetail +
@@ -158,7 +168,7 @@ export const getWhatsAppConfirmLink = (enq) => {
       (enq.design ? `• Design Motif: ${enq.design}\n` : '') +
       (enq.logoAttachment ? `• Attached Logo / Artwork: Received ✓\n` : '') +
       (enq.notes ? `• Notes: "${enq.notes}"\n\n` : '\n') +
-      `We are preparing your custom embroidery. Please confirm if everything looks good or if you would like to adjust font/color!`;
+      statusClosing;
 
   return `https://wa.me/${phone}?text=${encodeURIComponent(greeting)}`;
 };
@@ -2871,7 +2881,12 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
               className="btn btn-secondary"
               onClick={() => {
                 const headers = ['Order ID','Date','Customer Name','Phone','Product','Category','Towel Color','Embroidery Names','Placement','Quantity','Status','Notes','Logo Attachment URL'];
-                const esc = (v) => v === null || v === undefined ? '""' : `"${String(v).replace(/"/g, '""')}"`;
+                const esc = (v) => {
+                  if (v === null || v === undefined) return '""';
+                  let s = String(v).replace(/"/g, '""');
+                  if (/^[=+@\t\r\n-]/.test(s)) s = "'" + s;
+                  return `"${s}"`;
+                };
                 const rows = items.map(r => [
                   esc(r.id),
                   esc(r.createdAt ? new Date(r.createdAt).toLocaleString('en-IN') : ''),
@@ -3223,9 +3238,20 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
                     ) : type === 'offers' ? (
                       <span className={`status ${item.active ? 'live' : 'off'}`}>{item.active ? 'Active' : 'Inactive'}</span>
                     ) : type === 'enquiries' ? (
-                      <span className={`status ${item.status === 'Closed' ? 'off' : item.status === 'In Production' ? 'live' : 'pending'}`}>
-                        {item.status || 'New'}
-                      </span>
+                      <select
+                        className={`status-select ${item.status === 'Closed' ? 'off' : item.status === 'In Production' ? 'live' : item.status === 'Shipped' ? 'shipped' : item.status === 'Contacted' ? 'contacted' : 'pending'}`}
+                        value={item.status || 'New'}
+                        onChange={(e) => onQuickUpdate(type, item.id, { status: e.target.value })}
+                        onClick={(e) => e.stopPropagation()}
+                        title="Click to update order status directly"
+                        aria-label="Order status"
+                      >
+                        <option value="New">New</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="In Production">In Production</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Closed">Closed</option>
+                      </select>
                     ) : (
                       <span className={`status ${item.published !== false ? 'live' : 'off'}`}>
                         {item.published !== false ? 'Published' : 'Hidden'}

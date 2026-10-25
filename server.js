@@ -613,6 +613,10 @@ function normalizeSizeToInches(size) {
   }
   return s;
 }
+function stripHtmlTags(str) {
+  if (!str || typeof str !== 'string') return '';
+  return str.replace(/<[^>]*>/g, '').replace(/[<>]/g, '').trim();
+}
 function sanitizeProductTitle(title) {
   if (!title || typeof title !== 'string') return title;
   let t = title;
@@ -860,17 +864,17 @@ async function api(req, res) {
       const rawPhone = String(b.phone || '').replace(/\D/g, '');
       const normalizedPhone = (rawPhone.startsWith('0') && rawPhone.length === 11) ? rawPhone.slice(1) : rawPhone;
       let embroideryNames = Array.isArray(b.embroideryNames)
-        ? b.embroideryNames.map(x => String(x || '').trim().slice(0, 40)).filter(Boolean)
+        ? b.embroideryNames.map(x => stripHtmlTags(x).slice(0, 40)).filter(Boolean)
         : [];
       const nameMode = b.nameMode === 'same' ? 'same' : 'different';
-      let primaryEmbroideryName = String(b.embroideryName || b.embroideryText || '').trim().slice(0, 300);
+      let primaryEmbroideryName = stripHtmlTags(b.embroideryName || b.embroideryText || '').slice(0, 300);
       if (!primaryEmbroideryName && embroideryNames.length > 0) {
         primaryEmbroideryName = embroideryNames.join(', ');
       }
       if (embroideryNames.length === 0 && primaryEmbroideryName) {
         embroideryNames = [primaryEmbroideryName];
       }
-      const prodName = String(b.product || b.productName || '').trim();
+      const prodName = stripHtmlTags(b.product || b.productName || '').trim();
       const isTShirt = String(b.category || '').toLowerCase().includes('shirt') ||
         String(b.category || '').toLowerCase().includes('apparel') ||
         prodName.toLowerCase().includes('shirt') ||
@@ -887,25 +891,25 @@ async function api(req, res) {
       }
 
       const clean = {
-        customerName: String(b.customerName || '').trim().slice(0, 80),
+        customerName: stripHtmlTags(b.customerName || '').slice(0, 80),
         phone: normalizedPhone.slice(0, 15),
         productId: String(b.productId || '').trim().slice(0, 80),
         product: sanitizeProductTitle(prodName.slice(0, 120)),
         category: isTShirt ? 'Custom T-Shirts' : 'Towels',
-        size: normalizeSizeToInches(String(b.size || '').trim().slice(0, 60)),
+        size: normalizeSizeToInches(stripHtmlTags(b.size || '').slice(0, 60)),
         quantity: Math.max(1, Math.min(999, Number(b.quantity) || 1)),
         embroideryName: primaryEmbroideryName,
         embroideryNames: embroideryNames,
         nameMode: nameMode,
-        placement: String(b.placement || (isTShirt ? 'Left Chest Crest' : '')).trim().slice(0, 60),
-        sizesPerItem: Array.isArray(b.sizesPerItem) ? b.sizesPerItem.map(s => String(s || '').trim().slice(0, 40)) : null,
+        placement: stripHtmlTags(b.placement || (isTShirt ? 'Left Chest Crest' : '')).slice(0, 60),
+        sizesPerItem: Array.isArray(b.sizesPerItem) ? b.sizesPerItem.map(s => stripHtmlTags(s).slice(0, 40)) : null,
         /* THREADS FEATURE PAUSED - UNCOMMENT WHEN REQUIRED:
         thread: String(b.thread || '').trim().slice(0, 40),
         */
-        towelColor: String(b.towelColor || b.color || '').trim().slice(0, 60),
-        design: String(b.design || '').trim().slice(0, 100),
+        towelColor: stripHtmlTags(b.towelColor || b.color || '').slice(0, 60),
+        design: stripHtmlTags(b.design || '').slice(0, 100),
         logoAttachment: logoAttachment || '',
-        notes: String(b.notes || '').trim().slice(0, 500),
+        notes: stripHtmlTags(b.notes || '').slice(0, 500),
         source: 'Website',
         status: 'New',
         createdAt: new Date().toISOString()

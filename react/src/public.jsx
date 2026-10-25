@@ -3816,8 +3816,9 @@ function B2BSampleModal({ settings, initialSector, onClose, notify }) {
     if (!form.contactPerson.trim()) {
       return setError('Please enter your contact person name.');
     }
-    if (!form.phone.trim() || form.phone.replace(/\D/g, '').length < 10) {
-      return setError('Please enter a valid 10-digit WhatsApp phone number.');
+    const cleanDigits = form.phone.replace(/\D/g, '').slice(-10);
+    if (!/^[6-9]\d{9}$/.test(cleanDigits)) {
+      return setError('Please enter a valid 10-digit Indian WhatsApp mobile number starting with 6, 7, 8, or 9.');
     }
 
     setSubmitting(true);

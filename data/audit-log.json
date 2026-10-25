@@ -1,5 +1,308 @@
 [
   {
+    "id": "SECmvnfve2v9rlwsf",
+    "timestamp": "2026-10-25T06:20:43.399Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvnftt8ayd7c5p",
+    "timestamp": "2026-10-25T06:19:29.722Z",
+    "event": "LOGOUT",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvnftt858mxxqa",
+    "timestamp": "2026-10-25T06:19:29.717Z",
+    "event": "ITEM_DELETED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvnftt32xgs9m1"
+    }
+  },
+  {
+    "id": "SECmvnftt80ahmsj9",
+    "timestamp": "2026-10-25T06:19:29.712Z",
+    "event": "ITEM_DELETED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvnftt2we495kz"
+    }
+  },
+  {
+    "id": "SECmvnftt7ndxbnxw",
+    "timestamp": "2026-10-25T06:19:29.699Z",
+    "event": "ORDER_STATUS_CHANGED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "enquiryId": "ENQmvnftt2we495kz",
+      "customerName": "Priya Sharma",
+      "fromStatus": "Shipped",
+      "toStatus": "Closed"
+    }
+  },
+  {
+    "id": "SECmvnftt7hljfajb",
+    "timestamp": "2026-10-25T06:19:29.693Z",
+    "event": "ORDER_STATUS_CHANGED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "enquiryId": "ENQmvnftt2we495kz",
+      "customerName": "Priya Sharma",
+      "fromStatus": "In Production",
+      "toStatus": "Shipped"
+    }
+  },
+  {
+    "id": "SECmvnftt7bb8e1vo",
+    "timestamp": "2026-10-25T06:19:29.687Z",
+    "event": "ORDER_STATUS_CHANGED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "enquiryId": "ENQmvnftt2we495kz",
+      "customerName": "Priya Sharma",
+      "fromStatus": "Contacted",
+      "toStatus": "In Production"
+    }
+  },
+  {
+    "id": "SECmvnftt75ps57zn",
+    "timestamp": "2026-10-25T06:19:29.681Z",
+    "event": "ORDER_STATUS_CHANGED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "enquiryId": "ENQmvnftt2we495kz",
+      "customerName": "Priya Sharma",
+      "fromStatus": "New",
+      "toStatus": "Contacted"
+    }
+  },
+  {
+    "id": "SECmvnftt4w50hlcw",
+    "timestamp": "2026-10-25T06:19:29.600Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvnfszdl4c8rez",
+    "timestamp": "2026-10-25T06:18:51.033Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvnefiktsscvri",
+    "timestamp": "2026-10-25T05:40:23.117Z",
+    "event": "LOGOUT",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvnefikryiu242",
+    "timestamp": "2026-10-25T05:40:23.115Z",
+    "event": "ITEM_DELETED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvnefigu79ncyk"
+    }
+  },
+  {
+    "id": "SECmvnefikoaysq0h",
+    "timestamp": "2026-10-25T05:40:23.112Z",
+    "event": "ITEM_DELETED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "collection": "colors",
+      "itemId": "Cmvnefikjlesbvm"
+    }
+  },
+  {
+    "id": "SECmvnefikfgbfs7a",
+    "timestamp": "2026-10-25T05:40:23.103Z",
+    "event": "ORDER_STATUS_CHANGED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "enquiryId": "ENQmvnefigu79ncyk",
+      "customerName": "Ananya Iyer",
+      "fromStatus": "New",
+      "toStatus": "In Production"
+    }
+  },
+  {
+    "id": "SECmvnefij5298o4q",
+    "timestamp": "2026-10-25T05:40:23.057Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvnefii3rynfxr",
+    "timestamp": "2026-10-25T05:40:23.019Z",
+    "event": "LOGIN_FAILED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in",
+      "attemptCount": 1,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
+    "id": "SECmvnef5er5tyr3c",
+    "timestamp": "2026-10-25T05:40:06.051Z",
+    "event": "LOGOUT",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvnef5eph0uyho",
+    "timestamp": "2026-10-25T05:40:06.049Z",
+    "event": "ITEM_DELETED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvnef5a1jey6ir"
+    }
+  },
+  {
+    "id": "SECmvnef5elpul8y2",
+    "timestamp": "2026-10-25T05:40:06.045Z",
+    "event": "ITEM_DELETED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "collection": "colors",
+      "itemId": "Cmvnef5efjantca"
+    }
+  },
+  {
+    "id": "SECmvnef5e1dfbwax",
+    "timestamp": "2026-10-25T05:40:06.025Z",
+    "event": "ORDER_STATUS_CHANGED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "enquiryId": "ENQmvnef5a1jey6ir",
+      "customerName": "Ananya Iyer",
+      "fromStatus": "New",
+      "toStatus": "In Production"
+    }
+  },
+  {
+    "id": "SECmvnef5c8h5n66v",
+    "timestamp": "2026-10-25T05:40:05.960Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvnef5b54sifca",
+    "timestamp": "2026-10-25T05:40:05.921Z",
+    "event": "LOGIN_FAILED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in",
+      "attemptCount": 1,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
+    "id": "SECmvne7k79ku2gj4",
+    "timestamp": "2026-10-25T05:34:11.973Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvne7jwqdeuu51",
+    "timestamp": "2026-10-25T05:34:11.594Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvne7jqt0s8snb",
+    "timestamp": "2026-10-25T05:34:11.381Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvjut84przyc2r",
+    "timestamp": "2026-10-22T18:07:51.913Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvjut82afgck5q",
+    "timestamp": "2026-10-22T18:07:51.826Z",
+    "event": "LOGIN_FAILED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in",
+      "attemptCount": 1,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
     "id": "SECmvj26br8i7oc2j",
     "timestamp": "2026-10-22T04:46:14.276Z",
     "event": "LOGIN_SUCCESS",
