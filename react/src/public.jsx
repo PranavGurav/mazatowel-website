@@ -7,6 +7,47 @@ import '../../public/assets/styles.css';
 const generalMessage = brand => `Hello ${brand}! 👋\n\nI would like to explore personalized towels. Please help me with the available options.`;
 const published = items => (items || []).filter(item => item.published !== false);
 
+// Utility helper to strictly block any non-digit character (letters, spaces, punctuation, symbols) in numeric inputs
+const blockNonDigits = (e) => {
+  if (
+    [
+      'Backspace',
+      'Delete',
+      'Tab',
+      'Escape',
+      'Enter',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowDown',
+      'Home',
+      'End'
+    ].includes(e.key)
+  ) {
+    return;
+  }
+  if ((e.ctrlKey || e.metaKey) && ['a', 'c', 'v', 'x', 'z', 'y'].includes(e.key.toLowerCase())) {
+    return;
+  }
+  if (!/^[0-9]$/.test(e.key)) {
+    e.preventDefault();
+  }
+};
+
+// Intelligently calculates optimal thread contrast against towel fabric color
+export const getContrastThreadColor = (hex) => {
+  if (!hex || typeof hex !== 'string') return '#1A5355';
+  let cleanHex = hex.replace('#', '').trim();
+  if (cleanHex.length === 3) cleanHex = cleanHex.split('').map(c => c + c).join('');
+  if (cleanHex.length !== 6) return '#1A5355';
+  const r = parseInt(cleanHex.substring(0, 2), 16) || 0;
+  const g = parseInt(cleanHex.substring(2, 4), 16) || 0;
+  const b = parseInt(cleanHex.substring(4, 6), 16) || 0;
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return yiq >= 140 ? '#1A5355' : '#FFF8E7'; // Deep Teal on light fabric, Silky Champagne Gold on dark fabric
+};
+
+
 function PromoBanner({ offers }) {
   const [copiedCode, setCopiedCode] = useState(null);
   const activeOffers = (offers || []).filter(o => o.active !== false);
@@ -237,7 +278,7 @@ function Header({ settings, activeTab, onSelectTab, onNavigate }) {
   );
 }
 
-function Field({ label, required, optional, error, success, help, children, className = '' }) {
+function Field({ label, required, optional, error, success, children, className = '' }) {
   return (
     <div className={`field ${className}`}>
       <label>
@@ -248,7 +289,6 @@ function Field({ label, required, optional, error, success, help, children, clas
       {children}
       {error && <div className="field-error-text"><span>⚠</span> {error}</div>}
       {!error && success && <div className="field-success-text"><span>✓</span> {success}</div>}
-      {!error && !success && help && <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 2 }}>{help}</div>}
     </div>
   );
 }
@@ -320,10 +360,10 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
         if (!isShirt && ['Sage Green', 'Classic Navy', 'Jet Black'].includes(c.name)) return false;
       }
 
-      // 2. Product-specific allowed colors restriction
-      if (prod?.allowedColors && prod.allowedColors.length > 0) {
-        if (!prod.allowedColors.includes(c.name) && !prod.allowedColors.includes(c.id)) return false;
-      }
+      // 2. Product-specific allowed colors restriction (Disabled for now per user request)
+      // if (prod?.allowedColors && prod.allowedColors.length > 0) {
+      //   if (!prod.allowedColors.includes(c.name) && !prod.allowedColors.includes(c.id)) return false;
+      // }
 
       // 3. Size match
       if (c.sizes && c.sizes.length > 0 && !c.sizes.includes('All Sizes')) {
@@ -377,6 +417,65 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
   const [previewColorImage, setPreviewColorImage] = useState(initialColor?.image || null);
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [logoUploadError, setLogoUploadError] = useState('');
+
+  // Auto-save & restore user draft customization
+  const DRAFT_KEY = 'mazatowel_customizer_draft';
+  const [draftRestored, setDraftRestored] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(DRAFT_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') {
+          if (parsed.customerName || parsed.phone || parsed.embroideryName || (parsed.embroideryNames && parsed.embroideryNames[0]) || parsed.notes) {
+            setForm(prev => ({
+              ...prev,
+              customerName: parsed.customerName || prev.customerName,
+              phone: parsed.phone || prev.phone,
+              embroideryName: parsed.embroideryName || prev.embroideryName,
+              embroideryNames: (Array.isArray(parsed.embroideryNames) && parsed.embroideryNames.length) ? parsed.embroideryNames : prev.embroideryNames,
+              notes: parsed.notes || prev.notes
+            }));
+            setDraftRestored(true);
+          }
+        }
+      }
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      try {
+        if (form.customerName || form.phone || form.embroideryName || form.embroideryNames?.some(Boolean) || form.notes) {
+          localStorage.setItem(DRAFT_KEY, JSON.stringify({
+            customerName: form.customerName,
+            phone: form.phone,
+            embroideryName: form.embroideryName,
+            embroideryNames: form.embroideryNames,
+            notes: form.notes
+          }));
+        }
+      } catch {}
+    }, 600);
+    return () => clearTimeout(t);
+  }, [form.customerName, form.phone, form.embroideryName, form.embroideryNames, form.notes]);
+
+  const handleClearDraft = () => {
+    try {
+      localStorage.removeItem(DRAFT_KEY);
+      setForm(f => ({
+        ...f,
+        customerName: '',
+        phone: '',
+        embroideryName: '',
+        embroideryNames: [''],
+        notes: ''
+      }));
+      setDraftRestored(false);
+    } catch {}
+  };
+
 
   const handleLogoChange = async (e) => {
     const file = e.target.files?.[0];
@@ -743,6 +842,7 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
         })
       });
       onClose();
+      try { localStorage.removeItem(DRAFT_KEY); } catch {}
       notify(currentIsTShirt
         ? 'Your custom T-shirt enquiry has been sent to MazaTowel! Opening WhatsApp to coordinate…'
         : 'Your request has been sent to MazaTowel! Opening WhatsApp to coordinate…'
@@ -761,6 +861,7 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
     <div id="productModal" className="modal show" onMouseDown={e => e.target === e.currentTarget && onClose()}>
       <div className="modal-card wide-form" role="dialog" aria-modal="true">
         <div className="modal-head">
+          <div className="sheet-drag-handle" aria-hidden="true" />
           <div>
             <div className="eyebrow">Personalized Order Form</div>
             <h3>{product?.category === 'Custom T-Shirts' ? 'Personalize Your T-Shirt' : 'Personalize Your Towel'}</h3>
@@ -776,6 +877,16 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
             <CloseIcon size={18} strokeWidth={2.4} />
           </button>
         </div>
+
+        {draftRestored && (
+          <div className="draft-restored-chip" style={{ margin: '10px 20px 0' }}>
+            <span>📝 Restored your previous customization draft</span>
+            <button type="button" onClick={handleClearDraft} className="draft-clear-btn" title="Clear saved draft">
+              Clear Draft
+            </button>
+          </div>
+        )}
+
 
         <div className="modal-body">
           <div className="modal-grid">
@@ -1028,11 +1139,24 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" fill="none"><line x1="5" y1="12" x2="19" y2="12" /></svg>
                       </button>
                       <input
-                        type="number"
-                        min="1"
-                        max="999"
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        maxLength={3}
                         value={form.quantity}
-                        onChange={e => onQuantityChange(e.target.value)}
+                        onKeyDown={blockNonDigits}
+                        onPaste={e => {
+                          e.preventDefault();
+                          const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                          const digits = pasted.replace(/\D/g, '').slice(0, 3);
+                          if (digits) {
+                            onQuantityChange(Math.max(1, Math.min(999, parseInt(digits, 10))));
+                          }
+                        }}
+                        onChange={e => {
+                          const val = e.target.value.replace(/\D/g, '').slice(0, 3);
+                          onQuantityChange(val);
+                        }}
                         className="qty-stepper-input"
                         aria-label="Quantity"
                       />
@@ -1201,13 +1325,6 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                     label={form.quantity > 1 ? `Name / Monogram to Embroider (All ${form.quantity} Items)` : (currentIsTShirt ? 'Name / Monogram / Initials to Embroider' : 'Name to Embroider')}
                     required
                     error={embError}
-                    help={
-                      form.quantity > 1
-                        ? `This text will be stitched on all ${form.quantity} items (e.g. "The Grand Palace", "Sharma Family", "FitZone")`
-                        : (currentIsTShirt
-                            ? 'Supports member name, monogram, club initials, or tagline (e.g. Rohit, RK, CAPTAIN, MAZA)'
-                            : 'Supports letters, numbers, and initials (e.g. Aarav, Priya, MAZA, R & S)')
-                    }
                   >
                     <input
                       maxLength="30"
@@ -1223,7 +1340,6 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                 <Field
                   label="Design Code / Motif"
                   optional
-                  help="Select from gallery or leave empty for classic text embroidery"
                 >
                   <input
                     maxLength="100"
@@ -1234,7 +1350,7 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                 </Field>
 
                 {/* ATTACH LOGO IN CUSTOM EMBROIDERY PERSONALIZATION SECTION */}
-                <Field label="Attach Logo" optional help="PNG, JPG, WEBP, SVG or PDF (max 25MB).">
+                <Field label="Attach Logo" optional>
                   {form.logoAttachment ? (
                     <div style={{
                       padding: '8px 12px',
@@ -1408,12 +1524,12 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                 </div>
                 */}
 
-                {/* LIVE EMBROIDERY CONTRAST PREVIEW PAUSED - UNCOMMENT WHEN REQUIRED:
+                {/* LIVE EMBROIDERY CONTRAST PREVIEW */}
                 <div className="embroidery-live-preview-wrap">
                   <div className="embroidery-preview-head">
                     <span className="preview-label">✦ Live Stitched Preview on Fabric</span>
                     <span className="preview-contrast-hint">
-                      Preview: <strong>Custom Embroidery Stitched Monogram</strong>
+                      Tone Match: <strong>{selectedColorObj?.name || 'Fabric'} Thread Contrast</strong>
                     </span>
                   </div>
 
@@ -1445,11 +1561,20 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                     className="embroidery-preview-canvas"
                     style={{
                       backgroundColor: selectedColorObj?.hex || '#FAFAFA',
-                      color: '#2F7F82',
-                      border: ['#FFFFFF', '#FAFAFA'].includes(selectedColorObj?.hex?.toUpperCase()) ? '1px solid #E2E8F0' : 'none'
+                      color: getContrastThreadColor(selectedColorObj?.hex),
+                      border: ['#FFFFFF', '#FAFAFA'].includes(selectedColorObj?.hex?.toUpperCase()) ? '1.5px solid #CBD5E1' : '1px solid rgba(0,0,0,0.08)',
+                      boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.06)'
                     }}
                   >
-                    <span className="embroidery-preview-stitched-text">
+                    <span
+                      className="embroidery-preview-stitched-text"
+                      style={{
+                        color: getContrastThreadColor(selectedColorObj?.hex),
+                        textShadow: (selectedColorObj?.hex && getContrastThreadColor(selectedColorObj?.hex) === '#FFF8E7')
+                          ? '1px 1px 0 rgba(0,0,0,0.7), -1px -1px 0 rgba(255,255,255,0.2)'
+                          : '1px 1px 0 rgba(255,255,255,0.8), -1px -1px 0 rgba(0,0,0,0.15)'
+                      }}
+                    >
                       {form.quantity > 1 && form.nameMode === 'different'
                         ? (form.embroideryNames?.[previewTowelIndex]?.trim() || form.embroideryNames?.find(n => n?.trim())?.trim() || 'Aarav')
                         : (form.embroideryName.trim() || 'Aarav')}
@@ -1461,7 +1586,6 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                     </span>
                   </div>
                 </div>
-                */}
               </div>
 
               {/* SECTION 3: CONTACT & ORDER COORDINATION */}
@@ -1477,6 +1601,7 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                   <Field label="Your Full Name" required error={nameError}>
                     <input
                       maxLength="80"
+                      autoComplete="name"
                       value={form.customerName}
                       onChange={onCustomerNameChange}
                       onBlur={() => markTouched('customerName')}
@@ -1491,8 +1616,18 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                       <input
                         type="tel"
                         inputMode="numeric"
+                        pattern="[0-9]*"
+                        autoComplete="tel"
                         maxLength="10"
                         value={form.phone}
+                        onKeyDown={blockNonDigits}
+                        onPaste={e => {
+                          e.preventDefault();
+                          const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                          const digits = pasted.replace(/\D/g, '').slice(0, 10);
+                          setForm(f => ({ ...f, phone: digits }));
+                          markTouched('phone');
+                        }}
                         onChange={onPhoneChange}
                         onBlur={() => markTouched('phone')}
                         className={phoneError ? 'input-has-error' : phoneSuccess ? 'input-has-success' : ''}
@@ -1504,9 +1639,10 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                 </div>
 
                 {currentIsTShirt && (
-                  <Field label="Company, Team or Group Name" optional help="Useful for corporate orders, club apparel, or event branding">
+                  <Field label="Company, Team or Group Name" optional>
                     <input
                       maxLength="100"
+                      autoComplete="organization"
                       value={form.companyName || ''}
                       onChange={e => setForm(f => ({ ...f, companyName: e.target.value }))}
                       placeholder="Enter company or group name"
@@ -1523,6 +1659,32 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                     placeholder="Enter special instructions or occasion notes"
                   />
                 </Field>
+              </div>
+
+              {/* Order Reassurance & Trust Badges */}
+              <div className="modal-trust-strip">
+                <div className="trust-strip-item">
+                  <span className="trust-strip-icon">💬</span>
+                  <div className="trust-strip-text">
+                    <strong>WhatsApp Proof</strong>
+                    <span>Approved before stitching</span>
+                  </div>
+                </div>
+                <div className="trust-strip-item">
+                  <span className="trust-strip-icon">🧵</span>
+                  <div className="trust-strip-text">
+                    <strong>100% Fade-Proof</strong>
+                    <span>German poly-sheen threads</span>
+                  </div>
+                </div>
+                <div className="trust-strip-item">
+                  <span className="trust-strip-icon">✨</span>
+                  <div className="trust-strip-text">
+                    <strong>{currentIsTShirt ? '100% Premium Cotton' : '100% Combed Cotton'}</strong>
+                    <span>{currentIsTShirt ? 'Breathable 240+ GSM fabric' : 'Ultra-soft & high absorbency'}</span>
+                  </div>
+                </div>
+
               </div>
 
               {error && <div className="form-error" style={{ marginBottom: 12 }}>{error}</div>}
@@ -1548,6 +1710,22 @@ function CustomizationModal({ db, selectedProduct, selectedDesign, onClose, noti
                   <WhatsAppIcon size={18} color="#FFFFFF" style={{ color: '#FFFFFF' }} /> Order on WhatsApp
                 </button>
               </div>
+
+              {/* Mobile Sticky Bottom CTA Bar */}
+              <div className="modal-sticky-mobile-cta">
+                <div className="sticky-mobile-summary">
+                  <span className="sticky-mobile-prod">{form.quantity}x {product?.name?.split('(')[0]?.trim() || 'Towel'}</span>
+                  <span className="sticky-mobile-price">{money(totalPrice)}</span>
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-whatsapp sticky-mobile-wa-btn"
+                  onClick={handleWhatsAppDirect}
+                >
+                  <WhatsAppIcon size={16} color="#FFFFFF" style={{ color: '#FFFFFF' }} /> Order on WhatsApp
+                </button>
+              </div>
+
             </form>
           </div>
         </div>
@@ -1858,7 +2036,7 @@ function OnPageOrderStudio({ db, onOpenModal, notify }) {
 
           {/* Embroidery Text Input */}
           <div style={{ marginTop: 16 }}>
-            <Field label="Embroidery Name / Monogram Initials" required help="Enter up to 35 characters for precision stitching.">
+            <Field label="Embroidery Name / Monogram Initials" required>
               <input
                 maxLength={35}
                 value={embroideryText}
@@ -1901,7 +2079,7 @@ function OnPageOrderStudio({ db, onOpenModal, notify }) {
 
           {/* Logo Attachment inside Custom Embroidery Personalization */}
           <div style={{ marginTop: 14 }}>
-            <Field label="Attach Logo" optional help="PNG, JPG, WEBP, SVG or PDF (max 25MB).">
+            <Field label="Attach Logo" optional>
               {logoAttachment ? (
                 <div style={{
                   padding: '8px 12px',
@@ -2001,8 +2179,10 @@ function OnPageOrderStudio({ db, onOpenModal, notify }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12, marginTop: 18 }}>
             <Field label="Your Name" required>
               <input
+                type="text"
+                maxLength={80}
                 value={customerName}
-                onChange={e => setCustomerName(e.target.value)}
+                onChange={e => setCustomerName(e.target.value.replace(/[^a-zA-Z\s.\-']/g, '').slice(0, 80))}
                 placeholder="Enter your name"
                 style={{ width: '100%', padding: '11px 13px', borderRadius: 12, border: '1px solid var(--line)', fontSize: 14 }}
               />
@@ -2013,8 +2193,16 @@ function OnPageOrderStudio({ db, onOpenModal, notify }) {
                 <input
                   type="tel"
                   inputMode="numeric"
+                  pattern="[0-9]*"
                   maxLength="10"
                   value={phone}
+                  onKeyDown={blockNonDigits}
+                  onPaste={e => {
+                    e.preventDefault();
+                    const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                    const digits = pasted.replace(/\D/g, '').slice(0, 10);
+                    setPhone(digits);
+                  }}
                   onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
                   placeholder="10-digit number"
                   aria-label="10-digit WhatsApp number"
@@ -2026,16 +2214,20 @@ function OnPageOrderStudio({ db, onOpenModal, notify }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12, marginTop: 12 }}>
             <Field label="Delivery City" optional>
               <input
+                type="text"
+                maxLength={60}
                 value={city}
-                onChange={e => setCity(e.target.value)}
+                onChange={e => setCity(e.target.value.replace(/[^a-zA-Z\s.\-']/g, '').slice(0, 60))}
                 placeholder="Enter city"
                 style={{ width: '100%', padding: '11px 13px', borderRadius: 12, border: '1px solid var(--line)', fontSize: 14 }}
               />
             </Field>
             <Field label="Order Notes" optional>
               <input
+                type="text"
+                maxLength={500}
                 value={notes}
-                onChange={e => setNotes(e.target.value)}
+                onChange={e => setNotes(e.target.value.slice(0, 500))}
                 placeholder="Enter order notes"
                 style={{ width: '100%', padding: '11px 13px', borderRadius: 12, border: '1px solid var(--line)', fontSize: 14 }}
               />
@@ -3855,6 +4047,7 @@ function B2BSampleModal({ settings, initialSector, onClose, notify }) {
     <div className="modal show" onMouseDown={e => e.target === e.currentTarget && onClose()} role="dialog" aria-modal="true">
       <div className="modal-card modal-card-commercial">
         <div className="modal-head">
+          <div className="sheet-drag-handle" aria-hidden="true" />
           <div>
             <div className="eyebrow">✦ B2B SAMPLE & SWATCH CONCIERGE</div>
             <h3>Request Commercial Sample Kit</h3>
@@ -3886,9 +4079,11 @@ function B2BSampleModal({ settings, initialSector, onClose, notify }) {
                 <input
                   type="text"
                   required
+                  autoComplete="organization"
+                  maxLength={100}
                   value={form.businessName}
                   onChange={e => {
-                    setForm({ ...form, businessName: e.target.value });
+                    setForm({ ...form, businessName: e.target.value.slice(0, 100) });
                     if (error) setError('');
                   }}
                   placeholder="Enter business name"
@@ -3898,9 +4093,12 @@ function B2BSampleModal({ settings, initialSector, onClose, notify }) {
                 <input
                   type="text"
                   required
+                  autoComplete="name"
+                  maxLength={80}
                   value={form.contactPerson}
                   onChange={e => {
-                    setForm({ ...form, contactPerson: e.target.value });
+                    const clean = e.target.value.replace(/[^a-zA-Z\s.\-']/g, '').slice(0, 80);
+                    setForm({ ...form, contactPerson: clean });
                     if (error) setError('');
                   }}
                   placeholder="Enter contact person name"
@@ -3915,9 +4113,19 @@ function B2BSampleModal({ settings, initialSector, onClose, notify }) {
                   <input
                     type="tel"
                     inputMode="numeric"
+                    pattern="[0-9]*"
+                    autoComplete="tel"
                     maxLength="10"
                     required
                     value={form.phone}
+                    onKeyDown={blockNonDigits}
+                    onPaste={e => {
+                      e.preventDefault();
+                      const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                      const digits = pasted.replace(/\D/g, '').slice(0, 10);
+                      setForm({ ...form, phone: digits });
+                      if (error) setError('');
+                    }}
                     onChange={e => {
                       setForm({ ...form, phone: e.target.value.replace(/\D/g, '').slice(0, 10) });
                       if (error) setError('');
@@ -3930,12 +4138,18 @@ function B2BSampleModal({ settings, initialSector, onClose, notify }) {
               <Field label="Delivery City / State" optional>
                 <input
                   type="text"
+                  autoComplete="address-level2"
+                  maxLength={60}
                   value={form.city}
-                  onChange={e => setForm({ ...form, city: e.target.value })}
+                  onChange={e => {
+                    const clean = e.target.value.replace(/[^a-zA-Z\s.\-']/g, '').slice(0, 60);
+                    setForm({ ...form, city: clean });
+                  }}
                   placeholder="Enter delivery city or state"
                 />
               </Field>
             </div>
+
 
             <Field label="Select Commercial Sector">
               <select
@@ -3948,17 +4162,18 @@ function B2BSampleModal({ settings, initialSector, onClose, notify }) {
               </select>
             </Field>
 
-            <Field label="Estimated Quantity & Requirements" optional help="Mention estimated towel quantity, embroidery logo notes, or preferred towel sizes.">
+            <Field label="Estimated Quantity & Requirements" optional>
               <textarea
                 rows={3}
+                maxLength={1000}
                 value={form.requirements}
-                onChange={e => setForm({ ...form, requirements: e.target.value })}
+                onChange={e => setForm({ ...form, requirements: e.target.value.slice(0, 1000) })}
                 placeholder="e.g. 50 Salon Towels with logo embroidery, need soft black & white fabric"
               />
             </Field>
 
             {/* Optional Logo Upload for B2B Sample Kit */}
-            <Field label="Attach Logo" optional help="PNG, JPG, WEBP, SVG or PDF (max 25MB).">
+            <Field label="Attach Logo" optional>
               {logoAttachment ? (
                 <div style={{
                   padding: '8px 12px',

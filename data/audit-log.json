@@ -1,5 +1,256 @@
 [
   {
+    "id": "SECmvwed23hmnzsx5",
+    "timestamp": "2026-10-31T12:48:24.029Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwed23es7j825",
+    "timestamp": "2026-10-31T12:48:24.026Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwed1nuazl512"
+    }
+  },
+  {
+    "id": "SECmvwed238mv27ay",
+    "timestamp": "2026-10-31T12:48:24.020Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwed22ygjs892"
+    }
+  },
+  {
+    "id": "SECmvwed1uzuhnhl0",
+    "timestamp": "2026-10-31T12:48:23.724Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwe28c1sfono9",
+    "timestamp": "2026-10-31T12:39:58.897Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwe28bz05fb86",
+    "timestamp": "2026-10-31T12:39:58.895Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwe28996rnmb9"
+    }
+  },
+  {
+    "id": "SECmvwe28bvf2jwsz",
+    "timestamp": "2026-10-31T12:39:58.891Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwe28bo2gw549"
+    }
+  },
+  {
+    "id": "SECmvwe28acsdkmv3",
+    "timestamp": "2026-10-31T12:39:58.836Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvw6g41029n205",
+    "timestamp": "2026-10-31T09:06:49.572Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvw6g40t1buwjs",
+    "timestamp": "2026-10-31T09:06:49.565Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvw6g3p4t5vjl6"
+    }
+  },
+  {
+    "id": "SECmvw6g40gb107gd",
+    "timestamp": "2026-10-31T09:06:49.552Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvw6g3zrouusoa"
+    }
+  },
+  {
+    "id": "SECmvw6g3txay5opx",
+    "timestamp": "2026-10-31T09:06:49.317Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvw6eouzkmqhal",
+    "timestamp": "2026-10-31T09:05:43.259Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvw6eouwhv2089",
+    "timestamp": "2026-10-31T09:05:43.256Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvw6eoqnyf623s"
+    }
+  },
+  {
+    "id": "SECmvw6eousyw52jv",
+    "timestamp": "2026-10-31T09:05:43.252Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvw6eouit7egad"
+    }
+  },
+  {
+    "id": "SECmvw6eosd577s28",
+    "timestamp": "2026-10-31T09:05:43.165Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvtuosh3ginezq",
+    "timestamp": "2026-10-29T18:02:06.759Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvqy2kwxqmp1x1",
+    "timestamp": "2026-10-27T17:13:30.465Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvqxytno9r8782",
+    "timestamp": "2026-10-27T17:10:35.172Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvqxytitgrt6pj",
+    "timestamp": "2026-10-27T17:10:34.997Z",
+    "event": "LOGIN_FAILED",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "wrong@mazatowel.in",
+      "attemptCount": 1,
+      "locked": false,
+      "lockRemainingSecs": 0
+    }
+  },
+  {
+    "id": "SECmvni86ofn8mtwq",
+    "timestamp": "2026-10-25T07:26:39.567Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvnhj6qbfyfn0z",
+    "timestamp": "2026-10-25T07:07:13.235Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvnhgr5vb43fho",
+    "timestamp": "2026-10-25T07:05:19.747Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvnhfzfyyazpb6",
+    "timestamp": "2026-10-25T07:04:43.822Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
     "id": "SECmvnfve2v9rlwsf",
     "timestamp": "2026-10-25T06:20:43.399Z",
     "event": "LOGIN_SUCCESS",

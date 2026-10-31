@@ -14,6 +14,73 @@ const DEFAULT_DESIGN_CATEGORIES = [
   'Corporate & Hospitality'
 ];
 
+const STANDARD_SIZES = [
+  {
+    group: 'Bath Towels (Everyday & Luxury)',
+    sizes: [
+      { value: '27 × 52 inch', label: '27 × 52 inch — Compact Bath Towel' },
+      { value: '27 × 54 inch', label: '27 × 54 inch — Standard Bath Towel' },
+      { value: '28 × 58 inch', label: '28 × 58 inch — Solapur Cotton Bath Towel' },
+      { value: '30 × 56 inch', label: '30 × 56 inch — Large Bath Towel' },
+      { value: '30 × 60 inch', label: '30 × 60 inch — Royal Luxury Bath Towel' }
+    ]
+  },
+  {
+    group: 'Bath Sheets & Beach Towels (Oversized)',
+    sizes: [
+      { value: '35 × 60 inch', label: '35 × 60 inch — Spa Bath Sheet' },
+      { value: '35 × 70 inch', label: '35 × 70 inch — Jumbo Beach Towel' },
+      { value: '36 × 72 inch', label: '36 × 72 inch — Grand Suite Bath Towel XXXL' },
+      { value: '40 × 70 inch', label: '40 × 70 inch — Luxury Pool & Resort Towel' }
+    ]
+  },
+  {
+    group: 'Hand Towels (Bathroom & Basin)',
+    sizes: [
+      { value: '14 × 21 inch', label: '14 × 21 inch — Everyday Hand Towel' },
+      { value: '16 × 24 inch', label: '16 × 24 inch — Medium Hand Towel' },
+      { value: '16 × 28 inch', label: '16 × 28 inch — Standard Hand Towel' },
+      { value: '16 × 30 inch', label: '16 × 30 inch — Large Hand Towel' },
+      { value: '18 × 30 inch', label: '18 × 30 inch — Luxury Hand Towel' }
+    ]
+  },
+  {
+    group: 'Face Towels & Washcloths',
+    sizes: [
+      { value: '12 × 12 inch', label: '12 × 12 inch — Washcloth / Face Towel' },
+      { value: '13 × 13 inch', label: '13 × 13 inch — Deluxe Washcloth' },
+      { value: '16 × 24 inch', label: '16 × 24 inch — Petite Luxury Face Towel' },
+      { value: '20 × 36 inch', label: '20 × 36 inch — Spa & Salon Face Towel' }
+    ]
+  },
+  {
+    group: 'Kids & Baby Towels',
+    sizes: [
+      { value: '24 × 48 inch', label: '24 × 48 inch — Kids Bath Towel' },
+      { value: '30 × 30 inch', label: '30 × 30 inch — Baby / Hooded Towel' }
+    ]
+  },
+  {
+    group: 'Kitchen, Gym & Fitness Towels',
+    sizes: [
+      { value: '12 × 44 inch', label: '12 × 44 inch — Fitness / Gym Towel' },
+      { value: '18 × 28 inch', label: '18 × 28 inch — Kitchen / Tea Towel' }
+    ]
+  },
+  {
+    group: 'Custom T-Shirts & Apparel (Chest Sizes)',
+    sizes: [
+      { value: '38 to 46 inch', label: '38 to 46 inch — All Chest Sizes (S–XXL)' },
+      { value: '36 inch', label: '36 inch — Small (S)' },
+      { value: '38 inch', label: '38 inch — Medium (M)' },
+      { value: '40 inch', label: '40 inch — Large (L)' },
+      { value: '42 inch', label: '42 inch — Extra Large (XL)' },
+      { value: '44 inch', label: '44 inch — Double XL (2XL)' },
+      { value: '46 inch', label: '46 inch — Triple XL (3XL)' }
+    ]
+  }
+];
+
 const COLLECTIONS = ['products', 'colors', /* 'threads', -- THREADS PAUSED */ 'designs', 'gallery', 'customers', 'reviews', 'enquiries', 'faqs', 'offers'];
 const TITLES = {
   dashboard: 'Dashboard',
@@ -117,6 +184,66 @@ export const isTShirtItem = (item) => {
   return prod.includes('t-shirt') || prod.includes('tshirt') || prod.includes('polo') || prod.includes('tee');
 };
 
+export const formatRelativeTime = (val) => {
+  if (!val) return '';
+  const date = val instanceof Date ? val : new Date(val);
+  const time = date.getTime();
+  if (isNaN(time)) return String(val);
+  const now = Date.now();
+  const diffSec = Math.floor((now - time) / 1000);
+  if (diffSec < 0 && diffSec > -10) return 'Just now';
+  if (diffSec < 10) return 'Just now';
+  if (diffSec < 60) return `${diffSec}s ago`;
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `${diffMin}m ago`;
+  const diffHour = Math.floor(diffMin / 60);
+  if (diffHour < 24) return `${diffHour}h ago`;
+  const diffDay = Math.floor(diffHour / 24);
+  if (diffDay === 1) return 'Yesterday';
+  if (diffDay < 7) return `${diffDay}d ago`;
+  const diffWeek = Math.floor(diffDay / 7);
+  if (diffWeek < 5) return `${diffWeek}w ago`;
+  const diffMonth = Math.floor(diffDay / 30);
+  if (diffMonth < 12) return `${diffMonth}mo ago`;
+  const diffYear = Math.floor(diffDay / 365);
+  return `${diffYear}y ago`;
+};
+
+// Two-tone Web Audio chime for real-time order alerts (Zero external audio assets required)
+export const playNewOrderChime = () => {
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    const ctx = new AudioContextClass();
+    const now = ctx.currentTime;
+
+    // Tone 1: 587.33 Hz (D5)
+    const osc1 = ctx.createOscillator();
+    const gain1 = ctx.createGain();
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(587.33, now);
+    gain1.gain.setValueAtTime(0.12, now);
+    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+    osc1.connect(gain1);
+    gain1.connect(ctx.destination);
+    osc1.start(now);
+    osc1.stop(now + 0.35);
+
+    // Tone 2: 880 Hz (A5)
+    const osc2 = ctx.createOscillator();
+    const gain2 = ctx.createGain();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(880, now + 0.14);
+    gain2.gain.setValueAtTime(0.15, now + 0.14);
+    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+    osc2.connect(gain2);
+    gain2.connect(ctx.destination);
+    osc2.start(now + 0.14);
+    osc2.stop(now + 0.65);
+  } catch {}
+};
+
+
 export const getWhatsAppConfirmLink = (enq) => {
   if (!enq) return '#';
   let rawPhone = String(enq.phone || '').replace(/\D/g, '');
@@ -182,7 +309,7 @@ function readFile(file) {
   });
 }
 
-function FormField({ label, required, error, help, children, className = '' }) {
+function FormField({ label, required, error, children, className = '' }) {
   return (
     <div className={`field ${error ? 'has-error' : ''} ${className}`}>
       <label>
@@ -199,14 +326,13 @@ function FormField({ label, required, error, help, children, className = '' }) {
           {error}
         </span>
       )}
-      {help && !error && <span className="muted" style={{ display: 'block', fontSize: 11, marginTop: 4 }}>{help}</span>}
     </div>
   );
 }
 
 function CheckboxCard({ label, description, checked, onChange }) {
   return (
-    <label className="check-card">
+    <label className={`check-card ${checked ? 'is-checked' : ''}`}>
       <input type="checkbox" checked={Boolean(checked)} onChange={e => onChange(e.target.checked)} />
       <div className="check-card-info">
         <strong>{label}</strong>
@@ -218,51 +344,56 @@ function CheckboxCard({ label, description, checked, onChange }) {
 
 function ImagePicker({ label = 'Photo / Image', currentImage, file, onFileChange, onRemove }) {
   const previewUrl = file ? URL.createObjectURL(file) : currentImage;
+  const fileName = file ? file.name : (currentImage ? currentImage.split('/').pop() : 'Uploaded Image');
   return (
-    <div className="field" style={{ marginTop: 12 }}>
+    <div className="field" style={{ marginTop: 14 }}>
       <label>{label}</label>
       {previewUrl ? (
-        <div className="image-preview-box" style={{ background: '#FAFDFD', padding: 12, borderRadius: 14, border: '1px solid var(--line)' }}>
+        <div className="image-preview-box">
           <img src={previewUrl} alt="Preview" className="image-preview-thumb" />
           <div className="image-preview-meta">
-            <strong>{file ? file.name : (currentImage ? currentImage.split('/').pop() : 'Uploaded Image')}</strong>
-            <span>{file ? `${(file.size / 1024).toFixed(0)} KB ready to upload` : 'Current active photo'}</span>
+            <div className="image-preview-header">
+              <strong title={fileName}>{fileName}</strong>
+              <span className="image-status-pill">
+                <span className="status-dot"></span>
+                {file ? 'Ready to upload' : 'Active photo'}
+              </span>
+            </div>
+            {file && <span className="image-size-sub">{(file.size / 1024).toFixed(0)} KB ready to upload</span>}
             <div className="image-actions">
               <label
-                className="btn btn-secondary"
-                style={{ cursor: 'pointer', padding: '6px 12px', fontSize: 11, minHeight: 32, display: 'inline-flex', alignItems: 'center', gap: 6 }}
-                title="Change"
+                className="image-action-btn image-action-change"
+                title="Change Image"
               >
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                   <polyline points="17 8 12 3 7 8" />
                   <line x1="12" y1="3" x2="12" y2="15" />
                 </svg>
-                Change Image
+                <span>Change Image</span>
                 <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => e.target.files[0] && onFileChange(e.target.files[0])} />
               </label>
               <button
                 type="button"
-                className="btn btn-danger"
-                style={{ padding: '6px 12px', fontSize: 11, minHeight: 32, display: 'inline-flex', alignItems: 'center', gap: 6 }}
+                className="image-action-btn image-action-remove"
                 onClick={onRemove}
-                title="Remove"
+                title="Remove current image"
                 aria-label="Remove current image"
               >
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="3 6 5 6 21 6" />
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                 </svg>
-                Remove
+                <span>Remove</span>
               </button>
             </div>
           </div>
         </div>
       ) : (
-        <label className="image-uploader" style={{ display: 'block', cursor: 'pointer' }}>
-          <div style={{ fontSize: 24, marginBottom: 4 }}>📷</div>
-          <strong style={{ display: 'block', fontSize: 13, color: 'var(--teal2)' }}>Click to upload image</strong>
-          <span style={{ fontSize: 11, color: 'var(--muted)' }}>Supports JPG, PNG, WEBP (Max 15MB)</span>
+        <label className="image-uploader">
+          <div className="image-uploader-icon">📷</div>
+          <strong className="image-uploader-title">Click to upload image</strong>
+          <span className="image-uploader-sub">Supports JPG, PNG, WEBP (Max 15MB)</span>
           <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => e.target.files[0] && onFileChange(e.target.files[0])} />
         </label>
       )}
@@ -270,50 +401,213 @@ function ImagePicker({ label = 'Photo / Image', currentImage, file, onFileChange
   );
 }
 
+// Utility helper to strictly block any non-digit character (letters, spaces, punctuation, symbols) in numeric fields
+const blockNonDigits = (e) => {
+  if (
+    [
+      'Backspace',
+      'Delete',
+      'Tab',
+      'Escape',
+      'Enter',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowDown',
+      'Home',
+      'End'
+    ].includes(e.key)
+  ) {
+    return;
+  }
+  if ((e.ctrlKey || e.metaKey) && ['a', 'c', 'v', 'x', 'z', 'y'].includes(e.key.toLowerCase())) {
+    return;
+  }
+  if (!/^[0-9]$/.test(e.key)) {
+    e.preventDefault();
+  }
+};
+const blockNonIntegerKeys = blockNonDigits;
+
 function validateItem(type, item, file) {
   const errors = {};
   if (type === 'products') {
-    if (!item.name || !item.name.trim()) errors.name = 'Product name is required (e.g. Personalized Bath Towel).';
+    if (!item.name || !item.name.trim()) {
+      errors.name = 'Product name is required (e.g. Personalized Bath Towel).';
+    } else if (item.name.trim().length > 100) {
+      errors.name = 'Product name must not exceed 100 characters.';
+    }
     if (!item.category || !item.category.trim()) errors.category = 'Category is required.';
     if (!item.size || !item.size.trim()) {
-      errors.size = 'Size is required (e.g. 30 × 60 inch).';
-    } else if (/\bcm\b|centimeter/i.test(item.size)) {
-      errors.size = 'Size must be in inches only (e.g. 30 × 60 inch).';
+      errors.size = 'Please select a standard size.';
     }
-    if (isNaN(item.price) || Number(item.price) <= 0) errors.price = 'Please enter a valid price in rupees (greater than 0).';
-    if (!item.desc || !item.desc.trim()) errors.desc = 'Brief product description is required.';
+    const numPrice = Number(item.price);
+    if (item.price === '' || item.price === undefined || item.price === null || isNaN(numPrice) || numPrice <= 0 || !Number.isFinite(numPrice)) {
+      errors.price = 'Please enter a valid price in rupees (greater than 0, numbers only).';
+    } else if (numPrice > 999999) {
+      errors.price = 'Price cannot exceed ₹999,999.';
+    }
+    if (!item.desc || !item.desc.trim()) {
+      errors.desc = 'Brief product description is required.';
+    } else if (item.desc.trim().length > 1000) {
+      errors.desc = 'Description must not exceed 1000 characters.';
+    }
+    if (item.badge && item.badge.trim().length > 30) {
+      errors.badge = 'Badge text must not exceed 30 characters.';
+    }
   } else if (type === 'colors') {
-    if (!item.name || !item.name.trim()) errors.name = 'Color name is required (e.g. Ocean Teal).';
-    if (!item.hex || !item.hex.trim()) errors.hex = 'Hex color code is required (e.g. #2F7F82).';
+    if (!item.name || !item.name.trim()) {
+      errors.name = 'Color name is required (e.g. Ocean Teal).';
+    } else if (item.name.trim().length > 50) {
+      errors.name = 'Color name must not exceed 50 characters.';
+    } else if (!/^[A-Za-z\s\-']+$/.test(item.name.trim())) {
+      errors.name = 'Color name can only contain letters, spaces, and hyphens.';
+    }
+    if (!item.hex || !item.hex.trim()) {
+      errors.hex = 'Hex color code is required (e.g. #2F7F82).';
+    } else if (!/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(item.hex.trim())) {
+      errors.hex = 'Invalid hex color format. Must be #RGB or #RRGGBB (e.g. #2F7F82).';
+    }
+    if (item.desc && item.desc.trim().length > 500) {
+      errors.desc = 'Description must not exceed 500 characters.';
+    }
   /* THREADS FEATURE PAUSED - UNCOMMENT WHEN REQUIRED:
   } else if (type === 'threads') {
     if (!item.name || !item.name.trim()) errors.name = 'Thread color name is required (e.g. Metallic Gold).';
     if (!item.hex || !item.hex.trim()) errors.hex = 'Hex color code is required (e.g. #D4AF37).';
   */
   } else if (type === 'designs') {
-    if (!item.designId || !item.designId.trim()) errors.designId = 'Design Code is required (e.g. MT-001).';
-    if (!item.name || !item.name.trim()) errors.name = 'Design name is required.';
-    if (!item.category || !item.category.trim()) errors.category = 'Category is required.';
+    if (!item.designId || !item.designId.trim()) {
+      errors.designId = 'Design Code is required (e.g. MT-001).';
+    } else if (!/^[A-Za-z0-9_\-]+$/.test(item.designId.trim())) {
+      errors.designId = 'Design Code must contain only letters, numbers, and hyphens without spaces (e.g. MT-001).';
+    } else if (item.designId.trim().length > 20) {
+      errors.designId = 'Design Code must not exceed 20 characters.';
+    }
+    if (!item.name || !item.name.trim()) {
+      errors.name = 'Design name is required.';
+    } else if (item.name.trim().length > 80) {
+      errors.name = 'Design name must not exceed 80 characters.';
+    }
+    if (!item.category || !item.category.trim()) {
+      errors.category = 'Category is required.';
+    } else if (item.category.trim().length > 50) {
+      errors.category = 'Category must not exceed 50 characters.';
+    }
+    if (item.desc && item.desc.trim().length > 600) {
+      errors.desc = 'Description must not exceed 600 characters.';
+    }
   } else if (type === 'gallery') {
-    if (!item.alt || !item.alt.trim()) errors.alt = 'Caption / photo description is required.';
+    if (!item.alt || !item.alt.trim()) {
+      errors.alt = 'Caption / photo description is required.';
+    } else if (item.alt.trim().length > 200) {
+      errors.alt = 'Caption must not exceed 200 characters.';
+    }
     if (!item.image && !file) errors.image = 'Please select a photo to upload.';
   } else if (type === 'customers') {
-    if (!item.name || !item.name.trim()) errors.name = 'Customer / business name is required.';
-    if (!item.tagline || !item.tagline.trim()) errors.tagline = 'Tagline or summary is required.';
+    if (!item.name || !item.name.trim()) {
+      errors.name = 'Customer / business name is required.';
+    } else if (item.name.trim().length > 100) {
+      errors.name = 'Customer name must not exceed 100 characters.';
+    }
+    if (item.category && item.category.trim().length > 60) {
+      errors.category = 'Category must not exceed 60 characters.';
+    }
+    if (item.website && item.website.trim()) {
+      const urlStr = item.website.trim();
+      if (urlStr.length > 255) {
+        errors.website = 'Website URL must not exceed 255 characters.';
+      } else if (!/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/i.test(urlStr)) {
+        errors.website = 'Please enter a valid website URL (e.g. https://hotelboutique.com).';
+      }
+    }
+    if (!item.tagline || !item.tagline.trim()) {
+      errors.tagline = 'Tagline or summary is required.';
+    } else if (item.tagline.trim().length > 300) {
+      errors.tagline = 'Tagline must not exceed 300 characters.';
+    }
   } else if (type === 'reviews') {
-    if (!item.name || !item.name.trim()) errors.name = 'Customer name is required.';
-    if (!item.text || !item.text.trim()) errors.text = 'Review text is required.';
-    if (!item.rating || Number(item.rating) < 1 || Number(item.rating) > 5) errors.rating = 'Rating must be between 1 and 5.';
+    if (!item.name || !item.name.trim()) {
+      errors.name = 'Customer name is required.';
+    } else if (item.name.trim().length > 60) {
+      errors.name = 'Customer name must not exceed 60 characters.';
+    } else if (!/^[A-Za-z\s.\-']+$/.test(item.name.trim())) {
+      errors.name = 'Customer name should only contain letters, dots, and hyphens.';
+    }
+    if (!item.text || !item.text.trim()) {
+      errors.text = 'Review text is required.';
+    } else if (item.text.trim().length > 1000) {
+      errors.text = 'Review text must not exceed 1000 characters.';
+    }
+    const numRating = Number(item.rating);
+    if (!item.rating || isNaN(numRating) || numRating < 1 || numRating > 5) {
+      errors.rating = 'Rating must be an integer between 1 and 5.';
+    }
+    if (item.date) {
+      const today = new Date().toISOString().slice(0, 10);
+      if (item.date > today) {
+        errors.date = 'Review date cannot be in the future.';
+      }
+    }
   } else if (type === 'enquiries') {
-    if (!item.customerName || !item.customerName.trim()) errors.customerName = 'Customer name is required.';
-    if (!item.phone || !item.phone.trim()) errors.phone = 'Phone number is required.';
+    if (!item.customerName || !item.customerName.trim()) {
+      errors.customerName = 'Customer name is required.';
+    } else if (item.customerName.trim().length > 80) {
+      errors.customerName = 'Customer name must not exceed 80 characters.';
+    }
+    if (!item.phone || !item.phone.trim()) {
+      errors.phone = 'Phone number is required.';
+    } else {
+      const digits = item.phone.replace(/\D/g, '');
+      if (digits.length < 10) {
+        errors.phone = 'Please enter a valid phone number with at least 10 digits (numbers only).';
+      } else if (item.phone.trim().length > 16) {
+        errors.phone = 'Phone number must not exceed 16 characters.';
+      }
+    }
+    if (item.quantity !== undefined && item.quantity !== null && item.quantity !== '') {
+      const q = Number(item.quantity);
+      if (isNaN(q) || q < 1 || !Number.isInteger(q)) {
+        errors.quantity = 'Quantity must be a positive whole number (at least 1).';
+      } else if (q > 99999) {
+        errors.quantity = 'Quantity cannot exceed 99,999.';
+      }
+    }
+    if (item.notes && item.notes.trim().length > 1000) {
+      errors.notes = 'Notes must not exceed 1000 characters.';
+    }
   } else if (type === 'faqs') {
-    if (!item.q || !item.q.trim()) errors.q = 'Question is required.';
-    if (!item.a || !item.a.trim()) errors.a = 'Answer is required.';
+    if (!item.q || !item.q.trim()) {
+      errors.q = 'Question is required.';
+    } else if (item.q.trim().length > 250) {
+      errors.q = 'Question must not exceed 250 characters.';
+    }
+    if (!item.a || !item.a.trim()) {
+      errors.a = 'Answer is required.';
+    } else if (item.a.trim().length > 2000) {
+      errors.a = 'Answer must not exceed 2000 characters.';
+    }
   } else if (type === 'offers') {
-    if (!item.title || !item.title.trim()) errors.title = 'Offer title is required.';
-    if (!item.code || !item.code.trim()) errors.code = 'Promo code is required.';
-    if (!item.discount || !item.discount.trim()) errors.discount = 'Discount description is required.';
+    if (!item.title || !item.title.trim()) {
+      errors.title = 'Offer title is required.';
+    } else if (item.title.trim().length > 100) {
+      errors.title = 'Offer title must not exceed 100 characters.';
+    }
+    if (!item.code || !item.code.trim()) {
+      errors.code = 'Promo code is required.';
+    } else if (!/^[A-Za-z0-9_\-]+$/.test(item.code.trim())) {
+      errors.code = 'Promo code must only contain letters, numbers, and hyphens without spaces (e.g. FESTIVE10).';
+    } else if (item.code.trim().length > 20) {
+      errors.code = 'Promo code must not exceed 20 characters.';
+    }
+    if (!item.discount || !item.discount.trim()) {
+      errors.discount = 'Discount description is required.';
+    } else if (item.discount.trim().length > 80) {
+      errors.discount = 'Discount description must not exceed 80 characters.';
+    }
+    if (item.desc && item.desc.trim().length > 500) {
+      errors.desc = 'Offer description must not exceed 500 characters.';
+    }
   }
   return errors;
 }
@@ -350,6 +644,14 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
   const [customCatInput, setCustomCatInput] = useState(
     () => (type === 'designs' && form.category && !DEFAULT_DESIGN_CATEGORIES.includes(form.category) ? form.category : '')
   );
+
+  const selectedSizeLabel = useMemo(() => {
+    for (const group of STANDARD_SIZES) {
+      const found = group.sizes.find(s => s.value === form.size);
+      if (found) return found.label;
+    }
+    return form.size || 'Select standard size (in inches)...';
+  }, [form.size]);
 
   const setVal = (k, v) => {
     setForm(prev => ({ ...prev, [k]: v }));
@@ -443,8 +745,14 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
               {type === 'products' && (
                 <>
                   <div className="form-row">
-                    <FormField label="Product Title" required error={errors.name} help="e.g. Personalized Bath Towel">
-                      <input value={form.name || ''} onChange={e => setVal('name', e.target.value)} placeholder="Enter product title" />
+                    <FormField label="Product Title" required error={errors.name}>
+                      <input
+                        type="text"
+                        maxLength={100}
+                        value={form.name || ''}
+                        onChange={e => setVal('name', e.target.value.slice(0, 100))}
+                        placeholder="Enter product title"
+                      />
                     </FormField>
                     <FormField label="Category" required error={errors.category}>
                       <select value={form.category || 'Hand Towels'} onChange={e => setVal('category', e.target.value)}>
@@ -453,20 +761,68 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                     </FormField>
                   </div>
 
-                  <div className="form-row-3">
-                    <FormField label="Size (Inches Only)" required error={errors.size} help="e.g. 30 × 60 inch">
-                      <input value={form.size || ''} onChange={e => setVal('size', e.target.value)} placeholder="Enter size in inches" />
+                  <div className="form-row">
+                    <FormField label="Size (Inches Only)" required error={errors.size}>
+                      <select
+                        value={form.size || ''}
+                        onChange={e => setVal('size', e.target.value)}
+                        title={selectedSizeLabel}
+                      >
+                        <option value="">Select standard size (in inches)...</option>
+                        {STANDARD_SIZES.map(group => (
+                          <optgroup key={group.group} label={group.group}>
+                            {group.sizes.map(s => (
+                              <option key={s.value} value={s.value}>{s.label}</option>
+                            ))}
+                          </optgroup>
+                        ))}
+                        {form.size && !STANDARD_SIZES.some(g => g.sizes.some(s => s.value === form.size)) && (
+                          <option value={form.size}>{form.size} (Current)</option>
+                        )}
+                      </select>
                     </FormField>
-                    <FormField label="Price (₹)" required error={errors.price} help="Base price in INR">
-                      <input type="number" min="1" value={form.price ?? 90} onChange={e => setVal('price', e.target.value)} />
-                    </FormField>
-                    <FormField label="Badge / Ribbon" help="e.g. Best Seller, Popular">
-                      <input value={form.badge || ''} onChange={e => setVal('badge', e.target.value)} placeholder="Enter badge text (optional)" />
-                    </FormField>
+                    <div className="price-badge-subgrid">
+                      <FormField label="Price (₹)" required error={errors.price}>
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          maxLength={6}
+                          value={form.price === '' ? '' : (form.price ?? 90)}
+                          onKeyDown={blockNonDigits}
+                          onPaste={e => {
+                            e.preventDefault();
+                            const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                            const digits = pasted.replace(/\D/g, '').slice(0, 6);
+                            setVal('price', digits === '' ? '' : parseInt(digits, 10));
+                          }}
+                          onChange={e => {
+                            const raw = e.target.value.replace(/\D/g, '').slice(0, 6);
+                            setVal('price', raw === '' ? '' : parseInt(raw, 10));
+                          }}
+                          placeholder="Price in ₹"
+                        />
+                      </FormField>
+                      <FormField label="Badge / Ribbon" error={errors.badge}>
+                        <input
+                          type="text"
+                          maxLength={30}
+                          value={form.badge || ''}
+                          onChange={e => setVal('badge', e.target.value.slice(0, 30))}
+                          placeholder="e.g. Personalized"
+                        />
+                      </FormField>
+                    </div>
                   </div>
 
-                  <FormField label="Product Description" required error={errors.desc} help="Highlights, cotton fabric feel, occasion recommendations">
-                    <textarea rows="3" value={form.desc || ''} onChange={e => setVal('desc', e.target.value)} placeholder="Enter product description" />
+                  <FormField label="Product Description" required error={errors.desc}>
+                    <textarea
+                      rows="3"
+                      maxLength={1000}
+                      value={form.desc || ''}
+                      onChange={e => setVal('desc', e.target.value.slice(0, 1000))}
+                      placeholder="Enter product description"
+                    />
                   </FormField>
 
                   <ImagePicker
@@ -477,51 +833,24 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                     onRemove={() => { setFile(null); setVal('image', ''); }}
                   />
 
-                  <FormField label="Allowed Color Palette (Optional Restriction)" help="Leave unselected to allow all matching category colors, or check specific colors to restrict this product">
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: 8, marginTop: 6 }}>
-                      {(() => {
-                        const storeColors = (Array.isArray(data?.colors) && data.colors.length > 0)
-                          ? data.colors.map(c => c.name).filter(Boolean)
-                          : ['Milky White', 'Ocean Teal', 'Blush Rose', 'Royal Blue', 'Pastel Mint', 'Slate Charcoal', 'Warm Champagne', 'Pristine White', 'Classic Navy', 'Jet Black', 'Sage Green'];
-                        const allowed = Array.isArray(form.allowedColors) ? form.allowedColors : [];
-                        const allOptions = [...new Set([...storeColors, ...allowed])];
-                        return allOptions.map(cName => {
-                          const isChecked = allowed.includes(cName);
-                          return (
-                            <label key={cName} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, cursor: 'pointer', padding: '6px 8px', borderRadius: 8, background: isChecked ? 'var(--soft)' : '#fff', border: '1px solid var(--line)' }}>
-                              <input
-                                type="checkbox"
-                                checked={isChecked}
-                                onChange={e => {
-                                  const next = e.target.checked ? [...allowed, cName] : allowed.filter(x => x !== cName);
-                                  setVal('allowedColors', next);
-                                }}
-                              />
-                              <span>{cName}</span>
-                            </label>
-                          );
-                        });
-                      })()}
-                    </div>
-                  </FormField>
 
                   <div className="form-section-title">Visibility & Badging</div>
                   <div className="form-row-3">
                     <CheckboxCard
                       label="Published"
-                      description="Visible on public website"
+                      description="Visible on live website"
                       checked={form.published !== false}
                       onChange={v => setVal('published', v)}
                     />
                     <CheckboxCard
                       label="Featured"
-                      description="Showcase in homepage highlights"
+                      description="Showcase in featured highlights"
                       checked={form.featured === true}
                       onChange={v => setVal('featured', v)}
                     />
                     <CheckboxCard
                       label="Best Seller"
-                      description="Prioritize with bestseller tag"
+                      description="Highlight with bestseller badge"
                       checked={form.bestSeller === true}
                       onChange={v => setVal('bestSeller', v)}
                     />
@@ -533,34 +862,50 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
               {type === 'colors' && (
                 <>
                   <div className="form-row">
-                    <FormField label="Color Name" required error={errors.name} help="e.g. Ocean Teal, Milky White, Blush Rose">
-                      <input value={form.name || ''} onChange={e => setVal('name', e.target.value)} placeholder="Enter color name" />
+                    <FormField label="Color Name" required error={errors.name}>
+                      <input
+                        type="text"
+                        maxLength={50}
+                        value={form.name || ''}
+                        onChange={e => {
+                          const lettersOnly = e.target.value.replace(/[^a-zA-Z\s\-']/g, '').slice(0, 50);
+                          setVal('name', lettersOnly);
+                        }}
+                        placeholder="Enter color name"
+                      />
                     </FormField>
-                    <FormField label="Swatch Hex Code" required error={errors.hex} help="Click box to pick or type hex">
+                    <FormField label="Swatch Hex Code" required error={errors.hex}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                         <input
                           type="color"
                           value={form.hex?.startsWith('#') && form.hex.length === 7 ? form.hex : '#2F7F82'}
-                          onChange={e => setVal('hex', e.target.value)}
+                          onChange={e => setVal('hex', e.target.value.toUpperCase())}
                           style={{ width: 44, height: 44, padding: 2, borderRadius: 10, border: '1px solid var(--line)', cursor: 'pointer' }}
                         />
                         <input
+                          type="text"
+                          maxLength={7}
                           value={form.hex || ''}
-                          onChange={e => setVal('hex', e.target.value)}
-                          placeholder="Enter hex code"
-                          style={{ flex: 1 }}
+                          onChange={e => {
+                            let val = e.target.value.toUpperCase().replace(/[^0-9A-F#]/g, '');
+                            if (val && !val.startsWith('#')) val = '#' + val;
+                            val = val.slice(0, 7);
+                            setVal('hex', val);
+                          }}
+                          placeholder="#2F7F82"
+                          style={{ flex: 1, fontFamily: 'monospace', textTransform: 'uppercase' }}
                         />
                       </div>
                     </FormField>
                   </div>
 
-                  <FormField label="Applicable Product Categories" help="Which types of products can offer this color">
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: 8, marginTop: 6 }}>
+                  <FormField label="Applicable Product Categories">
+                    <div className="form-choice-grid">
                       {['Bath Towels', 'Hand Towels', 'Face Towels', 'Kids Towels', 'Custom T-Shirts'].map(cat => {
                         const currentCats = Array.isArray(form.categories) ? form.categories : ['Bath Towels', 'Hand Towels', 'Face Towels', 'Kids Towels'];
                         const isChecked = currentCats.includes(cat);
                         return (
-                          <label key={cat} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, cursor: 'pointer', padding: '6px 8px', borderRadius: 8, background: isChecked ? 'var(--soft)' : '#fff', border: '1px solid var(--line)' }}>
+                          <label key={cat} className={`form-choice-card ${isChecked ? 'is-checked' : ''}`}>
                             <input
                               type="checkbox"
                               checked={isChecked}
@@ -569,20 +914,20 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                                 setVal('categories', next);
                               }}
                             />
-                            <span>{cat}</span>
+                            <span className="form-choice-label">{cat}</span>
                           </label>
                         );
                       })}
                     </div>
                   </FormField>
 
-                  <FormField label="Applicable Towel Sizes" help="Select all sizes this color is offered for (or All Sizes)">
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: 8, marginTop: 6 }}>
+                  <FormField label="Applicable Towel Sizes">
+                    <div className="form-choice-grid">
                       {['All Sizes', '12 × 12 inch', '14 × 21 inch', '16 × 24 inch', '20 × 36 inch', '24 × 48 inch', '27 × 54 inch', '30 × 60 inch', '36 × 72 inch', '38 inch', '40 inch', '42 inch', '44 inch', '46 inch'].map(s => {
                         const currentSizes = Array.isArray(form.sizes) ? form.sizes : (form.sizes ? [form.sizes] : ['All Sizes']);
                         const isChecked = currentSizes.includes(s);
                         return (
-                          <label key={s} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, cursor: 'pointer', padding: '6px 8px', borderRadius: 8, background: isChecked ? 'var(--soft)' : '#fff', border: '1px solid var(--line)' }}>
+                          <label key={s} className={`form-choice-card ${isChecked ? 'is-checked' : ''}`}>
                             <input
                               type="checkbox"
                               checked={isChecked}
@@ -598,20 +943,20 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                                 setVal('sizes', next);
                               }}
                             />
-                            <span>{s}</span>
+                            <span className="form-choice-label">{s}</span>
                           </label>
                         );
                       })}
                     </div>
                   </FormField>
 
-                  <FormField label="Size-Specific Stock Availability" help="Check any specific sizes where this color is currently SOLD OUT">
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 8, marginTop: 6 }}>
+                  <FormField label="Size-Specific Stock Availability">
+                    <div className="form-choice-grid">
                       {['12 × 12 inch', '14 × 21 inch', '16 × 24 inch', '20 × 36 inch', '24 × 48 inch', '27 × 54 inch', '30 × 60 inch', '36 × 72 inch', '38 inch', '40 inch', '42 inch', '44 inch', '46 inch'].map(s => {
                         const oosSizes = Array.isArray(form.outOfStockSizes) ? form.outOfStockSizes : [];
                         const isOos = oosSizes.includes(s);
                         return (
-                          <label key={s} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, cursor: 'pointer', padding: '6px 8px', borderRadius: 8, background: isOos ? '#fff1f0' : '#fff', border: isOos ? '1.5px solid #f7d2cd' : '1px solid var(--line)', color: isOos ? '#b42318' : 'inherit', fontWeight: isOos ? 700 : 500 }}>
+                          <label key={s} className={`form-choice-card is-oos ${isOos ? 'is-checked' : ''}`}>
                             <input
                               type="checkbox"
                               checked={isOos}
@@ -620,15 +965,21 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                                 setVal('outOfStockSizes', next);
                               }}
                             />
-                            <span>{s} {isOos ? '(Sold Out)' : ''}</span>
+                            <span className="form-choice-label">{s} {isOos ? '(Sold Out)' : ''}</span>
                           </label>
                         );
                       })}
                     </div>
                   </FormField>
 
-                  <FormField label="Description / Fabric Shade Details" help="e.g. 550 GSM pure combed cotton, rich sea teal">
-                    <textarea rows="2" value={form.desc || ''} onChange={e => setVal('desc', e.target.value)} placeholder="Enter fabric notes" />
+                  <FormField label="Description / Fabric Shade Details" error={errors.desc}>
+                    <textarea
+                      rows="2"
+                      maxLength={500}
+                      value={form.desc || ''}
+                      onChange={e => setVal('desc', e.target.value.slice(0, 500))}
+                      placeholder="Enter fabric notes"
+                    />
                   </FormField>
 
                   <ImagePicker
@@ -661,10 +1012,10 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
               {type === 'threads' && (
                 <>
                   <div className="form-row">
-                    <FormField label="Thread Color Name" required error={errors.name} help="e.g. Metallic Gold, Royal Blue, Rose Pink">
+                    <FormField label="Thread Color Name" required error={errors.name}>
                       <input value={form.name || ''} onChange={e => setVal('name', e.target.value)} placeholder="Enter thread color name" />
                     </FormField>
-                    <FormField label="Hex Color Code" required error={errors.hex} help="Pick or type hex code (e.g. #D4AF37)">
+                    <FormField label="Hex Color Code" required error={errors.hex}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <input
                           type="color"
@@ -684,7 +1035,7 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                   </div>
 
                   <div className="form-row">
-                    <FormField label="Thread Finish / Luster" help="Specify thread style">
+                    <FormField label="Thread Finish / Luster">
                       <select value={form.finish || 'Silk Luster'} onChange={e => setVal('finish', e.target.value)}>
                         {['Metallic Sheen', 'Silk Luster', 'Classic Cotton', 'Matte Finish', 'Neon / High-Vis', 'Custom Consultation'].map(f => (
                           <option key={f} value={f}>{f}</option>
@@ -693,7 +1044,7 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                     </FormField>
                   </div>
 
-                  <FormField label="Description / Thread Details" help="e.g. High-density Japanese metallic thread with subtle gold sparkle">
+                  <FormField label="Description / Thread Details">
                     <textarea rows="2" value={form.desc || ''} onChange={e => setVal('desc', e.target.value)} placeholder="Enter thread notes" />
                   </FormField>
 
@@ -720,11 +1071,27 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
               {type === 'designs' && (
                 <>
                   <div className="form-row">
-                    <FormField label="Design Code" required error={errors.designId} help="e.g. MT-001, MT-024">
-                      <input value={form.designId || ''} onChange={e => setVal('designId', e.target.value)} placeholder="Enter design code" />
+                    <FormField label="Design Code" required error={errors.designId}>
+                      <input
+                        type="text"
+                        maxLength={20}
+                        value={form.designId || ''}
+                        onChange={e => {
+                          const code = e.target.value.toUpperCase().replace(/[^A-Z0-9_\-]/g, '').slice(0, 20);
+                          setVal('designId', code);
+                        }}
+                        placeholder="Enter design code"
+                        style={{ textTransform: 'uppercase', fontFamily: 'monospace' }}
+                      />
                     </FormField>
-                    <FormField label="Design Name" required error={errors.name} help="e.g. Royal Peacock Crest">
-                      <input value={form.name || ''} onChange={e => setVal('name', e.target.value)} placeholder="Enter design name" />
+                    <FormField label="Design Name" required error={errors.name}>
+                      <input
+                        type="text"
+                        maxLength={80}
+                        value={form.name || ''}
+                        onChange={e => setVal('name', e.target.value.slice(0, 80))}
+                        placeholder="Enter design name"
+                      />
                     </FormField>
                   </div>
 
@@ -762,17 +1129,19 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                       }
                       required
                       error={errors.category}
-                      help={isCustomCategoryMode ? 'Type a new customized category name for the design library' : 'Select an existing category or click "+ Add New / Custom Category"'}
                     >
                       {isCustomCategoryMode ? (
                         <div>
                           <div style={{ display: 'flex', gap: 8 }}>
                             <input
                               autoFocus
+                              type="text"
+                              maxLength={50}
                               value={customCatInput}
                               onChange={e => {
-                                setCustomCatInput(e.target.value);
-                                setVal('category', e.target.value);
+                                const val = e.target.value.slice(0, 50);
+                                setCustomCatInput(val);
+                                setVal('category', val);
                               }}
                               placeholder="Enter category name"
                               style={{ flex: 1 }}
@@ -862,8 +1231,14 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                     </FormField>
                   </div>
 
-                  <FormField label="Embroidery Description" help="Thread color notes, motif details, suitable sizes">
-                    <textarea rows="3" value={form.desc || ''} onChange={e => setVal('desc', e.target.value)} placeholder="Enter embroidery description" />
+                  <FormField label="Embroidery Description" error={errors.desc}>
+                    <textarea
+                      rows="3"
+                      maxLength={600}
+                      value={form.desc || ''}
+                      onChange={e => setVal('desc', e.target.value.slice(0, 600))}
+                      placeholder="Enter embroidery description"
+                    />
                   </FormField>
 
                   <ImagePicker
@@ -895,8 +1270,14 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
               {/* GALLERY FORM */}
               {type === 'gallery' && (
                 <>
-                  <FormField label="Caption / Description" required error={errors.alt} help="Describe the photo for customers and accessibility">
-                    <input value={form.alt || ''} onChange={e => setVal('alt', e.target.value)} placeholder="Enter photo description" />
+                  <FormField label="Caption / Description" required error={errors.alt}>
+                    <input
+                      type="text"
+                      maxLength={200}
+                      value={form.alt || ''}
+                      onChange={e => setVal('alt', e.target.value.slice(0, 200))}
+                      placeholder="Enter photo description"
+                    />
                   </FormField>
 
                   <ImagePicker
@@ -922,20 +1303,44 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
               {type === 'customers' && (
                 <>
                   <div className="form-row">
-                    <FormField label="Client / Business Name" required error={errors.name} help="e.g. Aeterna Boutique Hotel">
-                      <input value={form.name || ''} onChange={e => setVal('name', e.target.value)} placeholder="Enter client or business name" />
+                    <FormField label="Client / Business Name" required error={errors.name}>
+                      <input
+                        type="text"
+                        maxLength={100}
+                        value={form.name || ''}
+                        onChange={e => setVal('name', e.target.value.slice(0, 100))}
+                        placeholder="Enter client or business name"
+                      />
                     </FormField>
-                    <FormField label="Business Category / Industry" help="e.g. Heritage Luxury Hotel, Luxury Spa & Wellness">
-                      <input value={form.category || ''} onChange={e => setVal('category', e.target.value)} placeholder="Enter business category or industry" />
+                    <FormField label="Business Category / Industry" error={errors.category}>
+                      <input
+                        type="text"
+                        maxLength={60}
+                        value={form.category || ''}
+                        onChange={e => setVal('category', e.target.value.slice(0, 60))}
+                        placeholder="Enter business category or industry"
+                      />
                     </FormField>
                   </div>
 
-                  <FormField label="Website URL" help="Optional external link">
-                    <input type="url" value={form.website || ''} onChange={e => setVal('website', e.target.value)} placeholder="Enter website URL" />
+                  <FormField label="Website URL" error={errors.website}>
+                    <input
+                      type="url"
+                      maxLength={255}
+                      value={form.website || ''}
+                      onChange={e => setVal('website', e.target.value.trim().slice(0, 255))}
+                      placeholder="https://example.com"
+                    />
                   </FormField>
 
-                  <FormField label="Tagline / Order Details" required error={errors.tagline} help="e.g. Bespoke organic bath linens for guest suites">
-                    <textarea rows="2" value={form.tagline || ''} onChange={e => setVal('tagline', e.target.value)} placeholder="Enter tagline or order details" />
+                  <FormField label="Tagline / Order Details" required error={errors.tagline}>
+                    <textarea
+                      rows="2"
+                      maxLength={300}
+                      value={form.tagline || ''}
+                      onChange={e => setVal('tagline', e.target.value.slice(0, 300))}
+                      placeholder="Enter tagline or order details"
+                    />
                   </FormField>
 
                   <ImagePicker
@@ -961,7 +1366,16 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                 <>
                   <div className="form-row-3">
                     <FormField label="Customer Name" required error={errors.name}>
-                      <input value={form.name || ''} onChange={e => setVal('name', e.target.value)} placeholder="Enter customer name" />
+                      <input
+                        type="text"
+                        maxLength={60}
+                        value={form.name || ''}
+                        onChange={e => {
+                          const lettersOnly = e.target.value.replace(/[^a-zA-Z\s.\-']/g, '').slice(0, 60);
+                          setVal('name', lettersOnly);
+                        }}
+                        placeholder="Enter customer name (letters only)"
+                      />
                     </FormField>
                     <FormField label="Rating" required error={errors.rating}>
                       <select value={form.rating ?? 5} onChange={e => setVal('rating', Number(e.target.value))}>
@@ -972,7 +1386,7 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                         <option value={1}>★☆☆☆☆ (1 Star - Poor)</option>
                       </select>
                     </FormField>
-                    <FormField label="Source Tag" help="Where review was received">
+                    <FormField label="Source Tag">
                       <select value={form.source || 'WhatsApp Verified'} onChange={e => setVal('source', e.target.value)}>
                         <option value="WhatsApp Verified">WhatsApp Verified</option>
                         <option value="Verified Buyer">Verified Buyer</option>
@@ -984,13 +1398,24 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                   </div>
 
                   <div className="form-row">
-                    <FormField label="Review Date">
-                      <input type="date" value={form.date || new Date().toISOString().slice(0, 10)} onChange={e => setVal('date', e.target.value)} />
+                    <FormField label="Review Date" error={errors.date}>
+                      <input
+                        type="date"
+                        max={new Date().toISOString().slice(0, 10)}
+                        value={form.date || new Date().toISOString().slice(0, 10)}
+                        onChange={e => setVal('date', e.target.value)}
+                      />
                     </FormField>
                   </div>
 
-                  <FormField label="Review Message" required error={errors.text} help="Customer's feedback on towel quality, embroidery, or service">
-                    <textarea rows="4" value={form.text || ''} onChange={e => setVal('text', e.target.value)} placeholder="Enter customer review" />
+                  <FormField label="Review Message" required error={errors.text}>
+                    <textarea
+                      rows="4"
+                      maxLength={1000}
+                      value={form.text || ''}
+                      onChange={e => setVal('text', e.target.value.slice(0, 1000))}
+                      placeholder="Enter customer review"
+                    />
                   </FormField>
 
                   <div className="form-section-title">Visibility</div>
@@ -1031,7 +1456,7 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                       </select>
                     </FormField>
                     {(form.category === 'Custom T-Shirts' || isTShirtItem(form)) ? (
-                      <FormField label="Embroidery Placement" help="T-Shirt embroidery location">
+                      <FormField label="Embroidery Placement">
                         <select value={form.placement || 'Left Chest Crest'} onChange={e => setVal('placement', e.target.value)}>
                           <option value="Left Chest Crest">Left Chest Crest (Over Heart)</option>
                           <option value="Center Chest">Center Chest (Statement)</option>
@@ -1040,36 +1465,117 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                         </select>
                       </FormField>
                     ) : (
-                      <FormField label="Towel Type / Collection" help="e.g. Luxury Bath, Couple Set, Kids">
-                        <input value={form.category || 'Towels'} onChange={e => setVal('category', e.target.value)} placeholder="Enter towel type" />
+                      <FormField label="Towel Type / Collection">
+                        <input
+                          type="text"
+                          maxLength={50}
+                          value={form.category || 'Towels'}
+                          onChange={e => setVal('category', e.target.value.slice(0, 50))}
+                          placeholder="Enter towel type"
+                        />
                       </FormField>
                     )}
                   </div>
 
                   <div className="form-row">
                     <FormField label="Customer Name" required error={errors.customerName}>
-                      <input value={form.customerName || ''} onChange={e => setVal('customerName', e.target.value)} placeholder="Enter customer name" />
+                      <input
+                        type="text"
+                        maxLength={80}
+                        value={form.customerName || ''}
+                        onChange={e => {
+                          const lettersOnly = e.target.value.replace(/[^a-zA-Z\s.\-']/g, '').slice(0, 80);
+                          setVal('customerName', lettersOnly);
+                        }}
+                        placeholder="Enter customer name"
+                      />
                     </FormField>
                     <FormField label="Mobile Phone" required error={errors.phone}>
-                      <input value={form.phone || ''} onChange={e => setVal('phone', e.target.value)} placeholder="Enter mobile number" />
-                    </FormField>
-                  </div>
-
-                  <div className="form-row-3">
-                    <FormField label={(form.category === 'Custom T-Shirts' || isTShirtItem(form)) ? "T-Shirt Product / Style" : "Towel Product"}>
-                      <input value={form.product || ''} onChange={e => setVal('product', e.target.value)} placeholder={(form.category === 'Custom T-Shirts' || isTShirtItem(form)) ? "Enter t-shirt product" : "Enter towel product"} />
-                    </FormField>
-                    <FormField label="Size" help={(form.category === 'Custom T-Shirts' || isTShirtItem(form)) ? "e.g. 40 inch" : "e.g. 30 × 60 inch"}>
-                      <input value={form.size || ''} onChange={e => setVal('size', e.target.value)} placeholder="Enter size in inches" />
-                    </FormField>
-                    <FormField label="Quantity">
-                      <input type="number" min="1" value={form.quantity || 1} onChange={e => setVal('quantity', Number(e.target.value))} />
+                      <input
+                        type="tel"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        maxLength={15}
+                        value={form.phone || ''}
+                        onKeyDown={blockNonDigits}
+                        onPaste={e => {
+                          e.preventDefault();
+                          const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                          const digits = pasted.replace(/\D/g, '').slice(0, 15);
+                          setVal('phone', digits);
+                        }}
+                        onChange={e => {
+                          const clean = e.target.value.replace(/\D/g, '').slice(0, 15);
+                          setVal('phone', clean);
+                        }}
+                        placeholder="Enter mobile number (numbers only)"
+                      />
                     </FormField>
                   </div>
 
                   <div className="form-row">
+                    <FormField label={(form.category === 'Custom T-Shirts' || isTShirtItem(form)) ? "T-Shirt Product / Style" : "Towel Product"}>
+                      <input
+                        type="text"
+                        maxLength={100}
+                        value={form.product || ''}
+                        onChange={e => setVal('product', e.target.value.slice(0, 100))}
+                        placeholder={(form.category === 'Custom T-Shirts' || isTShirtItem(form)) ? "Enter t-shirt product" : "Enter towel product"}
+                      />
+                    </FormField>
+                    <div className="size-qty-subgrid">
+                      <FormField label="Size (Inches Only)">
+                        <select
+                          value={form.size || ''}
+                          onChange={e => setVal('size', e.target.value)}
+                          title={selectedSizeLabel}
+                        >
+                          <option value="">Select standard size (in inches)...</option>
+                          {STANDARD_SIZES.map(group => (
+                            <optgroup key={group.group} label={group.group}>
+                              {group.sizes.map(s => (
+                                <option key={s.value} value={s.value}>{s.label}</option>
+                              ))}
+                            </optgroup>
+                          ))}
+                          {form.size && !STANDARD_SIZES.some(g => g.sizes.some(s => s.value === form.size)) && (
+                            <option value={form.size}>{form.size}</option>
+                          )}
+                        </select>
+                      </FormField>
+                      <FormField label="Quantity" error={errors.quantity}>
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          maxLength={5}
+                          value={form.quantity === '' ? '' : (form.quantity || 1)}
+                          onKeyDown={blockNonDigits}
+                          onPaste={e => {
+                            e.preventDefault();
+                            const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                            const digits = pasted.replace(/\D/g, '').slice(0, 5);
+                            setVal('quantity', digits === '' ? '' : Math.max(1, parseInt(digits, 10)));
+                          }}
+                          onChange={e => {
+                            const raw = e.target.value.replace(/\D/g, '').slice(0, 5);
+                            setVal('quantity', raw === '' ? '' : Math.max(1, parseInt(raw, 10)));
+                          }}
+                          placeholder="1"
+                        />
+                      </FormField>
+                    </div>
+                  </div>
+
+                  <div className="form-row">
                     <FormField label={(form.category === 'Custom T-Shirts' || isTShirtItem(form)) ? "Garment / T-Shirt Color" : "Towel Fabric Color"}>
-                      <input value={form.towelColor || ''} onChange={e => setVal('towelColor', e.target.value)} placeholder="Enter fabric color" />
+                      <input
+                        type="text"
+                        maxLength={50}
+                        value={form.towelColor || ''}
+                        onChange={e => setVal('towelColor', e.target.value.slice(0, 50))}
+                        placeholder="Enter fabric color"
+                      />
                     </FormField>
                     {/* THREADS FEATURE PAUSED:
                     <FormField label="Thread Color">
@@ -1081,11 +1587,14 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                   <div className="form-row">
                     <FormField
                       label="Name(s) to Embroider"
-                      help={Array.isArray(form.embroideryNames) && form.embroideryNames.length > 1
-                        ? `${form.embroideryNames.length} individual item names`
-                        : 'Customer embroidery request'}
                     >
-                      <input value={form.embroideryName || ''} onChange={e => setVal('embroideryName', e.target.value)} placeholder="Enter name to embroider" />
+                      <input
+                        type="text"
+                        maxLength={150}
+                        value={form.embroideryName || ''}
+                        onChange={e => setVal('embroideryName', e.target.value.slice(0, 150))}
+                        placeholder="Enter name to embroider"
+                      />
                       {Array.isArray(form.embroideryNames) && form.embroideryNames.length > 1 && (
                         <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', marginTop: 6 }}>
                           {form.embroideryNames.map((nm, idx) => (
@@ -1098,13 +1607,36 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                       )}
                     </FormField>
                     <FormField label="Design Code or Motif Reference">
-                      <input value={form.design || ''} onChange={e => setVal('design', e.target.value)} placeholder="Enter design code or motif" />
+                      <input
+                        type="text"
+                        maxLength={60}
+                        value={form.design || ''}
+                        onChange={e => setVal('design', e.target.value.slice(0, 60))}
+                        placeholder="Enter design code or motif"
+                      />
                     </FormField>
                   </div>
 
-                  <FormField label="Customer Notes">
-                    <textarea rows="3" value={form.notes || ''} onChange={e => setVal('notes', e.target.value)} placeholder="Enter customer notes" />
+                  <FormField label="Customer Notes" error={errors.notes}>
+                    <textarea
+                      rows="3"
+                      maxLength={1000}
+                      value={form.notes || ''}
+                      onChange={e => setVal('notes', e.target.value.slice(0, 1000))}
+                      placeholder="Enter customer notes"
+                    />
                   </FormField>
+
+                  <FormField label="Internal Production & Stitching Notes (Admin Only)" error={errors.adminNotes}>
+                    <textarea
+                      rows="2"
+                      maxLength={1000}
+                      value={form.adminNotes || ''}
+                      onChange={e => setVal('adminNotes', e.target.value.slice(0, 1000))}
+                      placeholder="e.g. Approved WhatsApp proof, using Gold Thread #402, express packing requested"
+                    />
+                  </FormField>
+
 
                   <div className="form-section-title">Customer Logo / Reference Artwork</div>
                   {form.logoAttachment ? (
@@ -1187,12 +1719,24 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
               {/* FAQS FORM */}
               {type === 'faqs' && (
                 <>
-                  <FormField label="Question" required error={errors.q} help="e.g. How long does customized embroidery take?">
-                    <input value={form.q || ''} onChange={e => setVal('q', e.target.value)} placeholder="Enter question" />
+                  <FormField label="Question" required error={errors.q}>
+                    <input
+                      type="text"
+                      maxLength={250}
+                      value={form.q || ''}
+                      onChange={e => setVal('q', e.target.value.slice(0, 250))}
+                      placeholder="Enter question"
+                    />
                   </FormField>
 
-                  <FormField label="Answer" required error={errors.a} help="Clear, reassuring explanation for customers">
-                    <textarea rows="4" value={form.a || ''} onChange={e => setVal('a', e.target.value)} placeholder="Enter answer" />
+                  <FormField label="Answer" required error={errors.a}>
+                    <textarea
+                      rows="4"
+                      maxLength={2000}
+                      value={form.a || ''}
+                      onChange={e => setVal('a', e.target.value.slice(0, 2000))}
+                      placeholder="Enter answer"
+                    />
                   </FormField>
 
                   <div className="form-section-title">Visibility</div>
@@ -1209,22 +1753,50 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
               {type === 'offers' && (
                 <>
                   <div className="form-row">
-                    <FormField label="Offer Title" required error={errors.title} help="e.g. Festive Family Combo">
-                      <input value={form.title || ''} onChange={e => setVal('title', e.target.value)} placeholder="Enter offer title" />
+                    <FormField label="Offer Title" required error={errors.title}>
+                      <input
+                        type="text"
+                        maxLength={100}
+                        value={form.title || ''}
+                        onChange={e => setVal('title', e.target.value.slice(0, 100))}
+                        placeholder="Enter offer title"
+                      />
                     </FormField>
-                    <FormField label="Promo Code" required error={errors.code} help="e.g. FESTIVE10">
-                      <input value={form.code || ''} onChange={e => setVal('code', e.target.value)} placeholder="Enter promo code" />
+                    <FormField label="Promo Code" required error={errors.code}>
+                      <input
+                        type="text"
+                        maxLength={20}
+                        value={form.code || ''}
+                        onChange={e => {
+                          const clean = e.target.value.toUpperCase().replace(/[^A-Z0-9_\-]/g, '').slice(0, 20);
+                          setVal('code', clean);
+                        }}
+                        placeholder="Enter promo code"
+                        style={{ textTransform: 'uppercase', fontFamily: 'monospace' }}
+                      />
                     </FormField>
                   </div>
 
                   <div className="form-row">
-                    <FormField label="Discount Text" required error={errors.discount} help="e.g. 10% off on orders above ₹1,000">
-                      <input value={form.discount || ''} onChange={e => setVal('discount', e.target.value)} placeholder="Enter discount text" />
+                    <FormField label="Discount Text" required error={errors.discount}>
+                      <input
+                        type="text"
+                        maxLength={80}
+                        value={form.discount || ''}
+                        onChange={e => setVal('discount', e.target.value.slice(0, 80))}
+                        placeholder="Enter discount text"
+                      />
                     </FormField>
                   </div>
 
-                  <FormField label="Offer Description">
-                    <textarea rows="3" value={form.desc || ''} onChange={e => setVal('desc', e.target.value)} />
+                  <FormField label="Offer Description" error={errors.desc}>
+                    <textarea
+                      rows="3"
+                      maxLength={500}
+                      value={form.desc || ''}
+                      onChange={e => setVal('desc', e.target.value.slice(0, 500))}
+                      placeholder="Enter offer description"
+                    />
                   </FormField>
 
                   <div className="form-section-title">Status</div>
@@ -1239,7 +1811,10 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
             </div>
           )}
 
-          <div>
+        </div>
+
+        <div className="modal-actions">
+          <div className="modal-actions-left">
             <button
               type="button"
               className="advanced-toggle"
@@ -1247,17 +1822,17 @@ function ItemEditor({ type, item, data = {}, onClose, onSave, onSaveSettings }) 
                 if (!rawMode) setRawJson(JSON.stringify(form, null, 2));
                 setRawMode(!rawMode);
               }}
+              title="Switch between visual form and direct JSON editor"
             >
               🛠 {rawMode ? 'Visual Form' : 'Edit Raw JSON'}
             </button>
           </div>
-        </div>
-
-        <div className="modal-actions">
-          <button type="button" className="btn btn-secondary" onClick={onClose} title="Cancel">Cancel</button>
-          <button type="submit" className="btn btn-primary" disabled={saving} title="Save">
-            {saving ? 'Saving…' : `Save ${singular(type)}`}
-          </button>
+          <div className="modal-actions-right">
+            <button type="button" className="btn btn-secondary" onClick={onClose} title="Cancel">Cancel</button>
+            <button type="submit" className="btn btn-primary" disabled={saving} title="Save">
+              {saving ? 'Saving…' : `Save ${singular(type)}`}
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -1457,28 +2032,73 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
           <>
             <div className="form-section-title">1. Brand & Store Identity</div>
             <div className="form-row-3">
-              <FormField label="Brand Name" required help="Site header & order messages">
-                <input value={form.brand || ''} onChange={e => setVal('brand', e.target.value)} />
+              <FormField label="Brand Name" required>
+                <input
+                  type="text"
+                  maxLength={60}
+                  value={form.brand || ''}
+                  onChange={e => setVal('brand', e.target.value.slice(0, 60))}
+                />
               </FormField>
-              <FormField label="Brand Tagline" help="Displayed under logo">
-                <input value={form.tagline || ''} onChange={e => setVal('tagline', e.target.value)} />
+              <FormField label="Brand Tagline">
+                <input
+                  type="text"
+                  maxLength={100}
+                  value={form.tagline || ''}
+                  onChange={e => setVal('tagline', e.target.value.slice(0, 100))}
+                />
               </FormField>
-              <FormField label="Established Date" help="e.g. 26 June 2025">
-                <input value={form.established || ''} onChange={e => setVal('established', e.target.value)} />
+              <FormField label="Established Date">
+                <input
+                  type="text"
+                  maxLength={40}
+                  value={form.established || ''}
+                  onChange={e => setVal('established', e.target.value.slice(0, 40))}
+                />
               </FormField>
             </div>
 
-            <FormField label="Workshop Location" help="Workshop city & state">
-              <input value={form.address || ''} onChange={e => setVal('address', e.target.value)} placeholder="Enter workshop address" />
+            <FormField label="Workshop Location">
+              <input
+                type="text"
+                maxLength={200}
+                value={form.address || ''}
+                onChange={e => setVal('address', e.target.value.slice(0, 200))}
+                placeholder="Enter workshop address"
+              />
             </FormField>
 
             <div className="form-section-title">2. Customer Support & WhatsApp Ordering</div>
             <div className="form-row">
-              <FormField label={<span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><WhatsAppIcon size={16} style={{ color: '#25D366' }} /> WhatsApp Number</span>} required help="Include country code without + or spaces (e.g. 919922597666)">
-                <input value={form.whatsapp || ''} onChange={e => setVal('whatsapp', e.target.value)} placeholder="Enter WhatsApp phone number" />
+              <FormField label={<span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><WhatsAppIcon size={16} style={{ color: '#25D366' }} /> WhatsApp Number</span>} required>
+                <input
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={15}
+                  value={form.whatsapp || ''}
+                  onKeyDown={blockNonDigits}
+                  onPaste={e => {
+                    e.preventDefault();
+                    const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                    const digits = pasted.replace(/\D/g, '').slice(0, 15);
+                    setVal('whatsapp', digits);
+                  }}
+                  onChange={e => {
+                    const digits = e.target.value.replace(/\D/g, '').slice(0, 15);
+                    setVal('whatsapp', digits);
+                  }}
+                  placeholder="Enter WhatsApp phone number (numbers only)"
+                />
               </FormField>
-              <FormField label="Contact Email" help="Store support email">
-                <input type="email" value={form.email || ''} onChange={e => setVal('email', e.target.value)} placeholder="Enter contact email" />
+              <FormField label="Contact Email">
+                <input
+                  type="email"
+                  maxLength={100}
+                  value={form.email || ''}
+                  onChange={e => setVal('email', e.target.value.slice(0, 100))}
+                  placeholder="Enter contact email"
+                />
               </FormField>
             </div>
           </>
@@ -1488,13 +2108,36 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
           <>
             <div className="form-section-title">3. Shipping & Payments</div>
             <div className="form-row">
-              <FormField label="Standard Flat Shipping Fee (₹)" help="Charged per order pan-India">
-                <input type="number" min="0" value={form.shipping ?? 80} onChange={e => setVal('shipping', e.target.value)} />
+              <FormField label="Standard Flat Shipping Fee (₹)">
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={4}
+                  value={form.shipping === '' ? '' : (form.shipping ?? 80)}
+                  onKeyDown={blockNonDigits}
+                  onPaste={e => {
+                    e.preventDefault();
+                    const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                    const digits = pasted.replace(/\D/g, '').slice(0, 4);
+                    setVal('shipping', digits === '' ? '' : parseInt(digits, 10));
+                  }}
+                  onChange={e => {
+                    const raw = e.target.value.replace(/\D/g, '').slice(0, 4);
+                    setVal('shipping', raw === '' ? '' : parseInt(raw, 10));
+                  }}
+                  placeholder="0"
+                />
               </FormField>
             </div>
 
-            <FormField label="Payment Policy Terms" help="Displayed in customization modal and order confirmation">
-              <textarea rows="2" value={form.payment || ''} onChange={e => setVal('payment', e.target.value)} />
+            <FormField label="Payment Policy Terms">
+              <textarea
+                rows="2"
+                maxLength={500}
+                value={form.payment || ''}
+                onChange={e => setVal('payment', e.target.value.slice(0, 500))}
+              />
             </FormField>
 
             <div style={{ marginTop: 12 }}>
@@ -1509,10 +2152,22 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
             <div className="form-section-title">4. Social Media Links</div>
             <div className="form-row">
               <FormField label={<span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><InstagramIcon size={16} style={{ color: '#E1306C' }} /> Instagram Profile URL</span>}>
-                <input value={form.instagram || ''} onChange={e => setVal('instagram', e.target.value)} placeholder="Enter Instagram profile URL" />
+                <input
+                  type="url"
+                  maxLength={200}
+                  value={form.instagram || ''}
+                  onChange={e => setVal('instagram', e.target.value.slice(0, 200))}
+                  placeholder="https://instagram.com/mazatowel"
+                />
               </FormField>
               <FormField label={<span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><FacebookIcon size={16} style={{ color: '#1877F2' }} /> Facebook Page URL</span>}>
-                <input value={form.facebook || ''} onChange={e => setVal('facebook', e.target.value)} placeholder="Enter Facebook page URL" />
+                <input
+                  type="url"
+                  maxLength={200}
+                  value={form.facebook || ''}
+                  onChange={e => setVal('facebook', e.target.value.slice(0, 200))}
+                  placeholder="https://facebook.com/mazatowel"
+                />
               </FormField>
             </div>
           </>
@@ -1521,8 +2176,14 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
         {settingsTab === 'reviews' && (
           <>
             <div className="form-section-title">5. Google Places & Live Reviews</div>
-            <FormField label="Google Place ID" help="Your Google Business Profile Place ID">
-              <input value={form.googlePlaceId || ''} onChange={e => setVal('googlePlaceId', e.target.value)} placeholder="Enter Google Place ID" />
+            <FormField label="Google Place ID">
+              <input
+                type="text"
+                maxLength={100}
+                value={form.googlePlaceId || ''}
+                onChange={e => setVal('googlePlaceId', e.target.value.slice(0, 100))}
+                placeholder="Enter Google Place ID"
+              />
             </FormField>
             <div style={{ marginTop: 12 }}>
               <CheckboxCard
@@ -1668,16 +2329,9 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
         )}
 
         {settingsTab !== 'security' && (
-          <div className="sticky-form-foot" style={{ margin: '24px -22px -22px -22px', borderRadius: '0 0 20px 20px' }}>
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center', width: '100%', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-              <span className="muted" style={{ fontSize: 12 }}>Settings apply live across the store & WhatsApp checkout</span>
-              <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                {saved && <span className="status live">✓ Saved</span>}
-                <button type="submit" form="settings-form" className="btn btn-primary" disabled={saving}>
-                  {saving ? 'Saving…' : 'Save Settings'}
-                </button>
-              </div>
-            </div>
+          <div style={{ marginTop: 24, paddingTop: 14, borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+            <span className="muted" style={{ fontSize: 12 }}>Settings apply live across the store & WhatsApp checkout</span>
+            {saved && <span className="status live">✓ Saved</span>}
           </div>
         )}
       </form>
@@ -1722,27 +2376,30 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
           {credError && <div className="health-error" style={{ marginBottom: 12 }}>{credError}</div>}
           {credNotice && <div className="diagnostics-result success" style={{ marginBottom: 12 }}>{credNotice}</div>}
           <div className="form-row-3">
-            <FormField label="Current Password" required help="Required to verify identity">
+            <FormField label="Current Password" required>
               <input
                 type="password"
+                maxLength={128}
                 value={credForm.currentPassword}
-                onChange={e => setCredForm(f => ({ ...f, currentPassword: e.target.value }))}
+                onChange={e => setCredForm(f => ({ ...f, currentPassword: e.target.value.slice(0, 128) }))}
                 placeholder="Enter current password"
               />
             </FormField>
-            <FormField label="Admin Login Email" required help="Email for sign in">
+            <FormField label="Admin Login Email" required>
               <input
                 type="email"
+                maxLength={100}
                 value={credForm.email}
-                onChange={e => setCredForm(f => ({ ...f, email: e.target.value }))}
+                onChange={e => setCredForm(f => ({ ...f, email: e.target.value.slice(0, 100) }))}
                 placeholder="Enter admin email"
               />
             </FormField>
-            <FormField label="New Password" help="Leave blank to keep unchanged">
+            <FormField label="New Password">
               <input
                 type="password"
+                maxLength={128}
                 value={credForm.newPassword}
-                onChange={e => setCredForm(f => ({ ...f, newPassword: e.target.value }))}
+                onChange={e => setCredForm(f => ({ ...f, newPassword: e.target.value.slice(0, 128) }))}
                 placeholder="Enter new password"
               />
             </FormField>
@@ -1821,14 +2478,13 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
                 <tbody>
                   {auditLogs.map((log, idx) => (
                     <tr key={log.id || idx}>
-                      <td style={{ whiteSpace: 'nowrap', color: 'var(--muted)', fontSize: 11.5, fontFamily: 'monospace' }}>
-                        {new Date(log.timestamp).toLocaleString('en-IN', {
-                          day: '2-digit',
-                          month: 'short',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          second: '2-digit'
-                        })}
+                      <td style={{ whiteSpace: 'nowrap', fontSize: 11.5 }}>
+                        <div style={{ fontWeight: 700, color: 'var(--ink)' }}>
+                          {formatRelativeTime(log.timestamp)}
+                        </div>
+                        <div style={{ color: 'var(--muted)', fontSize: 10, fontFamily: 'monospace' }} title={new Date(log.timestamp).toISOString()}>
+                          {new Date(log.timestamp).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                        </div>
                       </td>
                       <td>{getAuditBadge(log.event)}</td>
                       <td style={{ fontFamily: 'monospace', fontSize: 11.5 }}>
@@ -1987,16 +2643,56 @@ function StatsEditor({ stats = {}, onSave }) {
 
       <form id="stats-form" className="panel-body" onSubmit={submit}>
         <div className="form-row">
-          <FormField label="Total Towels Sold" help="Appears in verified public numbers">
-            <input type="number" min="0" value={towelsSold} onChange={e => setTowelsSold(e.target.value)} />
+          <FormField label="Total Towels Sold">
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              maxLength={7}
+              value={towelsSold === '' ? '' : towelsSold}
+              onKeyDown={blockNonDigits}
+              onPaste={e => {
+                e.preventDefault();
+                const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                const digits = pasted.replace(/\D/g, '').slice(0, 7);
+                setTowelsSold(digits === '' ? '' : parseInt(digits, 10));
+              }}
+              onChange={e => {
+                const raw = e.target.value.replace(/\D/g, '').slice(0, 7);
+                setTowelsSold(raw === '' ? '' : parseInt(raw, 10));
+              }}
+            />
           </FormField>
-          <FormField label="Personalized Designs Created" help="Appears in verified public numbers">
-            <input type="number" min="0" value={designsMade} onChange={e => setDesignsMade(e.target.value)} />
+          <FormField label="Personalized Designs Created">
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              maxLength={7}
+              value={designsMade === '' ? '' : designsMade}
+              onKeyDown={blockNonDigits}
+              onPaste={e => {
+                e.preventDefault();
+                const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+                const digits = pasted.replace(/\D/g, '').slice(0, 7);
+                setDesignsMade(digits === '' ? '' : parseInt(digits, 10));
+              }}
+              onChange={e => {
+                const raw = e.target.value.replace(/\D/g, '').slice(0, 7);
+                setDesignsMade(raw === '' ? '' : parseInt(raw, 10));
+              }}
+            />
           </FormField>
         </div>
 
-        <FormField label="Internal Audit Note" help="Reference for store manager (invoice range, order records)">
-          <textarea rows="2" value={note} onChange={e => setNote(e.target.value)} placeholder="Enter internal audit note" />
+        <FormField label="Internal Audit Note">
+          <textarea
+            rows="2"
+            maxLength={500}
+            value={note}
+            onChange={e => setNote(e.target.value.slice(0, 500))}
+            placeholder="Enter internal audit note"
+          />
         </FormField>
 
         <div className="notice" style={{ marginTop: 16 }}>
@@ -2013,16 +2709,9 @@ function StatsEditor({ stats = {}, onSave }) {
           </div>
         </div>
 
-        <div className="sticky-form-foot" style={{ margin: '24px -20px -20px', borderRadius: '0 0 20px 20px' }}>
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center', width: '100%', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-            <span className="muted" style={{ fontSize: 12 }}>Updates statistics counter on public website header & showcase</span>
-            <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-              {saved && <span className="status live">✓ Saved</span>}
-              <button type="submit" form="stats-form" className="btn btn-primary" disabled={saving}>
-                {saving ? 'Saving…' : 'Save Counts'}
-              </button>
-            </div>
-          </div>
+        <div style={{ marginTop: 24, paddingTop: 14, borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+          <span className="muted" style={{ fontSize: 12 }}>Updates statistics counter on public website header & showcase</span>
+          {saved && <span className="status live">✓ Saved</span>}
         </div>
       </form>
     </div>
@@ -2090,14 +2779,29 @@ function ContentEditor({ content = {}, onSave }) {
         <form id="content-form" onSubmit={submit}>
           {tab === 'hero' && (
             <div>
-              <FormField label="Hero Eyebrow Badge" help="Top small badge text">
-                <input value={form.heroBadge || ''} onChange={e => setVal('heroBadge', e.target.value)} />
+              <FormField label="Hero Eyebrow Badge">
+                <input
+                  type="text"
+                  maxLength={60}
+                  value={form.heroBadge || ''}
+                  onChange={e => setVal('heroBadge', e.target.value.slice(0, 60))}
+                />
               </FormField>
-              <FormField label="Main Heading" required help="Primary large title">
-                <input value={form.heroHeading || ''} onChange={e => setVal('heroHeading', e.target.value)} />
+              <FormField label="Main Heading" required>
+                <input
+                  type="text"
+                  maxLength={120}
+                  value={form.heroHeading || ''}
+                  onChange={e => setVal('heroHeading', e.target.value.slice(0, 120))}
+                />
               </FormField>
-              <FormField label="Hero Subtext" help="Introductory paragraph under heading">
-                <textarea rows="3" value={form.heroText || ''} onChange={e => setVal('heroText', e.target.value)} />
+              <FormField label="Hero Subtext">
+                <textarea
+                  rows="3"
+                  maxLength={500}
+                  value={form.heroText || ''}
+                  onChange={e => setVal('heroText', e.target.value.slice(0, 500))}
+                />
               </FormField>
             </div>
           )}
@@ -2105,10 +2809,20 @@ function ContentEditor({ content = {}, onSave }) {
           {tab === 'about' && (
             <div>
               <FormField label="About Section Title">
-                <input value={form.aboutTitle || ''} onChange={e => setVal('aboutTitle', e.target.value)} />
+                <input
+                  type="text"
+                  maxLength={120}
+                  value={form.aboutTitle || ''}
+                  onChange={e => setVal('aboutTitle', e.target.value.slice(0, 120))}
+                />
               </FormField>
               <FormField label="About MazaTowel Story & History">
-                <textarea rows="4" value={form.aboutText || ''} onChange={e => setVal('aboutText', e.target.value)} />
+                <textarea
+                  rows="4"
+                  maxLength={2000}
+                  value={form.aboutText || ''}
+                  onChange={e => setVal('aboutText', e.target.value.slice(0, 2000))}
+                />
               </FormField>
             </div>
           )}
@@ -2116,10 +2830,20 @@ function ContentEditor({ content = {}, onSave }) {
           {tab === 'why' && (
             <div>
               <FormField label="Section Title">
-                <input value={form.whyTitle || ''} onChange={e => setVal('whyTitle', e.target.value)} />
+                <input
+                  type="text"
+                  maxLength={120}
+                  value={form.whyTitle || ''}
+                  onChange={e => setVal('whyTitle', e.target.value.slice(0, 120))}
+                />
               </FormField>
               <FormField label="Section Intro Paragraph">
-                <textarea rows="2" value={form.whyText || ''} onChange={e => setVal('whyText', e.target.value)} />
+                <textarea
+                  rows="2"
+                  maxLength={600}
+                  value={form.whyText || ''}
+                  onChange={e => setVal('whyText', e.target.value.slice(0, 600))}
+                />
               </FormField>
 
               <div className="form-section-title">Value Points (4 Pillars)</div>
@@ -2131,11 +2855,21 @@ function ContentEditor({ content = {}, onSave }) {
                     </div>
                     <div className="form-row">
                       <FormField label="Point Title">
-                        <input value={point.title || ''} onChange={e => updateWhyPoint(idx, 'title', e.target.value)} />
+                        <input
+                          type="text"
+                          maxLength={80}
+                          value={point.title || ''}
+                          onChange={e => updateWhyPoint(idx, 'title', e.target.value.slice(0, 80))}
+                        />
                       </FormField>
                     </div>
                     <FormField label="Point Explanation">
-                      <textarea rows="2" value={point.text || ''} onChange={e => updateWhyPoint(idx, 'text', e.target.value)} />
+                      <textarea
+                        rows="2"
+                        maxLength={400}
+                        value={point.text || ''}
+                        onChange={e => updateWhyPoint(idx, 'text', e.target.value.slice(0, 400))}
+                      />
                     </FormField>
                   </div>
                 ))}
@@ -2146,10 +2880,20 @@ function ContentEditor({ content = {}, onSave }) {
           {tab === 'hygiene' && (
             <div>
               <FormField label="Hygiene Section Title">
-                <input value={form.hygieneTitle || ''} onChange={e => setVal('hygieneTitle', e.target.value)} />
+                <input
+                  type="text"
+                  maxLength={120}
+                  value={form.hygieneTitle || ''}
+                  onChange={e => setVal('hygieneTitle', e.target.value.slice(0, 120))}
+                />
               </FormField>
               <FormField label="Hygiene Section Intro">
-                <textarea rows="2" value={form.hygieneText || ''} onChange={e => setVal('hygieneText', e.target.value)} />
+                <textarea
+                  rows="2"
+                  maxLength={600}
+                  value={form.hygieneText || ''}
+                  onChange={e => setVal('hygieneText', e.target.value.slice(0, 600))}
+                />
               </FormField>
 
               <div className="form-section-title">Care & Hygiene Guidelines</div>
@@ -2161,19 +2905,34 @@ function ContentEditor({ content = {}, onSave }) {
                     </div>
                     <div className="form-row">
                       <FormField label="Rule Title">
-                        <input value={point.title || ''} onChange={e => updateHygienePoint(idx, 'title', e.target.value)} />
+                        <input
+                          type="text"
+                          maxLength={80}
+                          value={point.title || ''}
+                          onChange={e => updateHygienePoint(idx, 'title', e.target.value.slice(0, 80))}
+                        />
                       </FormField>
                     </div>
                     <FormField label="Guidance">
-                      <textarea rows="2" value={point.text || ''} onChange={e => updateHygienePoint(idx, 'text', e.target.value)} />
+                      <textarea
+                        rows="2"
+                        maxLength={400}
+                        value={point.text || ''}
+                        onChange={e => updateHygienePoint(idx, 'text', e.target.value.slice(0, 400))}
+                      />
                     </FormField>
                   </div>
                 ))}
               </div>
 
               <div style={{ marginTop: 14 }}>
-                <FormField label="Important Hygiene Note" help="Disclaimer box text">
-                  <textarea rows="2" value={form.hygieneNote || ''} onChange={e => setVal('hygieneNote', e.target.value)} />
+                <FormField label="Important Hygiene Note">
+                  <textarea
+                    rows="2"
+                    maxLength={500}
+                    value={form.hygieneNote || ''}
+                    onChange={e => setVal('hygieneNote', e.target.value.slice(0, 500))}
+                  />
                 </FormField>
               </div>
             </div>
@@ -2182,24 +2941,27 @@ function ContentEditor({ content = {}, onSave }) {
           {tab === 'cta' && (
             <div>
               <FormField label="Final Banner Heading">
-                <input value={form.finalTitle || ''} onChange={e => setVal('finalTitle', e.target.value)} />
+                <input
+                  type="text"
+                  maxLength={120}
+                  value={form.finalTitle || ''}
+                  onChange={e => setVal('finalTitle', e.target.value.slice(0, 120))}
+                />
               </FormField>
               <FormField label="Banner Subtitle">
-                <textarea rows="2" value={form.finalText || ''} onChange={e => setVal('finalText', e.target.value)} />
+                <textarea
+                  rows="2"
+                  maxLength={500}
+                  value={form.finalText || ''}
+                  onChange={e => setVal('finalText', e.target.value.slice(0, 500))}
+                />
               </FormField>
             </div>
           )}
 
-          <div className="sticky-form-foot" style={{ margin: '24px -20px -20px', borderRadius: '0 0 20px 20px' }}>
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center', width: '100%', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-              <span className="muted" style={{ fontSize: 12 }}>Content changes reflect instantly on the public website</span>
-              <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                {saved && <span className="status live">✓ Saved</span>}
-                <button type="submit" form="content-form" className="btn btn-primary" disabled={saving}>
-                  {saving ? 'Saving…' : 'Save Copy'}
-                </button>
-              </div>
-            </div>
+          <div style={{ marginTop: 24, paddingTop: 14, borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+            <span className="muted" style={{ fontSize: 12 }}>Content changes reflect instantly on the public website</span>
+            {saved && <span className="status live">✓ Saved</span>}
           </div>
         </form>
       </div>
@@ -2237,16 +2999,10 @@ function ObjectEditor({ label, value, onSave }) {
 
 function Details({ type, item }) {
   if (type === 'products') {
-    const hasColors = Array.isArray(item.allowedColors) && item.allowedColors.length > 0;
     return (
       <>
         {item.size} · {money(item.price)}
         <div className="muted">{item.desc}</div>
-        {hasColors && (
-          <div style={{ fontSize: 11, color: 'var(--teal2)', marginTop: 2, fontWeight: 600 }}>
-            Palette: {item.allowedColors.join(', ')}
-          </div>
-        )}
       </>
     );
   }
@@ -2328,11 +3084,43 @@ function Details({ type, item }) {
         ) : (
           <strong>{item.embroideryName}</strong>
         )}
-        <div className="muted">
-          {item.phone} · {item.size} × {item.quantity}
-          {item.towelColor && <span> · {isShirt ? 'Garment' : 'Color'}: <strong style={{ color: 'var(--teal2)' }}>{item.towelColor}</strong></span>}
-          {/* THREADS FEATURE PAUSED: {item.thread && <span> · Thread: {item.thread}</span>} */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', marginTop: 4 }}>
+          {item.createdAt && (
+            <span
+              className="relative-timestamp-chip"
+              title={`Enquiry received: ${new Date(item.createdAt).toLocaleString('en-IN', {
+                weekday: 'short',
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              })}`}
+            >
+              🕒 {formatRelativeTime(item.createdAt)}
+            </span>
+          )}
+          <span className="muted" style={{ fontSize: 11.5 }}>
+            {item.phone} · {item.size} × {item.quantity}
+          </span>
+          {item.towelColor && (
+            <span className="muted" style={{ fontSize: 11.5 }}>
+              · {isShirt ? 'Garment' : 'Color'}: <strong style={{ color: 'var(--teal2)' }}>{item.towelColor}</strong>
+            </span>
+          )}
         </div>
+        {item.notes && (
+          <div className="muted" style={{ fontSize: 11, fontStyle: 'italic', marginTop: 3 }}>
+            📝 "{item.notes}"
+          </div>
+        )}
+        {item.adminNotes && (
+          <div className="admin-internal-note" title="Internal production note (Admin only)">
+            <span>📌</span>
+            <span><strong>Internal:</strong> {item.adminNotes}</span>
+          </div>
+        )}
+
         {item.logoAttachment && (
           <div style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
             <a
@@ -2390,7 +3178,45 @@ function Details({ type, item }) {
       </>
     );
   }
-  if (type === 'reviews') return <>{'★'.repeat(item.rating || 0)}<div className="muted">{item.text}</div></>;
+  if (type === 'reviews') {
+    return (
+      <>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', marginBottom: 2 }}>
+          <span style={{ color: '#d97706', letterSpacing: 1.5, fontSize: 13 }}>
+            {'★'.repeat(item.rating || 5)}{'☆'.repeat(Math.max(0, 5 - (item.rating || 5)))}
+          </span>
+          {item.date && (
+            <span className="relative-timestamp-chip" title={`Review date: ${item.date}`}>
+              📅 {formatRelativeTime(item.date)}
+            </span>
+          )}
+          <span style={{ fontSize: 11, color: 'var(--muted)', fontWeight: 600 }}>({item.source || 'Verified Buyer'})</span>
+        </div>
+        <div className="muted" style={{ fontSize: 12 }}>"{item.text}"</div>
+      </>
+    );
+  }
+  if (type === 'offers') {
+    return (
+      <>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', marginBottom: 4 }}>
+          {item.code ? (
+            <code className="promo-code-badge" title="Promotional coupon code">
+              🏷️ {item.code}
+            </code>
+          ) : (
+            <span className="muted" style={{ fontSize: 11 }}>No promo code required</span>
+          )}
+          {item.discount && (
+            <span className="discount-tag" title="Discount value">
+              {item.discount}
+            </span>
+          )}
+        </div>
+        {item.desc && <div className="muted" style={{ fontSize: 12 }}>{item.desc}</div>}
+      </>
+    );
+  }
   if (type === 'designs') {
     return (
       <>
@@ -2427,7 +3253,8 @@ function Pagination({
   currentPage,
   totalPages,
   onPageChange,
-  onPageSizeChange
+  onPageSizeChange,
+  itemLabel = 'records'
 }) {
   if (totalItems === 0) return null;
 
@@ -2438,7 +3265,7 @@ function Pagination({
   return (
     <div className="pagination-wrap">
       <div className="pagination-info">
-        Showing <strong>{startItem}–{endItem}</strong> of <strong>{totalItems}</strong> {totalItems === 1 ? 'record' : 'records'}
+        Showing <strong>{startItem}–{endItem}</strong> of <strong>{totalItems}</strong> {itemLabel}
         {totalUnfiltered > totalItems && (
           <span className="muted" style={{ marginLeft: 6 }}>
             (filtered from {totalUnfiltered} total)
@@ -2522,6 +3349,10 @@ function AddDesignCategoryModal({ isOpen, onClose, onAddCategory, onAddAndCreate
       setErr('Please enter a category name.');
       return;
     }
+    if (trimmed.length > 50) {
+      setErr('Category name must not exceed 50 characters.');
+      return;
+    }
 
     const lower = trimmed.toLowerCase();
     const alreadyExists = (existingCategories || []).some(c => c && c.toLowerCase() === lower);
@@ -2579,15 +3410,17 @@ function AddDesignCategoryModal({ isOpen, onClose, onAddCategory, onAddAndCreate
               </span>
               {catName.trim() && (
                 <span style={{ fontSize: 11, color: 'var(--muted)', fontWeight: 500 }}>
-                  {catName.trim().length} chars
+                  {catName.trim().length}/50 chars
                 </span>
               )}
             </label>
             <input
               autoFocus
+              type="text"
+              maxLength={50}
               value={catName}
               onChange={e => {
-                setCatName(e.target.value);
+                setCatName(e.target.value.slice(0, 50));
                 if (err) setErr('');
               }}
               placeholder="Enter category name"
@@ -2735,6 +3568,7 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
   const [pageSize, setPageSize] = useState(10);
   const [selectedDesignCategory, setSelectedDesignCategory] = useState('All');
   const [selectedEnquiryCategory, setSelectedEnquiryCategory] = useState('All');
+  const [selectedEnquiryStatus, setSelectedEnquiryStatus] = useState('All');
   const [selectedProductCategory, setSelectedProductCategory] = useState('All');
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
 
@@ -2746,6 +3580,7 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
     setQuery('');
     setSelectedDesignCategory('All');
     setSelectedEnquiryCategory('All');
+    setSelectedEnquiryStatus('All');
     setSelectedProductCategory('All');
   }, [type]);
 
@@ -2759,6 +3594,26 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
     });
     return { all: allItems.length, towels, tshirts };
   }, [type, allItems]);
+
+  const enquiryStatusCounts = useMemo(() => {
+    if (type !== 'enquiries') return [];
+    const all = data.enquiries || [];
+    const newCount = all.filter(e => (e.status || 'New').toLowerCase() === 'new').length;
+    const contactedCount = all.filter(e => (e.status || '').toLowerCase() === 'contacted').length;
+    const inProdCount = all.filter(e => (e.status || '').toLowerCase() === 'in production').length;
+    const shippedCount = all.filter(e => (e.status || '').toLowerCase() === 'shipped').length;
+    const highValCount = all.filter(e => (Number(e.quantity) || 1) >= 3).length;
+
+    return [
+      { id: 'All', label: 'All Orders', count: all.length },
+      { id: 'New', label: '🔴 New', count: newCount },
+      { id: 'Contacted', label: '📞 Contacted', count: contactedCount },
+      { id: 'In Production', label: '🟡 In Production', count: inProdCount },
+      { id: 'Shipped', label: '🚚 Shipped', count: shippedCount },
+      { id: 'High Value', label: '💎 Bulk (3+ pcs)', count: highValCount }
+    ];
+  }, [type, data.enquiries]);
+
 
   const productCounts = useMemo(() => {
     if (type !== 'products') return { all: 0, towels: 0, tshirts: 0 };
@@ -2828,15 +3683,25 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
       return allItems.filter(item => item.category === selectedDesignCategory);
     }
     if (type === 'enquiries') {
-      if (selectedEnquiryCategory === 'Towels') return allItems.filter(item => !isTShirtItem(item));
-      if (selectedEnquiryCategory === 'T-Shirts') return allItems.filter(item => isTShirtItem(item));
+      let filtered = allItems;
+      if (selectedEnquiryCategory === 'Towels') filtered = filtered.filter(item => !isTShirtItem(item));
+      if (selectedEnquiryCategory === 'T-Shirts') filtered = filtered.filter(item => isTShirtItem(item));
+      if (selectedEnquiryStatus !== 'All') {
+        if (selectedEnquiryStatus === 'High Value') {
+          filtered = filtered.filter(item => (Number(item.quantity) || 1) >= 3);
+        } else {
+          filtered = filtered.filter(item => (item.status || 'New').toLowerCase() === selectedEnquiryStatus.toLowerCase());
+        }
+      }
+      return filtered;
     }
     if (type === 'products') {
       if (selectedProductCategory === 'Towels') return allItems.filter(item => item.category !== 'Custom T-Shirts');
       if (selectedProductCategory === 'T-Shirts') return allItems.filter(item => item.category === 'Custom T-Shirts');
     }
     return allItems;
-  }, [type, allItems, selectedDesignCategory, selectedEnquiryCategory, selectedProductCategory]);
+  }, [type, allItems, selectedDesignCategory, selectedEnquiryCategory, selectedEnquiryStatus, selectedProductCategory]);
+
 
   const items = query.trim()
     ? categoryFiltered.filter(item => {
@@ -3033,53 +3898,77 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
           </div>
         )}
         {type === 'enquiries' && (
-          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--muted)', marginRight: 4 }}>Filter Orders:</span>
-            {[
-              { id: 'All', label: 'All Enquiries', count: enquiryCounts.all },
-              { id: 'Towels', label: 'Towels', count: enquiryCounts.towels, icon: '🏷' },
-              { id: 'T-Shirts', label: 'T-Shirts & Apparel', count: enquiryCounts.tshirts, icon: '👕' }
-            ].map(tab => {
-              const active = selectedEnquiryCategory === tab.id;
-              return (
-                <div
-                  key={tab.id}
-                  onClick={() => {
-                    setSelectedEnquiryCategory(tab.id);
-                    setCurrentPage(1);
-                  }}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    padding: '4px 10px',
-                    borderRadius: 16,
-                    fontSize: 12,
-                    fontWeight: active ? 700 : 500,
-                    cursor: 'pointer',
-                    background: active ? 'var(--teal2)' : 'var(--soft)',
-                    color: active ? '#ffffff' : 'var(--ink)',
-                    border: active ? '1px solid var(--teal2)' : '1px solid var(--line)',
-                    transition: 'all 0.15s ease'
-                  }}
-                >
-                  {tab.icon && <span>{tab.icon}</span>}
-                  <span>{tab.label}</span>
-                  <span style={{
-                    fontSize: 10,
-                    padding: '1px 5px',
-                    borderRadius: 10,
-                    background: active ? 'rgba(255,255,255,0.25)' : '#ffffff',
-                    color: active ? '#ffffff' : 'var(--muted)',
-                    fontWeight: 700
-                  }}>
-                    {tab.count}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+          <>
+            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--muted)', marginRight: 4 }}>Product Type:</span>
+              {[
+                { id: 'All', label: 'All Enquiries', count: enquiryCounts.all },
+                { id: 'Towels', label: 'Towels', count: enquiryCounts.towels, icon: '🏷' },
+                { id: 'T-Shirts', label: 'T-Shirts & Apparel', count: enquiryCounts.tshirts, icon: '👕' }
+              ].map(tab => {
+                const active = selectedEnquiryCategory === tab.id;
+                return (
+                  <div
+                    key={tab.id}
+                    onClick={() => {
+                      setSelectedEnquiryCategory(tab.id);
+                      setCurrentPage(1);
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      padding: '4px 10px',
+                      borderRadius: 16,
+                      fontSize: 12,
+                      fontWeight: active ? 700 : 500,
+                      cursor: 'pointer',
+                      background: active ? 'var(--teal2)' : 'var(--soft)',
+                      color: active ? '#ffffff' : 'var(--ink)',
+                      border: active ? '1px solid var(--teal2)' : '1px solid var(--line)',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    {tab.icon && <span>{tab.icon}</span>}
+                    <span>{tab.label}</span>
+                    <span style={{
+                      fontSize: 10,
+                      padding: '1px 5px',
+                      borderRadius: 10,
+                      background: active ? 'rgba(255,255,255,0.25)' : '#ffffff',
+                      color: active ? '#ffffff' : 'var(--muted)',
+                      fontWeight: 700
+                    }}>
+                      {tab.count}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="enquiry-filter-pills" style={{ marginBottom: 14 }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--muted)', marginRight: 4 }}>Status Pipeline:</span>
+              {enquiryStatusCounts.map(st => {
+                const active = selectedEnquiryStatus === st.id;
+                return (
+                  <button
+                    key={st.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedEnquiryStatus(st.id);
+                      setCurrentPage(1);
+                    }}
+                    className={`status-filter-pill ${active ? 'active' : ''}`}
+                  >
+                    <span>{st.label}</span>
+                    <span className="filter-pill-badge">{st.count}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </>
         )}
+
 
         {type === 'products' && (
           <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
@@ -3226,9 +4115,20 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
                   <td>
                     {type === 'colors' /* || type === 'threads' */ ? (
                       <div>
-                        <span className={`status ${item.inStock !== false ? 'live' : 'off'}`}>
-                          {item.inStock !== false ? '● In Stock' : '✕ Out of Stock'}
-                        </span>
+                        <button
+                          type="button"
+                          className={`status-toggle-btn ${item.inStock !== false ? 'live' : 'danger'}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onQuickUpdate(type, item.id, { inStock: item.inStock === false });
+                          }}
+                          title={item.inStock !== false ? 'In Stock — click to mark Out of Stock' : 'Out of Stock — click to mark In Stock'}
+                          aria-label={item.inStock !== false ? `Mark ${item.name} out of stock` : `Mark ${item.name} in stock`}
+                        >
+                          <span className="status-dot" aria-hidden="true" />
+                          <span>{item.inStock !== false ? 'In Stock' : 'Out of Stock'}</span>
+                          <span className="status-toggle-icon" aria-hidden="true">⇄</span>
+                        </button>
                         {type === 'colors' && item.inStock !== false && Array.isArray(item.outOfStockSizes) && item.outOfStockSizes.length > 0 && (
                           <div style={{ fontSize: 10, color: '#b42318', marginTop: 3, fontWeight: 700 }}>
                             Sold out in {item.outOfStockSizes.length} size{item.outOfStockSizes.length > 1 ? 's' : ''}
@@ -3236,7 +4136,20 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
                         )}
                       </div>
                     ) : type === 'offers' ? (
-                      <span className={`status ${item.active ? 'live' : 'off'}`}>{item.active ? 'Active' : 'Inactive'}</span>
+                      <button
+                        type="button"
+                        className={`status-toggle-btn ${item.active ? 'live' : 'off'}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onQuickUpdate(type, item.id, { active: !item.active });
+                        }}
+                        title={item.active ? 'Active — click to set Inactive' : 'Inactive — click to set Active'}
+                        aria-label={item.active ? `Deactivate offer ${item.title || ''}` : `Activate offer ${item.title || ''}`}
+                      >
+                        <span className="status-dot" aria-hidden="true" />
+                        <span>{item.active ? 'Active' : 'Inactive'}</span>
+                        <span className="status-toggle-icon" aria-hidden="true">⇄</span>
+                      </button>
                     ) : type === 'enquiries' ? (
                       <select
                         className={`status-select ${item.status === 'Closed' ? 'off' : item.status === 'In Production' ? 'live' : item.status === 'Shipped' ? 'shipped' : item.status === 'Contacted' ? 'contacted' : 'pending'}`}
@@ -3253,9 +4166,20 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
                         <option value="Closed">Closed</option>
                       </select>
                     ) : (
-                      <span className={`status ${item.published !== false ? 'live' : 'off'}`}>
-                        {item.published !== false ? 'Published' : 'Hidden'}
-                      </span>
+                      <button
+                        type="button"
+                        className={`status-toggle-btn ${item.published !== false ? 'live' : 'off'}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onQuickUpdate(type, item.id, { published: item.published === false });
+                        }}
+                        title={item.published !== false ? 'Published on website — click to Hide' : 'Hidden from website — click to Publish'}
+                        aria-label={item.published !== false ? `Hide ${item.name || item.title || item.q || singular(type)} from website` : `Publish ${item.name || item.title || item.q || singular(type)} to website`}
+                      >
+                        <span className="status-dot" aria-hidden="true" />
+                        <span>{item.published !== false ? 'Published' : 'Hidden'}</span>
+                        <span className="status-toggle-icon" aria-hidden="true">⇄</span>
+                      </button>
                     )}
                   </td>
                   <td className="td-actions">
@@ -3272,11 +4196,62 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
                           <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                         </svg>
                       </button>
+                      {['products', 'designs', 'gallery', 'reviews', 'faqs', 'customers'].includes(type) && (
+                        <button
+                          type="button"
+                          className={`action-btn ${item.published !== false ? 'action-btn-visibility' : 'action-btn-hidden'}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onQuickUpdate(type, item.id, { published: item.published === false });
+                          }}
+                          title={item.published !== false ? 'Hide from website' : 'Publish to website'}
+                          aria-label={item.published !== false ? `Hide ${item.name || item.title || item.q || singular(type)}` : `Publish ${item.name || item.title || item.q || singular(type)}`}
+                        >
+                          {item.published !== false ? (
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                              <circle cx="12" cy="12" r="3" />
+                            </svg>
+                          ) : (
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                              <line x1="1" y1="1" x2="23" y2="23" />
+                            </svg>
+                          )}
+                        </button>
+                      )}
+                      {type === 'offers' && (
+                        <button
+                          type="button"
+                          className={`action-btn ${item.active ? 'action-btn-success' : 'action-btn-delete'}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onQuickUpdate(type, item.id, { active: !item.active });
+                          }}
+                          title={item.active ? 'Deactivate Offer' : 'Activate Offer'}
+                          aria-label={item.active ? 'Deactivate offer' : 'Activate offer'}
+                        >
+                          {item.active ? (
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                              <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                          ) : (
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <circle cx="12" cy="12" r="10" />
+                              <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                            </svg>
+                          )}
+                        </button>
+                      )}
                       {(type === 'colors' /* || type === 'threads' */) && (
                         <button
                           type="button"
                           className={`action-btn ${item.inStock !== false ? 'action-btn-delete' : 'action-btn-success'}`}
-                          onClick={() => onQuickUpdate(type, item.id, { inStock: item.inStock === false })}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onQuickUpdate(type, item.id, { inStock: item.inStock === false });
+                          }}
                           title={item.inStock !== false ? 'Disable / Mark Out of Stock' : 'Enable / Mark In Stock'}
                           aria-label={item.inStock !== false ? `Disable ${item.name} stock` : `Enable ${item.name} stock`}
                         >
@@ -3307,6 +4282,35 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
                           </svg>
                         </a>
                       )}
+                      {type === 'enquiries' && (
+                        <button
+                          type="button"
+                          className="action-btn action-btn-courier"
+                          title="Copy shipping & courier label details"
+                          aria-label={`Copy courier details for #${item.id}`}
+                          onClick={() => {
+                            const courierText = [
+                              `Recipient: ${item.customerName || 'Customer'}`,
+                              `Phone: +91 ${item.phone || ''}`,
+                              `Delivery City: ${item.city || 'Standard Shipping'}`,
+                              `Order: ${item.quantity || 1}x ${item.product || 'Towel'} (${item.size || ''})`,
+                              `Custom Embroidery: ${item.embroideryName || (Array.isArray(item.embroideryNames) ? item.embroideryNames.join(', ') : 'Monogram')}`,
+                              item.notes ? `Customer Notes: ${item.notes}` : '',
+                              `Order ID: #${item.id}`
+                            ].filter(Boolean).join('\n');
+                            if (navigator.clipboard?.writeText) {
+                              navigator.clipboard.writeText(courierText);
+                            }
+                            if (onNotice) onNotice(`📋 Courier details for #${item.id} copied to clipboard!`);
+                          }}
+                        >
+                          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                          </svg>
+                        </button>
+                      )}
+
                       {type === 'enquiries' && item.status !== 'Closed' && (
                         <button
                           type="button"
@@ -3343,7 +4347,47 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
           </table>
           {!items.length && (
             <div className="empty">
-              {query ? 'No matching items found.' : `No ${type} yet. Click "+ Add ${singular(type)}" to create one.`}
+              {query ? (
+                <>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>
+                    No {TITLES[type]?.toLowerCase() || 'items'} matching "{query}"
+                  </div>
+                  <p className="muted" style={{ margin: 0, fontSize: 12 }}>
+                    {type === 'enquiries'
+                      ? 'Try searching with a customer name, mobile number, embroidery text, or order code.'
+                      : type === 'designs'
+                      ? 'Try searching by motif theme, design code (e.g. MT-101), or title.'
+                      : type === 'products'
+                      ? 'Try searching by product name, towel size (e.g. 30 × 60), or category.'
+                      : 'Try checking for spelling mistakes or clear your search filter.'}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>
+                    No {TITLES[type]?.toLowerCase() || 'items'} recorded yet
+                  </div>
+                  <p className="muted" style={{ margin: 0, fontSize: 12 }}>
+                    {type === 'enquiries'
+                      ? 'Customer custom embroidery requests and orders will appear here automatically when submitted from your website.'
+                      : type === 'products'
+                      ? 'Click "+ Add Product" to publish your first personalized towel or custom apparel listing.'
+                      : type === 'colors'
+                      ? 'Click "+ Add Towel Color" to configure your luxury Egyptian cotton fabric palette.'
+                      : type === 'designs'
+                      ? 'Click "+ Add Design" to populate your interactive embroidery motif catalog.'
+                      : type === 'offers'
+                      ? 'Click "+ Add Offer" to activate festive discounts and promotional promo codes.'
+                      : type === 'reviews'
+                      ? 'Click "+ Add Review" to showcase verified client ratings and endorsements.'
+                      : type === 'gallery'
+                      ? 'Click "+ Add Photo" to display completed towel atelier craftsmanship.'
+                      : type === 'customers'
+                      ? 'Click "+ Add Customer" to highlight partner hotels and corporate buyers.'
+                      : `Click "+ Add ${singular(type)}" to create your first entry.`}
+                  </p>
+                </>
+              )}
             </div>
           )}
         </div>
@@ -3356,6 +4400,7 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
           totalPages={totalPages}
           onPageChange={setCurrentPage}
           onPageSizeChange={handlePageSizeChange}
+          itemLabel={items.length === 1 ? singular(type).toLowerCase() : (TITLES[type]?.toLowerCase() || 'items')}
         />
       </div>
 
@@ -3403,15 +4448,7 @@ function VisitorAnalyticsCard({ visitors, initialRealtime }) {
     return () => clearInterval(timer);
   }, [autoRefresh]);
 
-  const formatRelative = (ts) => {
-    if (!ts) return 'Just now';
-    const diff = Math.max(0, Math.floor((Date.now() - new Date(ts).getTime()) / 1000));
-    if (diff < 5) return 'Just now';
-    if (diff < 60) return `${diff}s ago`;
-    const min = Math.floor(diff / 60);
-    if (min < 60) return `${min}m ago`;
-    return `${Math.floor(min / 60)}h ago`;
-  };
+  const formatRelative = formatRelativeTime;
 
   const summary = visitors?.summary || {};
   const currentSeries = useMemo(() => {
@@ -4264,17 +5301,6 @@ function Dashboard({ data, onNavigate, onEdit, onQuickUpdate, onNotice }) {
             </span>
           </button>
         </div>
-        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
-          <button
-            type="button"
-            className="btn btn-secondary btn-sm"
-            onClick={() => onNavigate && onNavigate('enquiries')}
-            title="Open dedicated customer enquiries manager"
-            style={{ fontSize: 12, padding: '6px 14px', display: 'inline-flex', alignItems: 'center', gap: 6 }}
-          >
-            <span>💬</span> Manage Orders ({enquiries.length}) →
-          </button>
-        </div>
       </div>
 
       {/* Dedicated Interactive Visitor Analytics View */}
@@ -4800,8 +5826,9 @@ function Login({ onSuccess, onError, error, showDemo = true }) {
         <FormField label="Admin Email">
           <input
             type="email"
+            maxLength={100}
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value.slice(0, 100))}
             autoComplete="username"
             placeholder="Enter admin email"
             required
@@ -4812,8 +5839,9 @@ function Login({ onSuccess, onError, error, showDemo = true }) {
           <div className="password-field-wrap">
             <input
               type={showPassword ? 'text' : 'password'}
+              maxLength={128}
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value.slice(0, 128))}
               autoComplete="current-password"
               placeholder="Enter password"
               required
@@ -5047,6 +6075,36 @@ function Admin() {
   const [notice, setNotice] = useState('');
   const [showDemo, setShowDemo] = useState(true);
   const [lastRefreshed, setLastRefreshed] = useState(null);
+  const [audioEnabled, setAudioEnabled] = useState(() => {
+    try {
+      return localStorage.getItem('mazatowel_admin_sound') !== 'false';
+    } catch {
+      return true;
+    }
+  });
+
+  const prevEnquiriesCountRef = useRef(null);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('mazatowel_admin_sound', String(audioEnabled));
+    } catch {}
+  }, [audioEnabled]);
+
+  useEffect(() => {
+    if (!data?.enquiries) return;
+    const currentCount = data.enquiries.length;
+    if (prevEnquiriesCountRef.current !== null && currentCount > prevEnquiriesCountRef.current) {
+      if (audioEnabled) playNewOrderChime();
+      const latestOrder = data.enquiries[0];
+      setNotice({
+        text: `🔔 New order enquiry received from ${latestOrder?.customerName || 'customer'}!`,
+        undoAction: null
+      });
+    }
+    prevEnquiriesCountRef.current = currentCount;
+  }, [data?.enquiries, audioEnabled]);
+
   const [theme, setTheme] = useState(() => {
     try {
       return localStorage.getItem('mazatowel_admin_theme') || 'light';
@@ -5140,9 +6198,16 @@ function Admin() {
     })();
   }, []);
 
+  // Periodic interval ticker to keep relative time badges (e.g. "Just now", "2m ago") fresh and dynamic
+  const [, setTicker] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => setTicker(t => t + 1), 15000);
+    return () => clearInterval(timer);
+  }, []);
+
   useEffect(() => {
     if (!notice) return;
-    const duration = typeof notice === 'object' && notice.undoAction ? 6000 : 3500;
+    const duration = typeof notice === 'object' && notice.undoAction ? 6500 : 3800;
     const id = setTimeout(() => setNotice(''), duration);
     return () => clearTimeout(id);
   }, [notice]);
@@ -5156,11 +6221,13 @@ function Admin() {
   if (data === null) return <div className="boot"><div className="spinner" />Loading admin…</div>;
   if (data === false) return <Login onSuccess={refresh} onError={setError} error={error} showDemo={showDemo} />;
 
-  async function save(type, id, payload) {
+  async function save(type, id, payload, customNotice) {
     try {
       setError('');
+      const currentList = data?.[type] || [];
+      const currentItem = id ? currentList.find(x => x.id === id) : null;
       const res = await api(id ? `/api/${type}/${id}` : `/api/${type}`, { method: id ? 'PUT' : 'POST', body: JSON.stringify(payload) });
-      const savedItem = res?.item || { ...payload, id: id || res?.id };
+      const savedItem = res?.item || { ...(currentItem || {}), ...payload, id: id || res?.id };
       setData(prev => {
         if (!prev) return prev;
         const list = prev[type] || [];
@@ -5171,8 +6238,47 @@ function Admin() {
       });
       setEditing(null);
       setLastRefreshed(new Date());
+
       const sName = singular(type);
-      setNotice(`${sName} saved successfully.`);
+      const itemName = savedItem.name || savedItem.title || savedItem.customerName || savedItem.q || savedItem.designId || sName;
+
+      // Smart context-relative feedback messages
+      if (customNotice) {
+        setNotice(customNotice);
+      } else if (payload && Object.prototype.hasOwnProperty.call(payload, 'published')) {
+        const isLive = payload.published !== false;
+        setNotice({
+          text: isLive
+            ? `${sName} "${itemName}" is now published and live on the website.`
+            : `${sName} "${itemName}" has been hidden from the website view.`,
+          undoAction: () => save(type, id, { published: !isLive })
+        });
+      } else if (payload && Object.prototype.hasOwnProperty.call(payload, 'active')) {
+        const isActive = Boolean(payload.active);
+        setNotice({
+          text: isActive
+            ? `Offer "${itemName}" is now active and live on the storefront banner.`
+            : `Offer "${itemName}" has been deactivated and hidden from storefront.`,
+          undoAction: () => save(type, id, { active: !isActive })
+        });
+      } else if (payload && Object.prototype.hasOwnProperty.call(payload, 'inStock')) {
+        const isInStock = payload.inStock !== false;
+        setNotice({
+          text: isInStock
+            ? `Towel Color "${itemName}" marked In Stock for customer orders.`
+            : `Towel Color "${itemName}" marked Out of Stock.`,
+          undoAction: () => save(type, id, { inStock: !isInStock })
+        });
+      } else if (payload && Object.prototype.hasOwnProperty.call(payload, 'status') && Object.keys(payload).length <= 2) {
+        setNotice({
+          text: `Order #${id} (${savedItem.customerName || 'Customer'}) status updated to "${payload.status}".`,
+          undoAction: currentItem?.status ? () => save(type, id, { status: currentItem.status }) : null
+        });
+      } else if (!id) {
+        setNotice(`New ${sName} "${itemName}" created successfully.`);
+      } else {
+        setNotice(`${sName} "${itemName}" updated successfully.`);
+      }
     } catch (e) {
       setError(e.message);
       throw e;
@@ -5181,7 +6287,9 @@ function Admin() {
 
   async function remove(type, id) {
     const sName = singular(type);
-    if (!confirm(`Delete this ${sName.toLowerCase()}? This cannot be undone.`)) return;
+    const itemToDelete = data?.[type]?.find(x => x.id === id);
+    const itemName = itemToDelete?.name || itemToDelete?.title || itemToDelete?.customerName || itemToDelete?.q || itemToDelete?.designId || sName;
+    if (!confirm(`Are you sure you want to delete ${sName.toLowerCase()} "${itemName}"? This cannot be undone.`)) return;
     try {
       setError('');
       await api(`/api/${type}/${id}`, { method: 'DELETE' });
@@ -5190,7 +6298,7 @@ function Admin() {
         return { ...prev, [type]: (prev[type] || []).filter(item => item.id !== id) };
       });
       setLastRefreshed(new Date());
-      setNotice(`${sName} deleted successfully.`);
+      setNotice(`${sName} "${itemName}" deleted successfully.`);
     } catch (e) {
       setError(e.message);
     }
@@ -5206,7 +6314,14 @@ function Admin() {
         return { ...prev, [key]: res?.data || { ...(prev[key] || {}), ...payload } };
       });
       setLastRefreshed(new Date());
-      setNotice('Saved successfully.');
+      const sectionName = path === '/api/settings'
+        ? 'Store settings & WhatsApp configurations'
+        : path === '/api/site-content'
+        ? 'Homepage content & headings'
+        : path === '/api/stats'
+        ? 'Delivered towel counters & stats'
+        : `${key[0].toUpperCase() + key.slice(1)} configuration`;
+      setNotice(`${sectionName} saved successfully.`);
     } catch (e) {
       setError(e.message);
       throw e;
@@ -5387,8 +6502,19 @@ function Admin() {
               </span>
             )}
             {lastRefreshed && (
-              <span className="topbar-timestamp" title={`Data last synchronized at ${lastRefreshed.toLocaleTimeString('en-IN')}`}>
-                <span>🕒</span> Updated {lastRefreshed.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}
+              <span
+                className="topbar-timestamp"
+                title={`Data last synchronized: ${lastRefreshed.toLocaleString('en-IN', {
+                  weekday: 'short',
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit'
+                })}`}
+              >
+                <span>🕒</span> Updated {formatRelativeTime(lastRefreshed)}
               </span>
             )}
             <a
@@ -5400,6 +6526,17 @@ function Admin() {
             >
               <span>↗</span> Storefront
             </a>
+            <button
+              type="button"
+              className={`topbar-btn topbar-audio-btn ${audioEnabled ? 'active' : ''}`}
+              onClick={() => {
+                if (!audioEnabled) playNewOrderChime();
+                setAudioEnabled(!audioEnabled);
+              }}
+              title={audioEnabled ? 'Chime sound is active on new orders (Click to mute)' : 'Chime sound is muted (Click to activate)'}
+            >
+              <span>{audioEnabled ? '🔔' : '🔕'}</span> Sound: {audioEnabled ? 'On' : 'Muted'}
+            </button>
             <button
               type="button"
               className="topbar-btn topbar-btn-icon theme-toggle-btn"
