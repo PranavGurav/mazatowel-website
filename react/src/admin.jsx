@@ -1979,7 +1979,7 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
 
   return (
     <div className="panel">
-      <div className="panel-head sticky-form-head" style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 12 }}>
+      <div className="panel-head" style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 12 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
           <div>
             <h2>Store Settings</h2>
@@ -2628,7 +2628,7 @@ function StatsEditor({ stats = {}, onSave }) {
 
   return (
     <div className="panel">
-      <div className="panel-head sticky-form-head">
+      <div className="panel-head">
         <div>
           <h2>Business Counts & Proof Metrics</h2>
           <p className="muted" style={{ margin: '3px 0 0', fontSize: 13 }}>These verified counts are displayed on the public website's statistics strip.</p>
@@ -2754,7 +2754,7 @@ function ContentEditor({ content = {}, onSave }) {
 
   return (
     <div className="panel">
-      <div className="panel-head sticky-form-head">
+      <div className="panel-head">
         <div>
           <h2>Homepage Content & Storytelling</h2>
           <p className="muted" style={{ margin: '3px 0 0', fontSize: 13 }}>Edit marketing copy, educational sections, and calls to action without touching code.</p>
@@ -6251,6 +6251,10 @@ function Admin() {
   const [showDemo, setShowDemo] = useState(true);
   const [lastRefreshed, setLastRefreshed] = useState(null);
   const prevEnquiriesCountRef = useRef(null);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [section]);
 
   useEffect(() => {
     if (!data?.enquiries) return;
