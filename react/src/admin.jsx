@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { api, money } from './api';
 import { WhatsAppIcon, InstagramIcon, FacebookIcon, CloseIcon } from './icons';
