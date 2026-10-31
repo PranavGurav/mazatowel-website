@@ -6409,27 +6409,12 @@ function Admin() {
   const [notice, setNotice] = useState('');
   const [showDemo, setShowDemo] = useState(true);
   const [lastRefreshed, setLastRefreshed] = useState(null);
-  const [audioEnabled, setAudioEnabled] = useState(() => {
-    try {
-      return localStorage.getItem('mazatowel_admin_sound') !== 'false';
-    } catch {
-      return true;
-    }
-  });
-
   const prevEnquiriesCountRef = useRef(null);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('mazatowel_admin_sound', String(audioEnabled));
-    } catch {}
-  }, [audioEnabled]);
 
   useEffect(() => {
     if (!data?.enquiries) return;
     const currentCount = data.enquiries.length;
     if (prevEnquiriesCountRef.current !== null && currentCount > prevEnquiriesCountRef.current) {
-      if (audioEnabled) playNewOrderChime();
       const latestOrder = data.enquiries[0];
       setNotice({
         text: `🔔 New order enquiry received from ${latestOrder?.customerName || 'customer'}!`,
@@ -6437,7 +6422,7 @@ function Admin() {
       });
     }
     prevEnquiriesCountRef.current = currentCount;
-  }, [data?.enquiries, audioEnabled]);
+  }, [data?.enquiries]);
 
   const [theme, setTheme] = useState(() => {
     try {
@@ -6882,17 +6867,6 @@ function Admin() {
             >
               <span>↗</span> Storefront
             </a>
-            <button
-              type="button"
-              className={`topbar-btn topbar-audio-btn ${audioEnabled ? 'active' : ''}`}
-              onClick={() => {
-                if (!audioEnabled) playNewOrderChime();
-                setAudioEnabled(!audioEnabled);
-              }}
-              title={audioEnabled ? 'Chime sound is active on new orders (Click to mute)' : 'Chime sound is muted (Click to activate)'}
-            >
-              <span>{audioEnabled ? '🔔' : '🔕'}</span> Sound: {audioEnabled ? 'On' : 'Muted'}
-            </button>
             <button
               type="button"
               className="topbar-btn topbar-btn-icon theme-toggle-btn"
