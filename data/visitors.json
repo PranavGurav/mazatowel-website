@@ -1,16 +1,16 @@
 {
   "summary": {
-    "total": 144436,
-    "today": 29,
+    "total": 144441,
+    "today": 34,
     "yesterday": 6,
-    "dailyGrowth": 383,
-    "thisWeek": 52,
+    "dailyGrowth": 467,
+    "thisWeek": 57,
     "lastWeek": 106,
-    "weeklyGrowth": -51,
-    "thisMonth": 217,
+    "weeklyGrowth": -46,
+    "thisMonth": 222,
     "lastMonth": 5410,
     "monthlyGrowth": -96,
-    "thisYear": 54536
+    "thisYear": 54541
   },
   "daily": [
     {
@@ -161,7 +161,7 @@
     {
       "date": "2026-10-31",
       "label": "31 Oct",
-      "count": 30
+      "count": 35
     }
   ],
   "weekly": [
@@ -223,7 +223,7 @@
     {
       "week": "2026-W44",
       "label": "20 Oct - 26 Oct",
-      "count": 53
+      "count": 58
     }
   ],
   "monthly": [
@@ -285,7 +285,7 @@
     {
       "month": "2026-10",
       "label": "Oct 2026",
-      "count": 218
+      "count": 223
     }
   ],
   "yearly": [
@@ -307,7 +307,7 @@
     {
       "year": "2026",
       "label": "2026",
-      "count": 54537
+      "count": 54542
     }
   ],
   "lastUpdated": "2026-10-17T10:46:09.962Z",
@@ -326,11 +326,19 @@
         "page": "/#shop-home",
         "section": "Home Storefront",
         "device": "Desktop",
-        "durationSeconds": 7347,
+        "durationSeconds": 632,
         "lastSeenSecondsAgo": 0
       }
     ],
     "recentActivity": [
+      {
+        "id": "ACTmvwp56eah9lkta",
+        "timestamp": "2026-10-31T17:50:12.130Z",
+        "type": "Entered Store",
+        "page": "/#shop-home",
+        "section": "Home Storefront",
+        "device": "Desktop"
+      },
       {
         "id": "ACTmvwjjx6cmifsp6",
         "timestamp": "2026-10-31T15:13:42.324Z",
