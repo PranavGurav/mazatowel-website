@@ -1,16 +1,16 @@
 {
   "summary": {
-    "total": 144441,
-    "today": 34,
+    "total": 144442,
+    "today": 35,
     "yesterday": 6,
-    "dailyGrowth": 467,
-    "thisWeek": 57,
+    "dailyGrowth": 483,
+    "thisWeek": 58,
     "lastWeek": 106,
-    "weeklyGrowth": -46,
-    "thisMonth": 222,
+    "weeklyGrowth": -45,
+    "thisMonth": 223,
     "lastMonth": 5410,
     "monthlyGrowth": -96,
-    "thisYear": 54541
+    "thisYear": 54542
   },
   "daily": [
     {
@@ -161,7 +161,7 @@
     {
       "date": "2026-10-31",
       "label": "31 Oct",
-      "count": 35
+      "count": 36
     }
   ],
   "weekly": [
@@ -223,7 +223,7 @@
     {
       "week": "2026-W44",
       "label": "20 Oct - 26 Oct",
-      "count": 58
+      "count": 59
     }
   ],
   "monthly": [
@@ -285,7 +285,7 @@
     {
       "month": "2026-10",
       "label": "Oct 2026",
-      "count": 223
+      "count": 224
     }
   ],
   "yearly": [
@@ -307,7 +307,7 @@
     {
       "year": "2026",
       "label": "2026",
-      "count": 54542
+      "count": 54543
     }
   ],
   "lastUpdated": "2026-10-17T10:46:09.962Z",
@@ -326,7 +326,7 @@
         "page": "/#shop-home",
         "section": "Home Storefront",
         "device": "Desktop",
-        "durationSeconds": 632,
+        "durationSeconds": 1233,
         "lastSeenSecondsAgo": 0
       }
     ],

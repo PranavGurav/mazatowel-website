@@ -1,5 +1,47 @@
 [
   {
+    "id": "SECmvwpx2avvfz9ys",
+    "timestamp": "2026-10-31T18:11:53.191Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwpx2area7glx",
+    "timestamp": "2026-10-31T18:11:53.187Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwpx25lw3nrr6"
+    }
+  },
+  {
+    "id": "SECmvwpx2ak4wmw1v",
+    "timestamp": "2026-10-31T18:11:53.180Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwpx2a7n3hm4c"
+    }
+  },
+  {
+    "id": "SECmvwpx27esqsm3y",
+    "timestamp": "2026-10-31T18:11:53.066Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
     "id": "SECmvwnjoqbejy91r",
     "timestamp": "2026-10-31T17:05:29.843Z",
     "event": "SETTINGS_UPDATED",
