@@ -1901,6 +1901,8 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
   const [credSaving, setCredSaving] = useState(false);
   const [credNotice, setCredNotice] = useState('');
   const [credError, setCredError] = useState('');
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
 
   // Security Audit Trail State
   const [auditLogs, setAuditLogs] = useState([]);
@@ -2020,7 +2022,7 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
             className={`btn ${settingsTab === 'security' ? 'btn-primary' : 'btn-secondary'} btn-sm`}
             onClick={() => setSettingsTab('security')}
           >
-            🔒 Security & Backup
+            🔒 Password & Security
           </button>
         </div>
       </div>
@@ -2377,13 +2379,35 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
           {credNotice && <div className="diagnostics-result success" style={{ marginBottom: 12 }}>{credNotice}</div>}
           <div className="form-row-3">
             <FormField label="Current Password" required>
-              <input
-                type="password"
-                maxLength={128}
-                value={credForm.currentPassword}
-                onChange={e => setCredForm(f => ({ ...f, currentPassword: e.target.value.slice(0, 128) }))}
-                placeholder="Enter current password"
-              />
+              <div className="password-field-wrap">
+                <input
+                  type={showCurrentPassword ? 'text' : 'password'}
+                  maxLength={128}
+                  value={credForm.currentPassword}
+                  onChange={e => setCredForm(f => ({ ...f, currentPassword: e.target.value.slice(0, 128) }))}
+                  placeholder="Enter current password"
+                  autoComplete="current-password"
+                />
+                <button
+                  type="button"
+                  className="toggle-password-btn"
+                  onClick={() => setShowCurrentPassword(v => !v)}
+                  aria-label={showCurrentPassword ? 'Hide current password' : 'Show current password'}
+                  title={showCurrentPassword ? 'Hide current password' : 'Show current password'}
+                >
+                  {showCurrentPassword ? (
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                      <line x1="1" y1="1" x2="23" y2="23" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  )}
+                </button>
+              </div>
             </FormField>
             <FormField label="Admin Login Email" required>
               <input
@@ -2392,16 +2416,39 @@ function SettingsEditor({ settings = {}, adminEmail = '', onSave, onRefresh, onN
                 value={credForm.email}
                 onChange={e => setCredForm(f => ({ ...f, email: e.target.value.slice(0, 100) }))}
                 placeholder="Enter admin email"
+                autoComplete="username"
               />
             </FormField>
             <FormField label="New Password">
-              <input
-                type="password"
-                maxLength={128}
-                value={credForm.newPassword}
-                onChange={e => setCredForm(f => ({ ...f, newPassword: e.target.value.slice(0, 128) }))}
-                placeholder="Enter new password"
-              />
+              <div className="password-field-wrap">
+                <input
+                  type={showNewPassword ? 'text' : 'password'}
+                  maxLength={128}
+                  value={credForm.newPassword}
+                  onChange={e => setCredForm(f => ({ ...f, newPassword: e.target.value.slice(0, 128) }))}
+                  placeholder="Enter new password"
+                  autoComplete="new-password"
+                />
+                <button
+                  type="button"
+                  className="toggle-password-btn"
+                  onClick={() => setShowNewPassword(v => !v)}
+                  aria-label={showNewPassword ? 'Hide new password' : 'Show new password'}
+                  title={showNewPassword ? 'Hide new password' : 'Show new password'}
+                >
+                  {showNewPassword ? (
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                      <line x1="1" y1="1" x2="23" y2="23" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  )}
+                </button>
+              </div>
             </FormField>
           </div>
           <button

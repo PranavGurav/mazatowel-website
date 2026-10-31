@@ -4482,6 +4482,14 @@ body{font-size:15px;line-height:1.65;background:var(--soft)}
   box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.25) !important;
 }
 
+[data-theme="dark"] .toggle-password-btn {
+  color: #94a3b8;
+}
+[data-theme="dark"] .toggle-password-btn:hover {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+}
+
 [data-theme="dark"] .btn-secondary {
   background: #1a273b;
   color: #e2e8f0;
