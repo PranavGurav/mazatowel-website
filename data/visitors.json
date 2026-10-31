@@ -1,16 +1,16 @@
 {
   "summary": {
-    "total": 144411,
-    "today": 4,
+    "total": 144434,
+    "today": 27,
     "yesterday": 6,
-    "dailyGrowth": -33,
-    "thisWeek": 27,
+    "dailyGrowth": 350,
+    "thisWeek": 50,
     "lastWeek": 106,
-    "weeklyGrowth": -75,
-    "thisMonth": 192,
+    "weeklyGrowth": -53,
+    "thisMonth": 215,
     "lastMonth": 5410,
     "monthlyGrowth": -96,
-    "thisYear": 54511
+    "thisYear": 54534
   },
   "daily": [
     {
@@ -161,7 +161,7 @@
     {
       "date": "2026-10-31",
       "label": "31 Oct",
-      "count": 5
+      "count": 28
     }
   ],
   "weekly": [
@@ -223,7 +223,7 @@
     {
       "week": "2026-W44",
       "label": "20 Oct - 26 Oct",
-      "count": 28
+      "count": 51
     }
   ],
   "monthly": [
@@ -285,7 +285,7 @@
     {
       "month": "2026-10",
       "label": "Oct 2026",
-      "count": 193
+      "count": 216
     }
   ],
   "yearly": [
@@ -307,7 +307,7 @@
     {
       "year": "2026",
       "label": "2026",
-      "count": 54512
+      "count": 54535
     }
   ],
   "lastUpdated": "2026-10-17T10:46:09.962Z",
@@ -323,51 +323,27 @@
     },
     "sessions": [
       {
-        "page": "/",
+        "page": "/#shop-home",
         "section": "Home Storefront",
         "device": "Desktop",
-        "durationSeconds": 626,
+        "durationSeconds": 6118,
         "lastSeenSecondsAgo": 0
       }
     ],
     "recentActivity": [
       {
-        "id": "ACTmvwet5c3girekt",
-        "timestamp": "2026-10-31T13:00:54.723Z",
+        "id": "ACTmvwjjx6cmifsp6",
+        "timestamp": "2026-10-31T15:13:42.324Z",
         "type": "Entered Store",
         "page": "/",
         "section": "Home Storefront",
         "device": "Desktop"
       },
       {
-        "id": "ACTmvwet30dwycqml",
-        "timestamp": "2026-10-31T13:00:51.709Z",
-        "type": "Re-engaged Tab",
-        "page": "/",
-        "section": "Home Storefront",
-        "device": "Desktop"
-      },
-      {
-        "id": "ACTmvweilasdpbwhr",
-        "timestamp": "2026-10-31T12:52:42.196Z",
-        "type": "Re-engaged Tab",
-        "page": "/",
-        "section": "Home Storefront",
-        "device": "Desktop"
-      },
-      {
-        "id": "ACTmvwec0dw1kbe3y",
-        "timestamp": "2026-10-31T12:47:35.156Z",
-        "type": "Re-engaged Tab",
-        "page": "/",
-        "section": "Home Storefront",
-        "device": "Desktop"
-      },
-      {
-        "id": "ACTmvwe45b6jd7vpn",
-        "timestamp": "2026-10-31T12:41:28.290Z",
+        "id": "ACTmvwj1b2xr31jzu",
+        "timestamp": "2026-10-31T14:59:13.881Z",
         "type": "Entered Store",
-        "page": "/",
+        "page": "/#shop-home",
         "section": "Home Storefront",
         "device": "Desktop"
       }

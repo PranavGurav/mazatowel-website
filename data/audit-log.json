@@ -1,5 +1,615 @@
 [
   {
+    "id": "SECmvwltcyybb352m",
+    "timestamp": "2026-10-31T16:17:01.930Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwltcywa61yfz",
+    "timestamp": "2026-10-31T16:17:01.928Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwltcvu1ggdwj"
+    }
+  },
+  {
+    "id": "SECmvwltcys0lsqcj",
+    "timestamp": "2026-10-31T16:17:01.924Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwltcylka7u22"
+    }
+  },
+  {
+    "id": "SECmvwltcx1z2qfpz",
+    "timestamp": "2026-10-31T16:17:01.861Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwllj5z3i4zw7",
+    "timestamp": "2026-10-31T16:10:56.711Z",
+    "event": "SETTINGS_UPDATED",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+    "details": {
+      "section": "settings"
+    }
+  },
+  {
+    "id": "SECmvwku2arzipmr7",
+    "timestamp": "2026-10-31T15:49:35.139Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwku2aobp0xpa",
+    "timestamp": "2026-10-31T15:49:35.136Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwku208me1uah"
+    }
+  },
+  {
+    "id": "SECmvwku2ajk3fgju",
+    "timestamp": "2026-10-31T15:49:35.131Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwku2a9qzw54j"
+    }
+  },
+  {
+    "id": "SECmvwku24qaa2k0s",
+    "timestamp": "2026-10-31T15:49:34.922Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwk3gl2okoawn",
+    "timestamp": "2026-10-31T15:28:53.943Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwk3gkz6y680f",
+    "timestamp": "2026-10-31T15:28:53.939Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwk3g8kgve6hr"
+    }
+  },
+  {
+    "id": "SECmvwk3gktd4e0yq",
+    "timestamp": "2026-10-31T15:28:53.933Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwk3gkft0feqz"
+    }
+  },
+  {
+    "id": "SECmvwk3ge3vg0yr5",
+    "timestamp": "2026-10-31T15:28:53.691Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwjv173blarn2",
+    "timestamp": "2026-10-31T15:22:20.751Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwjv170m3tdb1",
+    "timestamp": "2026-10-31T15:22:20.748Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwjv0usm69l0l"
+    }
+  },
+  {
+    "id": "SECmvwjv16qmeg45t",
+    "timestamp": "2026-10-31T15:22:20.738Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwjv1606wyph1"
+    }
+  },
+  {
+    "id": "SECmvwjv0z5f65mso",
+    "timestamp": "2026-10-31T15:22:20.465Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwjh5g9n3ua89",
+    "timestamp": "2026-10-31T15:11:33.081Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwjh5g22fy77o",
+    "timestamp": "2026-10-31T15:11:33.074Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwjh5a9p2fkcb"
+    }
+  },
+  {
+    "id": "SECmvwjh5fn70khev",
+    "timestamp": "2026-10-31T15:11:33.059Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwjh5eve7qryh"
+    }
+  },
+  {
+    "id": "SECmvwjh5c2gj1mcl",
+    "timestamp": "2026-10-31T15:11:32.930Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwj7uc86026u9",
+    "timestamp": "2026-10-31T15:04:18.776Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwj5551p1at8w",
+    "timestamp": "2026-10-31T15:02:12.805Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwj554uqhkkt2",
+    "timestamp": "2026-10-31T15:02:12.798Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwj54up9gvy16"
+    }
+  },
+  {
+    "id": "SECmvwj554gz7mh33",
+    "timestamp": "2026-10-31T15:02:12.784Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwj553qzvpglu"
+    }
+  },
+  {
+    "id": "SECmvwj550ktvvw63",
+    "timestamp": "2026-10-31T15:02:12.644Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwj10cmzpsmj0",
+    "timestamp": "2026-10-31T14:58:59.974Z",
+    "event": "LOGOUT",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwj1064i2gwer",
+    "timestamp": "2026-10-31T14:58:59.740Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwizlvhgxqu7j",
+    "timestamp": "2026-10-31T14:57:54.557Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwizlvfehf4w9",
+    "timestamp": "2026-10-31T14:57:54.555Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwizlny25h1u7"
+    }
+  },
+  {
+    "id": "SECmvwizlvaqk0rmn",
+    "timestamp": "2026-10-31T14:57:54.550Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwizlv0956iuh"
+    }
+  },
+  {
+    "id": "SECmvwizlso2t1l9f",
+    "timestamp": "2026-10-31T14:57:54.456Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwizeuyrn4w61",
+    "timestamp": "2026-10-31T14:57:45.466Z",
+    "event": "LOGOUT",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwizeq1ax5n5s",
+    "timestamp": "2026-10-31T14:57:45.289Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwip69j7v55uz",
+    "timestamp": "2026-10-31T14:49:47.767Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwgu5mnbpgjxn",
+    "timestamp": "2026-10-31T13:57:40.991Z",
+    "event": "LOGOUT",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwgu5l34368px",
+    "timestamp": "2026-10-31T13:57:40.935Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwgsw49x0g7wz",
+    "timestamp": "2026-10-31T13:56:42.009Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwgsw47soo1zo",
+    "timestamp": "2026-10-31T13:56:42.007Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwgsw1ps1fz7g"
+    }
+  },
+  {
+    "id": "SECmvwgsw43qz6s1s",
+    "timestamp": "2026-10-31T13:56:42.003Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwgsw3yz6d0xz"
+    }
+  },
+  {
+    "id": "SECmvwgsw2pf406zj",
+    "timestamp": "2026-10-31T13:56:41.953Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwgsoiw82w4i1",
+    "timestamp": "2026-10-31T13:56:32.168Z",
+    "event": "LOGOUT",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwgsohn93v32y",
+    "timestamp": "2026-10-31T13:56:32.123Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwg6qol0hqr2i",
+    "timestamp": "2026-10-31T13:39:28.533Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwfxyphoywrc5",
+    "timestamp": "2026-10-31T13:32:39.029Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwfxypfd48ffu",
+    "timestamp": "2026-10-31T13:32:39.027Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwfxymxtwlc4f"
+    }
+  },
+  {
+    "id": "SECmvwfxypc1sw0rv",
+    "timestamp": "2026-10-31T13:32:39.024Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwfxyp6m94fh8"
+    }
+  },
+  {
+    "id": "SECmvwfxynz1s9gwp",
+    "timestamp": "2026-10-31T13:32:38.975Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwfxkh4fpgj1p",
+    "timestamp": "2026-10-31T13:32:20.584Z",
+    "event": "LOGOUT",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwfxkfzs2h5gg",
+    "timestamp": "2026-10-31T13:32:20.543Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwfqocmzhh6dc",
+    "timestamp": "2026-10-31T13:26:59.014Z",
+    "event": "LOGOUT",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwfqob6ygk48r",
+    "timestamp": "2026-10-31T13:26:58.962Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwfpoz52hwdkz",
+    "timestamp": "2026-10-31T13:26:13.169Z",
+    "event": "LOGOUT",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwfpoz4r8mwhg",
+    "timestamp": "2026-10-31T13:26:13.168Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "enquiries",
+      "itemId": "ENQmvwfpowjgr74oa"
+    }
+  },
+  {
+    "id": "SECmvwfpoz1247hkb",
+    "timestamp": "2026-10-31T13:26:13.165Z",
+    "event": "ITEM_DELETED",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "collection": "products",
+      "itemId": "Pmvwfpoyui4813i"
+    }
+  },
+  {
+    "id": "SECmvwfpoxncdc8d3",
+    "timestamp": "2026-10-31T13:26:13.115Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "127.0.0.1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwfpk037adw1q",
+    "timestamp": "2026-10-31T13:26:06.723Z",
+    "event": "LOGOUT",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "method": "Manual sign out"
+    }
+  },
+  {
+    "id": "SECmvwfpjyypdkf4u",
+    "timestamp": "2026-10-31T13:26:06.682Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
+    "id": "SECmvwffl2q015vtt",
+    "timestamp": "2026-10-31T13:18:21.554Z",
+    "event": "LOGIN_SUCCESS",
+    "ip": "::1",
+    "userAgent": "",
+    "details": {
+      "email": "admin@mazatowel.in"
+    }
+  },
+  {
     "id": "SECmvwed23hmnzsx5",
     "timestamp": "2026-10-31T12:48:24.029Z",
     "event": "LOGOUT",
