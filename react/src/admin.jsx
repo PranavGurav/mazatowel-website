@@ -5453,9 +5453,9 @@ function Dashboard({ data, onNavigate, onEdit, onQuickUpdate, onNotice }) {
           title="Click to view Customer Enquiries"
         >
           <div className="slick-kpi-top">
-            <span className="slick-kpi-label">Orders & Enquiries</span>
+            <span className="slick-kpi-label">Customer Orders</span>
             {newEnquiries.length > 0 ? (
-              <span className="slick-kpi-pill pill-alert">⚡ {newEnquiries.length} Action Needed</span>
+              <span className="slick-kpi-pill pill-alert">⚡ Action Needed</span>
             ) : (
               <span className="slick-kpi-pill pill-neutral">All caught up</span>
             )}
@@ -5487,7 +5487,7 @@ function Dashboard({ data, onNavigate, onEdit, onQuickUpdate, onNotice }) {
           title="Click to view Live Traffic & Deep Analytics Radar"
         >
           <div className="slick-kpi-top">
-            <span className="slick-kpi-label">Live Shoppers & Traffic</span>
+            <span className="slick-kpi-label">Live Shoppers</span>
             <span className="slick-kpi-pill pill-live">
               <span className="slick-pulse-dot" /> {activeNow} Online
             </span>
@@ -5521,7 +5521,7 @@ function Dashboard({ data, onNavigate, onEdit, onQuickUpdate, onNotice }) {
           title="Click to view Towel Colors & Stock"
         >
           <div className="slick-kpi-top">
-            <span className="slick-kpi-label">Workshop Fabric Stock</span>
+            <span className="slick-kpi-label">Fabric Stock</span>
             <span className="slick-kpi-pill pill-info">
               {workshopHealth.colorsPct}% In-Stock
             </span>
@@ -5557,7 +5557,7 @@ function Dashboard({ data, onNavigate, onEdit, onQuickUpdate, onNotice }) {
           title="Click to view Products & Catalog"
         >
           <div className="slick-kpi-top">
-            <span className="slick-kpi-label">Catalog & Reputation</span>
+            <span className="slick-kpi-label">Catalog & Reviews</span>
             <span className="slick-kpi-pill pill-prod">
               {avgRating} ★ ({reviews.length})
             </span>
