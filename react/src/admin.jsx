@@ -2783,10 +2783,30 @@ function ContentEditor({ content = {}, onSave }) {
     setVal('whyPoints', list);
   };
 
+  const addWhyPoint = () => {
+    const list = [...(form.whyPoints || []), { title: '', text: '' }];
+    setVal('whyPoints', list);
+  };
+
+  const removeWhyPoint = (idx) => {
+    const list = (form.whyPoints || []).filter((_, i) => i !== idx);
+    setVal('whyPoints', list);
+  };
+
   const updateHygienePoint = (idx, field, val) => {
     const list = [...(form.hygienePoints || [])];
     if (!list[idx]) list[idx] = { title: '', text: '' };
     list[idx][field] = val;
+    setVal('hygienePoints', list);
+  };
+
+  const addHygienePoint = () => {
+    const list = [...(form.hygienePoints || []), { title: '', text: '' }];
+    setVal('hygienePoints', list);
+  };
+
+  const removeHygienePoint = (idx) => {
+    const list = (form.hygienePoints || []).filter((_, i) => i !== idx);
     setVal('hygienePoints', list);
   };
 
@@ -2893,12 +2913,59 @@ function ContentEditor({ content = {}, onSave }) {
                 />
               </FormField>
 
-              <div className="form-section-title">Value Points (4 Pillars)</div>
+              <div className="form-section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+                <span>Value Points ({(form.whyPoints || []).length})</span>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={addWhyPoint}
+                  style={{ minHeight: 'unset', height: 32, padding: '0 12px', fontSize: 12, fontWeight: 700, borderRadius: 8, display: 'inline-flex', alignItems: 'center', gap: 4 }}
+                >
+                  + Add Value Point
+                </button>
+              </div>
+
+              {(!form.whyPoints || form.whyPoints.length === 0) && (
+                <div style={{ padding: '24px 16px', textAlign: 'center', background: '#f8fafc', borderRadius: 12, border: '1px dashed var(--line)', margin: '12px 0' }}>
+                  <p className="muted" style={{ margin: '0 0 10px', fontSize: 13 }}>No value points added yet.</p>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={addWhyPoint}
+                    style={{ minHeight: 34, fontSize: 12 }}
+                  >
+                    + Add First Value Point
+                  </button>
+                </div>
+              )}
+
               <div className="points-list">
                 {(form.whyPoints || []).map((point, idx) => (
                   <div key={idx} className="point-card">
                     <div className="point-head">
                       <span>Pillar #{idx + 1}</span>
+                      <button
+                        type="button"
+                        onClick={() => removeWhyPoint(idx)}
+                        title="Delete this value point"
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#dc2626',
+                          fontSize: 12,
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          padding: '2px 8px',
+                          borderRadius: 6,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 4
+                        }}
+                        onMouseOver={e => e.currentTarget.style.background = '#fee2e2'}
+                        onMouseOut={e => e.currentTarget.style.background = 'none'}
+                      >
+                        ✕ Remove
+                      </button>
                     </div>
                     <div className="form-row">
                       <FormField label="Point Title">
@@ -2907,6 +2974,7 @@ function ContentEditor({ content = {}, onSave }) {
                           maxLength={80}
                           value={point.title || ''}
                           onChange={e => updateWhyPoint(idx, 'title', e.target.value.slice(0, 80))}
+                          placeholder="e.g. Pure Egyptian Cotton Softness"
                         />
                       </FormField>
                     </div>
@@ -2916,11 +2984,25 @@ function ContentEditor({ content = {}, onSave }) {
                         maxLength={400}
                         value={point.text || ''}
                         onChange={e => updateWhyPoint(idx, 'text', e.target.value.slice(0, 400))}
+                        placeholder="Detailed explanation of this personalization benefit..."
                       />
                     </FormField>
                   </div>
                 ))}
               </div>
+
+              {(form.whyPoints || []).length > 0 && (
+                <div style={{ marginTop: 14, textAlign: 'center' }}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={addWhyPoint}
+                    style={{ minHeight: 38, fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6, margin: '0 auto', borderRadius: 8, padding: '8px 18px' }}
+                  >
+                    + Add Another Value Point
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
@@ -2943,12 +3025,59 @@ function ContentEditor({ content = {}, onSave }) {
                 />
               </FormField>
 
-              <div className="form-section-title">Care & Hygiene Guidelines</div>
+              <div className="form-section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+                <span>Care & Hygiene Guidelines ({(form.hygienePoints || []).length} Rules)</span>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={addHygienePoint}
+                  style={{ minHeight: 'unset', height: 32, padding: '0 12px', fontSize: 12, fontWeight: 700, borderRadius: 8, display: 'inline-flex', alignItems: 'center', gap: 4 }}
+                >
+                  + Add Care & Hygiene Rule
+                </button>
+              </div>
+
+              {(!form.hygienePoints || form.hygienePoints.length === 0) && (
+                <div style={{ padding: '24px 16px', textAlign: 'center', background: '#f8fafc', borderRadius: 12, border: '1px dashed var(--line)', margin: '12px 0' }}>
+                  <p className="muted" style={{ margin: '0 0 10px', fontSize: 13 }}>No care & hygiene rules added yet.</p>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={addHygienePoint}
+                    style={{ minHeight: 34, fontSize: 12 }}
+                  >
+                    + Add First Care & Hygiene Rule
+                  </button>
+                </div>
+              )}
+
               <div className="points-list">
                 {(form.hygienePoints || []).map((point, idx) => (
                   <div key={idx} className="point-card">
                     <div className="point-head">
                       <span>Rule #{idx + 1}</span>
+                      <button
+                        type="button"
+                        onClick={() => removeHygienePoint(idx)}
+                        title="Delete this care & hygiene rule"
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#dc2626',
+                          fontSize: 12,
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          padding: '2px 8px',
+                          borderRadius: 6,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 4
+                        }}
+                        onMouseOver={e => e.currentTarget.style.background = '#fee2e2'}
+                        onMouseOut={e => e.currentTarget.style.background = 'none'}
+                      >
+                        ✕ Remove
+                      </button>
                     </div>
                     <div className="form-row">
                       <FormField label="Rule Title">
@@ -2957,6 +3086,7 @@ function ContentEditor({ content = {}, onSave }) {
                           maxLength={80}
                           value={point.title || ''}
                           onChange={e => updateHygienePoint(idx, 'title', e.target.value.slice(0, 80))}
+                          placeholder="e.g. Wash at 40°C Delicate Cycle"
                         />
                       </FormField>
                     </div>
@@ -2966,13 +3096,27 @@ function ContentEditor({ content = {}, onSave }) {
                         maxLength={400}
                         value={point.text || ''}
                         onChange={e => updateHygienePoint(idx, 'text', e.target.value.slice(0, 400))}
+                        placeholder="Detailed care instruction or hygiene best practice..."
                       />
                     </FormField>
                   </div>
                 ))}
               </div>
 
-              <div style={{ marginTop: 14 }}>
+              {(form.hygienePoints || []).length > 0 && (
+                <div style={{ marginTop: 14, textAlign: 'center' }}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={addHygienePoint}
+                    style={{ minHeight: 38, fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6, margin: '0 auto', borderRadius: 8, padding: '8px 18px' }}
+                  >
+                    + Add Another Care & Hygiene Rule
+                  </button>
+                </div>
+              )}
+
+              <div style={{ marginTop: 18 }}>
                 <FormField label="Important Hygiene Note">
                   <textarea
                     rows="2"
