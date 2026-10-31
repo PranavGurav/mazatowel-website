@@ -3628,25 +3628,14 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
             </span>
           </div>
 
-          {formattedPhone ? (
-            <div className="enquiry-phone-row">
+          <div className="enquiry-phone-row">
+            {formattedPhone ? (
               <a href={`tel:${cleanPhone}`} className="enquiry-phone-link" title="Click to call customer">
                 <span>📞</span>
                 <span>{formattedPhone}</span>
               </a>
-            </div>
-          ) : (
-            <span style={{ fontSize: 11, color: 'var(--muted)' }}>No phone provided</span>
-          )}
-
-          <div className="enquiry-meta-row">
-            {item.createdAt && (
-              <span
-                className="relative-timestamp-chip"
-                title={`Created: ${new Date(item.createdAt).toLocaleString('en-IN')}`}
-              >
-                🕒 {formatRelativeTime(item.createdAt)}
-              </span>
+            ) : (
+              <span style={{ fontSize: 11, color: 'var(--muted)' }}>No phone</span>
             )}
             {city && (
               <span className="enquiry-city-pill" title={`Delivery City: ${city}`}>
@@ -3656,7 +3645,18 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
             )}
             {isB2B && (
               <span className="enquiry-b2b-pill" title="Commercial Sample Kit Request">
-                🏢 B2B Request
+                🏢 B2B
+              </span>
+            )}
+          </div>
+
+          <div className="enquiry-meta-row">
+            {item.createdAt && (
+              <span
+                className="relative-timestamp-chip"
+                title={`Created: ${new Date(item.createdAt).toLocaleString('en-IN')}`}
+              >
+                🕒 {formatRelativeTime(item.createdAt)}
               </span>
             )}
           </div>
@@ -3668,21 +3668,18 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
         <div className="enquiry-cell-product">
           <div className="enquiry-prod-name">{item.product || (isShirt ? 'Custom T-Shirt' : 'Personalized Towel')}</div>
 
-          <div className="enquiry-prod-tags">
+          <div className="enquiry-prod-meta-line">
             <span className={`enquiry-type-badge ${isShirt ? 'tshirt' : 'towel'}`}>
               {isShirt ? '👕 Apparel' : '🏷️ Towel'}
             </span>
-            <span className={`enquiry-qty-tag ${(Number(item.quantity) || 1) >= 3 ? 'bulk' : ''}`}>
-              {(Number(item.quantity) || 1) >= 3 ? `💎 Qty: ${item.quantity} (Bulk)` : `Qty: ${item.quantity || 1}`}
-            </span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginTop: 2 }}>
             {item.size && (
-              <span style={{ fontSize: 11.5, color: 'var(--muted)', fontWeight: 600 }}>
+              <span style={{ fontSize: 11, color: 'var(--muted)', fontWeight: 600 }}>
                 📏 {item.size}
               </span>
             )}
+            <span className={`enquiry-qty-tag ${(Number(item.quantity) || 1) >= 3 ? 'bulk' : ''}`}>
+              {(Number(item.quantity) || 1) >= 3 ? `💎 ${item.quantity} pcs` : `Qty: ${item.quantity || 1}`}
+            </span>
             {item.towelColor && (
               <span className="enquiry-color-line" title={`Color: ${item.towelColor}`}>
                 <span
@@ -3739,27 +3736,27 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
                   <img
                     src={item.logoAttachment}
                     alt="Logo"
-                    style={{ width: 16, height: 16, objectFit: 'contain', borderRadius: 3, background: '#fff' }}
+                    style={{ width: 15, height: 15, objectFit: 'contain', borderRadius: 3, background: '#fff' }}
                   />
                 ) : (
                   <span>📄</span>
                 )}
                 <span>View Logo ↗</span>
               </a>
-              <a href={item.logoAttachment} download className="btn-copy-sm" title="Download logo file to computer">
+              <a href={item.logoAttachment} download className="btn-copy-sm" style={{ padding: '1px 5px', fontSize: 10 }} title="Download logo file to computer">
                 ⬇
               </a>
             </div>
           )}
 
           {item.notes && (
-            <div className="enquiry-note-callout" title="Customer instructions / notes">
+            <div className="enquiry-note-callout" title={item.notes}>
               💬 {item.notes}
             </div>
           )}
 
           {item.adminNotes && (
-            <div className="enquiry-workshop-note" title="Internal admin & workshop note">
+            <div className="enquiry-workshop-note" title={item.adminNotes}>
               📌 <strong>Workshop:</strong> {item.adminNotes}
             </div>
           )}
@@ -3782,7 +3779,7 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
             <option value="Shipped">🚚 Shipped</option>
             <option value="Closed">⚪ Closed</option>
           </select>
-          <span style={{ fontSize: 10.5, color: 'var(--muted)', fontWeight: 600 }}>
+          <span style={{ fontSize: 10, color: 'var(--muted)', fontWeight: 600 }}>
             {status === 'New'
               ? '⚡ Needs response'
               : status === 'In Production'
@@ -3797,7 +3794,7 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
       </td>
 
       {/* 5. Action Toolbar */}
-      <td className="td-actions">
+      <td className="enquiry-actions-col">
         <div className="enquiry-actions-toolbar">
           {item.phone && (
             <a
@@ -3808,7 +3805,7 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
               title={`Open WhatsApp chat with ${item.customerName || 'customer'} with prefilled order confirmation`}
               aria-label="Chat on WhatsApp"
             >
-              <WhatsAppIcon size={16} />
+              <WhatsAppIcon size={15} />
             </a>
           )}
           <button
@@ -3818,7 +3815,7 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
             onClick={handleCopyCourier}
             aria-label="Copy courier details"
           >
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
               <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
             </svg>
@@ -3830,7 +3827,7 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
             title="Edit enquiry details & workshop notes"
             aria-label="Edit enquiry"
           >
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
             </svg>
@@ -3843,7 +3840,7 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
               title="Mark enquiry as Closed / Fulfilled"
               aria-label="Mark closed"
             >
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
@@ -3856,7 +3853,7 @@ function EnquiryRow({ item, colors = [], onEdit, onDelete, onQuickUpdate, onNoti
             title="Delete enquiry"
             aria-label="Delete enquiry"
           >
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <polyline points="3 6 5 6 21 6" />
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
               <line x1="10" y1="11" x2="10" y2="17" />
@@ -4362,7 +4359,7 @@ function Collection({ data, type, onEdit, onDelete, onQuickUpdate, onSaveSetting
                   <th style={{ width: '21%', minWidth: 180 }}>Product & Garment</th>
                   <th style={{ width: '27%', minWidth: 230 }}>Embroidery & Specs</th>
                   <th style={{ width: '14%', minWidth: 140 }}>Status</th>
-                  <th className="th-actions" style={{ width: '16%', minWidth: 190 }}>Actions</th>
+                  <th className="enquiry-actions-th">Actions</th>
                 </tr>
               </thead>
               <tbody>
