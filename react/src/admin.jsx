@@ -5442,28 +5442,6 @@ function Dashboard({ data, onNavigate, onEdit, onQuickUpdate, onNotice }) {
 
   return (
     <>
-      {/* 0. Sticky Action Required Banner (Only shows when action is needed) */}
-      {newEnquiries.length > 0 && (
-        <div className="dash-action-banner" role="alert">
-          <div className="dash-action-banner-inner">
-            <div className="dash-action-banner-left">
-              <span className="dash-action-banner-icon">⚡</span>
-              <div>
-                <strong>{newEnquiries.length} new {newEnquiries.length === 1 ? 'enquiry needs' : 'enquiries need'} your response</strong>
-                <span className="dash-action-banner-sub">Customers are waiting — open Customer Enquiries to respond via WhatsApp</span>
-              </div>
-            </div>
-            <button
-              type="button"
-              className="dash-action-banner-btn"
-              onClick={() => onNavigate && onNavigate('enquiries')}
-            >
-              Open Enquiries ({newEnquiries.length}) →
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* 1. Prioritized Hero KPI Pillar Cards (4 High-Impact Pillars) */}
       <div className="slick-kpi-grid">
         {/* Pillar 1: Customer Orders & Workflow (Priority #1) */}
@@ -5616,11 +5594,7 @@ function Dashboard({ data, onNavigate, onEdit, onQuickUpdate, onNotice }) {
           >
             <span>📊</span>
             <span>Store Operations & Overview</span>
-            {newEnquiries.length > 0 && (
-              <span className="dash-tab-badge" style={{ background: '#fee2e2', color: '#b91c1c' }}>
-                ⚡ {newEnquiries.length} New
-              </span>
-            )}
+            
           </button>
           <button
             type="button"
@@ -5630,9 +5604,7 @@ function Dashboard({ data, onNavigate, onEdit, onQuickUpdate, onNotice }) {
           >
             <span>🌐</span>
             <span>Live Traffic & Deep Analytics</span>
-            <span className="dash-tab-badge" style={{ background: '#dcfce7', color: '#15803d' }}>
-              🟢 {activeNow} Live · {todayVisitors} Today
-            </span>
+            
           </button>
         </div>
       </div>
@@ -5978,140 +5950,9 @@ function Dashboard({ data, onNavigate, onEdit, onQuickUpdate, onNotice }) {
                 </button>
               </div>
             </div>
-
-            {/* ROW 3: Integrated Live Store Traffic & Telemetry Strip */}
-            <div className="dash-telemetry-card" id="card-traffic-telemetry">
-              <div className="dash-graph-header" style={{ marginBottom: 12, paddingBottom: 10 }}>
-                <div className="dash-graph-title-wrap">
-                  <span className="dash-graph-icon" style={{ background: '#e0f2fe', color: '#0284c7' }} aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  </span>
-                  <div>
-                    <h3 className="dash-graph-title">Store Audience & Live Traffic Telemetry</h3>
-                    <p className="dash-graph-subtitle">Real-time visitor flow, browsing hotspots & multi-period activity</p>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span className="dash-tab-badge" style={{ background: '#dcfce7', color: '#15803d', fontWeight: 800 }}>
-                    🟢 {activeNow} {activeNow === 1 ? 'Shopper' : 'Shoppers'} Active Right Now
-                  </span>
-                  <button
-                    type="button"
-                    className="btn btn-secondary btn-sm"
-                    onClick={() => handleSetDashView('visitors')}
-                    title="View full 30-day interactive visitor traffic analytics chart"
-                    style={{ fontSize: 11.5, padding: '5px 12px' }}
-                  >
-                    Deep Analytics Chart →
-                  </button>
-                </div>
-              </div>
-
-              <div className="dash-telemetry-grid">
-                <div className="dash-telemetry-stat">
-                  <span className="dash-telemetry-label">Today</span>
-                  <span className="dash-telemetry-val" style={{ color: '#0284c7' }}>{todayVisitors.toLocaleString('en-IN')}</span>
-                  <span className="dash-telemetry-sub">Live visitors today</span>
-                </div>
-
-                <div className="dash-telemetry-stat">
-                  <span className="dash-telemetry-label">This Week</span>
-                  <span className="dash-telemetry-val">{weekVisitors.toLocaleString('en-IN')}</span>
-                  <span className="dash-telemetry-sub">7-day rolling volume</span>
-                </div>
-
-                <div className="dash-telemetry-stat">
-                  <span className="dash-telemetry-label">This Month</span>
-                  <span className="dash-telemetry-val">{monthVisitors.toLocaleString('en-IN')}</span>
-                  <span className="dash-telemetry-sub">Monthly store reach</span>
-                </div>
-
-                <div className="dash-telemetry-stat">
-                  <span className="dash-telemetry-label">All-Time</span>
-                  <span className="dash-telemetry-val">{totalVisitors.toLocaleString('en-IN')}</span>
-                  <span className="dash-telemetry-sub">Cumulative sessions</span>
-                </div>
-
-                <div className="dash-telemetry-device-box">
-                  <div className="dash-telemetry-device-meta">
-                    <span>📱 Mobile: <strong>{mobileCount}</strong> ({mobilePct}%)</span>
-                    <span>💻 Desktop: <strong>{desktopCount}</strong> ({desktopPct}%)</span>
-                  </div>
-                  <div className="dash-telemetry-device-bar">
-                    <div className="dash-telemetry-device-fill-mobile" style={{ width: `${mobilePct}%` }} />
-                    <div className="dash-telemetry-device-fill-desktop" style={{ width: `${desktopPct}%` }} />
-                  </div>
-                  <span style={{ fontSize: 10.5, color: 'var(--muted)', display: 'block' }}>
-                    Active Hotspots: {Object.keys(realtime?.sections || {}).join(', ') || 'Home Storefront'}
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       )}
-
-      {/* 5. Clean Catalog Pulse Ribbon (Footer Overview) */}
-      <div className="slick-status-ribbon" style={{ marginTop: 22, marginBottom: 8 }}>
-        <button
-          type="button"
-          className="slick-ribbon-item"
-          onClick={() => onNavigate && onNavigate('products')}
-          title="Manage Products Catalog"
-        >
-          <span className="slick-ribbon-icon">🛍️</span>
-          <span className="slick-ribbon-name">Products:</span>
-          <strong className="slick-ribbon-val">{products.length} Live</strong>
-        </button>
-
-        <button
-          type="button"
-          className="slick-ribbon-item"
-          onClick={() => onNavigate && onNavigate('colors')}
-          title="Manage Towel Colors"
-        >
-          <span className="slick-ribbon-icon">🎨</span>
-          <span className="slick-ribbon-name">Towel Colors:</span>
-          <strong className="slick-ribbon-val">{inStockColors.length}/{colors.length} In-Stock</strong>
-        </button>
-
-        <button
-          type="button"
-          className="slick-ribbon-item"
-          onClick={() => onNavigate && onNavigate('designs')}
-          title="Manage Embroidery Design Library"
-        >
-          <span className="slick-ribbon-icon">✒️</span>
-          <span className="slick-ribbon-name">Motifs:</span>
-          <strong className="slick-ribbon-val">{designs.length} Designs</strong>
-        </button>
-
-        <button
-          type="button"
-          className="slick-ribbon-item"
-          onClick={() => onNavigate && onNavigate('reviews')}
-          title="Manage Customer Reviews"
-        >
-          <span className="slick-ribbon-icon">⭐</span>
-          <span className="slick-ribbon-name">Rating:</span>
-          <strong className="slick-ribbon-val">{avgRating} ★ ({reviews.length})</strong>
-        </button>
-
-        <button
-          type="button"
-          className="slick-ribbon-item"
-          onClick={() => onNavigate && onNavigate('stats')}
-          title="Edit Towels Sold Counter"
-        >
-          <span className="slick-ribbon-icon">📦</span>
-          <span className="slick-ribbon-name">Delivered:</span>
-          <strong className="slick-ribbon-val">{Number(stats.towelsSold || 0).toLocaleString('en-IN')}+ Towels</strong>
-        </button>
-      </div>
     </>
   );
 }
@@ -6836,7 +6677,7 @@ function Admin() {
             </div>
           </div>
           <div className="topbar-right">
-            {section === 'dashboard' && (
+            {section !== 'dashboard' && (
               <span className="topbar-live-pill" title="Real-time shoppers active on storefront right now">
                 <span className="topbar-live-dot" />
                 <span>{data?.visitors?.realtime?.activeNow || 0} Online</span>
