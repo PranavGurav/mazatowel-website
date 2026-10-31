@@ -2926,16 +2926,8 @@ function ContentEditor({ content = {}, onSave }) {
               </div>
 
               {(!form.whyPoints || form.whyPoints.length === 0) && (
-                <div style={{ padding: '24px 16px', textAlign: 'center', background: '#f8fafc', borderRadius: 12, border: '1px dashed var(--line)', margin: '12px 0' }}>
-                  <p className="muted" style={{ margin: '0 0 10px', fontSize: 13 }}>No value points added yet.</p>
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={addWhyPoint}
-                    style={{ minHeight: 34, fontSize: 12 }}
-                  >
-                    + Add First Value Point
-                  </button>
+                <div style={{ padding: '20px 16px', textAlign: 'center', background: '#f8fafc', borderRadius: 12, border: '1px dashed var(--line)', margin: '12px 0' }}>
+                  <p className="muted" style={{ margin: 0, fontSize: 13 }}>No value points added yet. Use the "+ Add Value Point" button above to add one.</p>
                 </div>
               )}
 
@@ -2995,19 +2987,6 @@ function ContentEditor({ content = {}, onSave }) {
                   </div>
                 ))}
               </div>
-
-              {(form.whyPoints || []).length > 0 && (
-                <div style={{ marginTop: 14, textAlign: 'center' }}>
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={addWhyPoint}
-                    style={{ minHeight: 38, fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6, margin: '0 auto', borderRadius: 8, padding: '8px 18px' }}
-                  >
-                    + Add Another Value Point
-                  </button>
-                </div>
-              )}
             </div>
           )}
 
@@ -3043,16 +3022,8 @@ function ContentEditor({ content = {}, onSave }) {
               </div>
 
               {(!form.hygienePoints || form.hygienePoints.length === 0) && (
-                <div style={{ padding: '24px 16px', textAlign: 'center', background: '#f8fafc', borderRadius: 12, border: '1px dashed var(--line)', margin: '12px 0' }}>
-                  <p className="muted" style={{ margin: '0 0 10px', fontSize: 13 }}>No care & hygiene rules added yet.</p>
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={addHygienePoint}
-                    style={{ minHeight: 34, fontSize: 12 }}
-                  >
-                    + Add First Care & Hygiene Rule
-                  </button>
+                <div style={{ padding: '20px 16px', textAlign: 'center', background: '#f8fafc', borderRadius: 12, border: '1px dashed var(--line)', margin: '12px 0' }}>
+                  <p className="muted" style={{ margin: 0, fontSize: 13 }}>No care & hygiene rules added yet. Use the "+ Add Care & Hygiene Rule" button above to add one.</p>
                 </div>
               )}
 
@@ -3112,19 +3083,6 @@ function ContentEditor({ content = {}, onSave }) {
                   </div>
                 ))}
               </div>
-
-              {(form.hygienePoints || []).length > 0 && (
-                <div style={{ marginTop: 14, textAlign: 'center' }}>
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={addHygienePoint}
-                    style={{ minHeight: 38, fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6, margin: '0 auto', borderRadius: 8, padding: '8px 18px' }}
-                  >
-                    + Add Another Care & Hygiene Rule
-                  </button>
-                </div>
-              )}
 
               <div style={{ marginTop: 18 }}>
                 <FormField label="Important Hygiene Note">
