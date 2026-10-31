@@ -167,7 +167,9 @@ function allowEnquiry(ip) {
 const collections = ['settings','stats','site-content','products','designs','gallery','reviews','faqs','offers','customers','enquiries','colors'/*, 'threads' -- THREADS PAUSED */];
 const arrayCollections = new Set(['products','designs','gallery','reviews','faqs','offers','customers','enquiries','colors'/*, 'threads' -- THREADS PAUSED */]);
 const uploadFolders = new Set(['products','designs','gallery','reviews','customers','colors','logos']);
-for (const d of [PUBLIC, DATA, UPLOADS, ...[...uploadFolders].map(x => path.join(UPLOADS, x))]) fs.mkdirSync(d, { recursive: true });
+for (const d of [PUBLIC, DATA, UPLOADS, ...[...uploadFolders].map(x => path.join(UPLOADS, x))]) {
+  try { fs.mkdirSync(d, { recursive: true }); } catch {}
+}
 
 const paths = {
   settings: path.join(DATA, 'settings.json'),
@@ -186,16 +188,27 @@ const paths = {
 };
 
 function keyToFile(key) { return (key === 'content' || key === 'site-content') ? paths.content : paths[key]; }
+const inMemoryData = new Map();
 function readData(key) {
+  if (inMemoryData.has(key)) return inMemoryData.get(key);
   const file = keyToFile(key);
-  try { return JSON.parse(fs.readFileSync(file, 'utf8')); }
+  try {
+    const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+    inMemoryData.set(key, data);
+    return data;
+  }
   catch { return arrayCollections.has(key) ? [] : {}; }
 }
 function writeData(key, value) {
+  inMemoryData.set(key, value);
   const file = keyToFile(key);
-  const temp = `${file}.tmp-${process.pid}`;
-  fs.writeFileSync(temp, JSON.stringify(value, null, 2));
-  fs.renameSync(temp, file);
+  try {
+    const temp = `${file}.tmp-${process.pid}`;
+    fs.writeFileSync(temp, JSON.stringify(value, null, 2));
+    fs.renameSync(temp, file);
+  } catch (err) {
+    console.warn(`[MazaTowel Storage Notice] Read-only filesystem detected; data for "${key}" cached in memory.`);
+  }
 }
 
 const VISITORS_FILE = path.join(DATA, 'visitors.json');
@@ -632,6 +645,10 @@ function sanitizeProductTitle(title) {
   return t;
 }
 async function readBody(req) {
+  if (req.body && typeof req.body === 'object') return req.body;
+  if (typeof req.body === 'string') {
+    try { return JSON.parse(req.body); } catch { return {}; }
+  }
   return new Promise((resolve, reject) => {
     let raw = '';
     let tooLarge = false;
@@ -1096,7 +1113,14 @@ async function api(req, res) {
   }
 }
 
-const server = http.createServer((req, res) => req.url.startsWith('/api/') ? api(req, res) : serveStatic(req, res));
+async function handler(req, res) {
+  if (req.url && req.url.startsWith('/api/')) {
+    return api(req, res);
+  }
+  return serveStatic(req, res);
+}
+
+const server = http.createServer(handler);
 
 server.on('error', err => {
   if (err.code === 'EADDRINUSE') {
@@ -1126,7 +1150,11 @@ setInterval(() => {
   }
 }, 30 * 60 * 1000).unref();
 
-server.listen(PORT, () => {
-  console.log(`MazaTowel website running at http://localhost:${PORT}`);
-  warnDefaultCredentials();
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`MazaTowel website running at http://localhost:${PORT}`);
+    warnDefaultCredentials();
+  });
+}
+
+module.exports = { handler, api, serveStatic, server };
