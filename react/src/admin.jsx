@@ -6180,6 +6180,7 @@ function Admin() {
       setLastRefreshed(new Date());
     } catch (e) {
       setError(e.message);
+      setData(false);
     }
   };
 
@@ -6194,6 +6195,7 @@ function Admin() {
         await refresh();
       } catch (e) {
         setError(e.message);
+        setData(false);
       }
     })();
   }, []);
@@ -6218,7 +6220,27 @@ function Admin() {
     return () => clearTimeout(id);
   }, [error]);
 
-  if (data === null) return <div className="boot"><div className="spinner" />Loading admin…</div>;
+  if (data === null) {
+    return (
+      <div className="boot">
+        <div className="spinner" />
+        <div style={{ fontWeight: 600, color: 'var(--ink)' }}>Loading admin…</div>
+        {error && (
+          <div className="form-error" style={{ marginTop: 14, maxWidth: 360, textAlign: 'center' }}>
+            {error}
+          </div>
+        )}
+        <button
+          type="button"
+          className="btn btn-secondary"
+          style={{ marginTop: 16 }}
+          onClick={() => setData(false)}
+        >
+          Go to Login Screen
+        </button>
+      </div>
+    );
+  }
   if (data === false) return <Login onSuccess={refresh} onError={setError} error={error} showDemo={showDemo} />;
 
   async function save(type, id, payload, customNotice) {
